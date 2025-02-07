@@ -3,12 +3,12 @@ Obtaining the submissions from the OpenReview data model and parse them into the
 """
 
 import glob
-import logging 
-import os 
-import time 
+import logging
+import os
+import time
 
-import openreview 
-import tqdm 
+import openreview
+import tqdm
 
 from urllib.error import HTTPError
 from urllib.request import urlretrieve
@@ -17,24 +17,27 @@ from openreview_parser.scientific_databases.openreview_v2 import get_submissions
 from openreview_parser.utils.data import VenueInstance
 
 
-
-def parse_submissions(venue_instances:list[VenueInstance], openreview_client:openreview.Client, config:dict) -> None:
+def parse_submissions(
+    venue_instances: list[VenueInstance],
+    openreview_client: openreview.Client,
+    config: dict,
+) -> None:
     existing_venue_dataset = load_existing_venue_datasets()
 
     for venue_instance in venue_instances:
         venue_id = venue_instance.venue.replace("/", "_").replace(".", "_")
-        
+
         if venue_id in existing_venue_dataset:
             logging.info(f"Skipping {venue_instance.venue} as it already exists")
             continue
-    
+
         logging.info(f"Processing {venue_instance.venue}")
         submissions = get_submissions(openreview_client, venue_instance, config)
 
         if len(submissions) == 0:
             logging.info(f"No submissions found for {venue_instance.venue}")
             continue
-        
+
         parse_submission_pdfs(
             client,
             dataset,
@@ -55,10 +58,13 @@ def load_existing_venue_datasets():
     for filename in venue_datasets:
         venue_id = filename.split("/")[-1].split(".")[0]
         existing_venue_datasets.append(venue_id)
-    
+
     return existing_venue_datasets
 
-def parse_submissions(submissions: list[openreview.Note],venue_id:str,config:dict) -> tuple[dict, int]:
+
+def parse_submissions(
+    submissions: list[openreview.Note], venue_id: str, config: dict
+) -> tuple[dict, int]:
     """
     Parses a submission and extracts relevant information such as PDF, reviews, comments, and decisions.
 
@@ -73,13 +79,14 @@ def parse_submissions(submissions: list[openreview.Note],venue_id:str,config:dic
         dataset (dict): The dataset containing the submission information.
         n_reviews (int): The number of reviews for the submission.
     """
-
     for submission in tqdm.tqdm(submissions):
         id = submission["id"]
         forum_id = submission["forum"]
 
         if "paperhash" not in submission["content"]:
-            logging.info(f"Submission {id} in venue {venue_id} does not have a paperhash.")
+            logging.info(
+                f"Submission {id} in venue {venue_id} does not have a paperhash."
+            )
             return None
 
         paperhash = submission["content"]["paperhash"]["value"]
@@ -88,7 +95,9 @@ def parse_submissions(submissions: list[openreview.Note],venue_id:str,config:dic
         pdf_success = False
         while not pdf_success:
             try:
-                filename = os.path.join(config["save_directory"], "pdfs", f"{paperhash}.pdf")
+                filename = os.path.join(
+                    config["save_directory"], "pdfs", f"{paperhash}.pdf"
+                )
                 if not os.path.exists(filename):
                     url = f"https://openreview.net/pdf?id={id}"
                     urlretrieve(url, filename)
@@ -168,15 +177,15 @@ def parse_submission_pdfs(dataset: dict, config: dict) -> None:
             sub["content"]["paperhash"]["value"] + ".pdf"
             for sub in dataset["submissions"].values()
             if os.path.exists(
-                os.path.join(pdf_directory, sub["content"]["paperhash"]["value"] + ".pdf")
+                os.path.join(
+                    pdf_directory, sub["content"]["paperhash"]["value"] + ".pdf"
+                )
             )
         ]
         input_directory = config["save_directory"] + "/pdfs"
         output_directory = "pdfs"
         if config["batch"]:
-            upload_files_s3_batch(
-                files, input_directory, output_directory, config
-            )
+            upload_files_s3_batch(files, input_directory, output_directory, config)
         else:
             upload_files_s3(files, input_directory, output_directory, config)
     end = time.time()
