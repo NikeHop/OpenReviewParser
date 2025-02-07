@@ -1,0 +1,11 @@
+Metadata-Version: 2.2
+Name: openreview_parser
+Version: 0.1.0
+Summary: Parses all submissions and reviews into a unified format
+Author: Niklas Hoepner
+Author-email: n.r.hopner@uva.nl
+Requires-Python: >=3.11
+Dynamic: author
+Dynamic: author-email
+Dynamic: requires-python
+Dynamic: summary
