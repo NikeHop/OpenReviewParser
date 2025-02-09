@@ -39,10 +39,20 @@ REVIEW_FIELDS = [
 
 DECISION_FIELDS = ["decision", "decision_text", ""]
 
+SUBMISSION_FIELDS = [
+    "authors",
+    "title",
+    "abstract",
+    "publication_data",
+    "summary",
+    "field_of_study",
+    "",
+]
+
 
 def get_schemas(
     client: OpenReviewClient, venues: list[VenueInstance], config: dict
-) -> None:
+) -> list[VenueInstance]:
     """
     Checks which venues have accessible submissions and reviews and
     what is the schema of theses submissions and reviews.
@@ -57,9 +67,15 @@ def get_schemas(
     """
 
     existing_schemas, venues_with_infos = load_schema_data(config)
-    note_type_mapping, review_fields_mapping, decision_fields_mapping = load_encodings()
+    (
+        note_type_mapping,
+        submission_fields_mapping,
+        review_fields_mapping,
+        decision_fields_mapping,
+    ) = load_encodings()
 
     for venue in tqdm(venues):
+        print(type(venue))
         schemas: dict[str, Union[dict, list]] = {}
 
         # Check whether venue has already got a schema
@@ -78,6 +94,9 @@ def get_schemas(
 
         note_type_mapping = update_note_types(submissions, note_type_mapping)
         submission_schema = get_submission_schema(submissions)
+        submission_fields_mapping = update_submission_fields_mapping(
+            submission_schema, submission_fields_mapping
+        )
         reply_types = get_reply_types(submissions)
         review_schema = get_note_schema(submissions, note_type_mapping, "Review")
         review_fields_mapping = update_review_fields_mapping(
@@ -94,7 +113,7 @@ def get_schemas(
             save_empty_schema(venue_id, config)
             continue
 
-        venues_with_infos.append(venue.venue)
+        venues_with_infos.append(venue)
 
         schemas["submission_schema"] = submission_schema
         schemas["review_schema"] = review_schema
@@ -119,7 +138,11 @@ def get_schemas(
             ),
             "w+",
         ) as file:
-            json.dump(venues_with_infos, file, indent=4)
+            json.dump(
+                [venue.model_dump() for venue in venues_with_infos], file, indent=4
+            )
+
+    return venues_with_infos
 
 
 def load_schema_data(config: dict) -> tuple[dict[str, str], list[VenueInstance]]:
@@ -148,12 +171,13 @@ def load_schema_data(config: dict) -> tuple[dict[str, str], list[VenueInstance]]
     if os.path.exists(filtered_venue_dataset_filepath):
         with open(filtered_venue_dataset_filepath, "r") as file:
             venues_with_infos = json.load(file)
+            venues_with_infos = [VenueInstance(**vi) for vi in venues_with_infos]
 
     return existing_schemas, venues_with_infos
 
 
 def load_encodings() -> dict:
-    directory = "../data/"
+    directory = "./data/"
 
     # Get note-type mapping
     if os.path.exists(os.path.join(directory, "note_type_mapping.json")):
@@ -176,7 +200,20 @@ def load_encodings() -> dict:
     else:
         decision_fields_mapping = {}
 
-    return note_type_mapping, review_fields_mapping, decision_fields_mapping
+    if os.path.exists(os.path.join(directory, "submission_fields_mapping.json")):
+        with open(
+            os.path.join(directory, "submission_fields_mapping.json"), "r"
+        ) as file:
+            submission_field_mapping = json.load(file)
+    else:
+        submission_field_mapping = {}
+
+    return (
+        note_type_mapping,
+        submission_field_mapping,
+        review_fields_mapping,
+        decision_fields_mapping,
+    )
 
 
 def save_empty_schema(venue_id: str, config: dict) -> None:
@@ -289,7 +326,6 @@ def get_note_schema(
     else:
         for note in notes:
             for key, value in note["content"].items():
-
                 if "values" not in note_schema[key]:
                     note_schema[key]["values"] = []
 
@@ -334,19 +370,46 @@ def update_note_types(
                         note_type_mapping[note_type] = None
 
     # Save the update version
-    with open(os.path.join("../data", "note_type_mapping.json"), "w+") as file:
+    with open(os.path.join("./data", "note_type_mapping.json"), "w+") as file:
         json.dump(note_type_mapping, file, indent=4)
 
     return note_type_mapping
 
 
+def update_submission_fields_mapping(
+    submission_schema: dict, submission_fields_mapping: dict
+) -> dict:
+    for field, content in submission_schema.items():
+        if field not in submission_fields_mapping:
+            not_correct_field = True
+            while not_correct_field:
+                input_text = f"Map the field {field} to the submission data model\n"
+                input_text += f"Some example values: {content}"
+                input_text += f"Possible fields are: {SUBMISSION_FIELDS}."
+                submission_data_model_field = input(f"{input_text} \n {field}:")
+                if submission_data_model_field in SUBMISSION_FIELDS:
+                    not_correct_field = False
+                else:
+                    print(
+                        f"Field {submission_data_model_field} is not a valid submission_field."
+                    )
+
+            if submission_data_model_field:
+                submission_fields_mapping[field] = submission_data_model_field
+            else:
+                submission_fields_mapping[field] = None
+
+    with open(os.path.join("./data", "submission_fields_mapping.json"), "w+") as file:
+        json.dump(submission_fields_mapping, file, indent=4)
+
+    return submission_fields_mapping
+
+
 def update_review_fields_mapping(
     review_schema: dict, review_fields_mapping: dict
 ) -> dict:
-
     for field, content in review_schema.items():
         if field not in review_fields_mapping:
-
             not_correct_field = True
             while not_correct_field:
                 input_text = f"Map the field {field} to the review data model\n"
@@ -365,7 +428,7 @@ def update_review_fields_mapping(
             else:
                 review_fields_mapping[field] = None
 
-    with open(os.path.join("../data", "review_fields_mapping.json"), "w+") as file:
+    with open(os.path.join("./data", "review_fields_mapping.json"), "w+") as file:
         json.dump(review_fields_mapping, file, indent=4)
 
     return review_fields_mapping
@@ -374,7 +437,6 @@ def update_review_fields_mapping(
 def update_decision_fields_mapping(
     decision_schema: dict, decision_fields_mapping: dict
 ) -> dict:
-
     for decision_field, content in decision_schema.items():
         if decision_field not in decision_fields_mapping:
             not_correct_field = True
@@ -388,7 +450,7 @@ def update_decision_fields_mapping(
                 else:
                     print(f"Field {decision_type} is not a valid decision_field.")
 
-    with open(os.path.join("../data", "decision_fields_mapping.json"), "w") as file:
+    with open(os.path.join("./data", "decision_fields_mapping.json"), "w") as file:
         json.dump(decision_fields_mapping, file, indent=4)
 
     return decision_fields_mapping
@@ -410,7 +472,7 @@ def schemas2data_models(
         None
     """
 
-    directory = "../data"
+    directory = "./data"
 
     # Update venue2review_encoding
     if os.path.exists(os.path.join(directory, "venue2review_encodings.json")):
@@ -432,7 +494,6 @@ def schemas2data_models(
                 "impact",
                 "reproducibility",
             ]:
-
                 encoding = encoder(set(content["values"]))
                 if len(encoding) == 0:
                     logging(f"No encoding for {review_field}")

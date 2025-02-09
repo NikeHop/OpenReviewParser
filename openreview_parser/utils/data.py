@@ -10,6 +10,7 @@ from fuzzywuzzy import process
 from pydantic import BaseModel
 from pydantic import validator
 
+
 class VenueInstance(BaseModel):
     venue: str
     name: str
@@ -21,23 +22,21 @@ class VenueInstance(BaseModel):
     def __hash__(self) -> int:
         return hash(self.venue)
 
-    def __eq__(self, other:Any) -> bool:
+    def __eq__(self, other: Any) -> bool:
         if isinstance(other, VenueInstance):
             return self.venue == other.venue
         elif isinstance(other, str):
             return self.venue == other
         else:
-            raise NotImplementedError(f"Comparison for object of type {type(other)} not implemented")
-        
+            raise NotImplementedError(
+                f"Comparison for object of type {type(other)} not implemented"
+            )
+
+
 class Affiliation(BaseModel):
     laboratory: str | dict | None = None
     institution: str | dict | None = None
     location: str | dict | None = None
-
-
-class Author(BaseModel):
-    name: str
-    affiliation: Affiliation | None = None
 
 
 class TextReview(BaseModel):
@@ -90,7 +89,7 @@ class Reference(BaseModel):
     paperhash: str
     title: str
     abstract: str = ""
-    authors: list[Author]
+    authors: list[str]
 
     # IDs
     arxiv_id: str | None = ""
@@ -113,12 +112,9 @@ class Section(BaseModel):
 class Paper(BaseModel):
     # Basic paper info
     title: str
-    authors: list[Author]
+    authors: list[str]
     abstract: str | None = None
     summary: str | None = None
-
-    # Processing info
-    updated: bool = False
 
     # ID's
     paperhash: str
@@ -136,15 +132,12 @@ class Paper(BaseModel):
     n_influential_citations: int | None = None
     open_access: bool | None = None
     external_ids: dict | None = None
-    pdf_url: str | None = None
 
     # Content
     parsed_pdf: dict | None = None
-    parsed_latex: dict | None = None
     structured_content: dict[str, Section] = {}
 
     # Review Data
-    openreview: bool
     decision: bool | None = None
     decision_text: str | None = None
     reviews: list[Review] | None = None

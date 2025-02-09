@@ -2,14 +2,21 @@
 Utilities to interact with OpenReview Python API V2
 """
 
-import logging 
+import logging
+import time
 
+import backoff
 import getpass
+import openreview
+
+from urllib.error import HTTPError
+from requests.exceptions import ConnectionError, Timeout
 
 from openreview import OpenReviewException
 from openreview.api import OpenReviewClient
 
 from openreview_parser.utils.data import VenueInstance
+
 
 def get_openreview_client_v2(config: dict) -> OpenReviewClient:
     """
@@ -36,7 +43,8 @@ def get_openreview_client_v2(config: dict) -> OpenReviewClient:
 
     return openreview_client
 
-def get_submissions(client: OpenReviewClient , venue:VenueInstance):
+
+def get_submissions(client: OpenReviewClient, venue: VenueInstance):
     """
     Retrieves the submissions for a given venue using the OpenReviewClient.
 
@@ -53,16 +61,54 @@ def get_submissions(client: OpenReviewClient , venue:VenueInstance):
 
     try:
         venue_group = client.get_group(venue.venue)
-      
+
         if not hasattr(venue_group, "content"):
             logging(f"Does not have a content attribute {venue.venue}")
             return []
 
-        submission_name = venue_group.content["submission_name"]['value']
-        submissions = client.get_all_notes(invitation=f"{venue.venue}/-/{submission_name}",details="directReplies")
-    
+        submission_name = venue_group.content["submission_name"]["value"]
+        submissions = client.get_all_notes(
+            invitation=f"{venue.venue}/-/{submission_name}", details="directReplies"
+        )
+
     except OpenReviewException as e:
         logging.error(f"Error getting submissions for {venue.venue}: {e}")
         return []
 
     return submissions
+
+
+def on_backoff(details):
+    error = details["exception"]
+    info = error.args[0]
+    message = info["message"]
+    seconds_to_wait = int(message.split(" ")[-2])
+    time.sleep(seconds_to_wait)
+
+
+def giveup_code(details):
+    return None
+
+
+backoff.on_exception(
+    backoff.expo,
+    (HTTPError, ConnectionError, Timeout, OpenReviewException),
+    max_tries=5,
+    on_backoff=on_backoff,
+    on_give_up=giveup_code,
+)
+
+
+def get_notes(client: openreview.Client, **kwargs: str) -> list[openreview.Note]:
+    """
+    Wraps the get_all_notes function from the OpenReview client such that request limits are respected.
+
+    Args:
+        client (openreview.Client): OpenReview client
+        logger (logging.Logger): Logger
+
+    Returns:
+        The list of OpenReview notes matching the **kwargs.
+    """
+    notes = client.get_notes(**kwargs)
+    return notes

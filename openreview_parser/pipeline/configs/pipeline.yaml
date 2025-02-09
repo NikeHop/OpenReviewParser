@@ -1,5 +1,20 @@
 ---
 debug: True
-save_directory: "../../dataset"
+save_directory: "../dataset"
 openreview:
-  guest_client: True 
+  guest_client: True
+
+grobid:
+  max_workers: 4
+
+metadata:
+  max_workers: 4
+
+clean_up: True
+
+metadata:
+  classify_sections: True
+  get_references: True
+  get_citation_score: True
+  annotate_hypotheses: True
+  

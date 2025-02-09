@@ -7,12 +7,14 @@ import logging
 import os
 
 import yaml
+import tqdm
 
 from openreview_parser.scientific_databases.openreview_v2 import (
     get_openreview_client_v2,
 )
-from openreview_parser.pipeline.pipeline_v2.venue import get_venue_instances
-from openreview_parser.pipeline.pipeline_v2.schema import get_schemas
+from openreview_parser.pipeline.submissions import submissions2papers
+from openreview_parser.pipeline.venue import get_venue_instances
+from openreview_parser.pipeline.schema import get_schemas
 from openreview_parser.utils.data import VenueInstance
 
 DEBUG_VENUE = VenueInstance(
@@ -50,7 +52,7 @@ def build_dataset(config: dict) -> None:
     openreview_client = get_openreview_client_v2(config["openreview"])
 
     # Prepare Directory Structure for Dataset
-    for directory in ["venues", "dataset", "venue_datasets", "papers", "schemas","pdfs","xmls"]:
+    for directory in ["venues", "dataset", "papers", "schemas", "pdfs", "xmls"]:
         os.makedirs(os.path.join(config["save_directory"], directory), exist_ok=True)
 
     # Get all venue instances
@@ -61,12 +63,13 @@ def build_dataset(config: dict) -> None:
         venue_instances = [DEBUG_VENUE]
 
     # Get schema for venue instances
-    venue_instance_full_info = get_schemas(openreview_client, venue_instances, config)
+    venue_instances_full_info = get_schemas(openreview_client, venue_instances, config)
     logging.info(f"Obtained schemas")
+    print(venue_instances_full_info)
+    print([type(venue) for venue in venue_instances_full_info])
 
     # Parse submissions into data model for each venue instance
-    parse_submissions(venue_instance_full_info, openreview_client, config)
-    
+    submissions2papers(venue_instances_full_info, openreview_client, config)
 
 
 if __name__ == "__main__":

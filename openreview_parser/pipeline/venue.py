@@ -3,9 +3,9 @@ Extracting the venue instances from OpenReview and saving them to a CSV file.
 """
 import json
 import logging
-import os 
+import os
 
-import openreview 
+import openreview
 
 from openreview.api import OpenReviewClient
 
@@ -25,26 +25,32 @@ def get_venue_instances(client: OpenReviewClient, config: dict) -> list[VenueIns
     """
 
     # Load existing venues
-    venue_instances, failed_venue_strings, venue_strings_api_v1 = load_venue_dataset(config)
+    venue_instances, failed_venue_strings, venue_strings_api_v1 = load_venue_dataset(
+        config
+    )
     new_venue_instances = 0
-    n_failed_venue_instances = 0 # Number of venue strings that could not be parsed
+    n_failed_venue_instances = 0  # Number of venue strings that could not be parsed
 
     # Get all venues from OpenReview
     venues = client.get_group(id="venues").members
     for venue in venues:
-        if venue in venue_instances or venue in failed_venue_strings or venue in venue_strings_api_v1:
+        if (
+            venue in venue_instances
+            or venue in failed_venue_strings
+            or venue in venue_strings_api_v1
+        ):
             continue
 
         venue_elements = venue.split("/")
 
-        # Extract the year 
+        # Extract the year
         year = get_year(venue_elements)
         if year == -1:
             logging.warning(f"Year could not be identified for venue {venue}")
             n_failed_venue_instances += 1
             failed_venue_strings.add(venue)
             continue
-        
+
         # Extract venue type
         conference = is_conference_instance(venue_elements)
         workshop = is_workshop_instance(venue_elements)
@@ -56,7 +62,7 @@ def get_venue_instances(client: OpenReviewClient, config: dict) -> list[VenueIns
             n_failed_venue_instances += 1
             failed_venue_strings.add(venue)
             continue
-        
+
         # Extract venue name
         venue_name = get_venue_name(venue_elements, conference, workshop)
         if workshop:
@@ -80,15 +86,20 @@ def get_venue_instances(client: OpenReviewClient, config: dict) -> list[VenueIns
     logging.info(f"Retrieved {new_venue_instances} new venue instances")
 
     # Save the dataset
-    venue_instances_filepath = os.path.join(config["save_directory"], "venues", "venues.json")
-    with open(venue_instances_filepath,"w+") as file:
+    venue_instances_filepath = os.path.join(
+        config["save_directory"], "venues", "venues.json"
+    )
+    with open(venue_instances_filepath, "w+") as file:
         json.dump([vi.model_dump() for vi in venue_instances], file, indent=4)
 
-    failed_venue_strings_filepath = os.path.join(config["save_directory"], "venues", "failed_venue_strings.json")
-    with open(failed_venue_strings_filepath,"w+") as file:
+    failed_venue_strings_filepath = os.path.join(
+        config["save_directory"], "venues", "failed_venue_strings.json"
+    )
+    with open(failed_venue_strings_filepath, "w+") as file:
         json.dump(list(failed_venue_strings), file, indent=4)
 
     return venue_instances
+
 
 def load_venue_dataset(config: dict) -> set[VenueInstance]:
     """
@@ -102,25 +113,30 @@ def load_venue_dataset(config: dict) -> set[VenueInstance]:
     """
 
     venue_instances = []
-    venue_instances_filepath = os.path.join(config["save_directory"], "venues", "venues.json")
+    venue_instances_filepath = os.path.join(
+        config["save_directory"], "venues", "venues.json"
+    )
     if os.path.exists(venue_instances_filepath):
         with open(venue_instances_filepath, "r") as file:
             venue_instances = json.load(file)
             venue_instances = [VenueInstance(**vi) for vi in venue_instances]
-    
+
     failed_venue_strings = []
-    failed_venue_strings_filepath = os.path.join(config["save_directory"], "venues", "failed_venue_strings.json")
+    failed_venue_strings_filepath = os.path.join(
+        config["save_directory"], "venues", "failed_venue_strings.json"
+    )
     if os.path.exists(failed_venue_strings_filepath):
-        with open(failed_venue_strings_filepath,"r") as file:
+        with open(failed_venue_strings_filepath, "r") as file:
             failed_venue_strings = json.load(file)
             failed_venue_strings = set(failed_venue_strings)
-    
+
     venue_strings_api_v1 = []
-    with open("../venue_strings_api_v1.json","r") as file:
+    with open("data/venue_strings_api_v1.json", "r") as file:
         venue_strings_api_v1 = json.load(file)
         venue_strings_api_v1 = set(venue_strings_api_v1)
 
     return set(venue_instances), set(failed_venue_strings), set(venue_strings_api_v1)
+
 
 def get_year(venue_elements: list[str]) -> int:
     """
@@ -137,6 +153,7 @@ def get_year(venue_elements: list[str]) -> int:
             return int(element)
     return -1
 
+
 def is_workshop_instance(venue_elements: list[str]) -> bool:
     """
     Checks if the venue is a workshop instance.
@@ -152,6 +169,7 @@ def is_workshop_instance(venue_elements: list[str]) -> bool:
             return True
     return False
 
+
 def is_conference_instance(venue_elements: list[str]) -> bool:
     """
     Checks if the venue is a conference instance.
@@ -166,6 +184,7 @@ def is_conference_instance(venue_elements: list[str]) -> bool:
         if "conference" == element.lower():
             return True
     return False
+
 
 def get_workshop_name(venue_elements: list[str]) -> str:
     """
@@ -184,6 +203,7 @@ def get_workshop_name(venue_elements: list[str]) -> str:
             break
     workshop_name = "-".join(venue_elements[break_point + 1 :])
     return workshop_name
+
 
 def get_venue_name(venue_elements: list[str], conference: bool, workshop: bool) -> str:
     """

@@ -1,0 +1,14 @@
+{
+    "summary": "review|paper_summary",
+    "soundness": "correctness",
+    "presentation": "clarity",
+    "contribution": "impact",
+    "strengths": "review|strength_weakness",
+    "weaknesses": "review|strength_weakness",
+    "questions": "review|questions",
+    "flag_for_ethics_review": "ethics",
+    "rating": "score",
+    "confidence": "confidence",
+    "code_of_conduct": null,
+    "details_of_ethics_concerns": "ethics"
+}
