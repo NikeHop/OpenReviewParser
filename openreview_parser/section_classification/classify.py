@@ -2,7 +2,7 @@
 All utility functions for section classification
 """
 
-
+import nltk
 import pytorch_lightning as pl
 import torch
 import torch.nn as nn
@@ -13,6 +13,40 @@ from torch.optim import Adam
 from transformers import AutoTokenizer
 
 from openreview_parser.utils.data import Paper
+
+SECTIONS = [
+    "introduction",
+    "background",
+    "methodology",
+    "experiments and results",
+    "conclusion",
+]
+
+LABEL2SECTION = {i: section for i, section in enumerate(SECTIONS)}
+
+SECTION_SYNONYMS = {
+    "introduction": ["introduction"],
+    "background": ["background", "related work", "historical review"],
+    "methodology": ["methodology", "method", "algorithm", "properties"],
+    "experiments and results": [
+        "experiments",
+        "results",
+        "experiments and results",
+        "experimental design",
+        "empirical evaluation",
+        "experiments and analysis",
+        "ablation studies",
+        "evaluation",
+    ],
+    "conclusion": [
+        "conclusion",
+        "conclusion & discussion",
+        "discussion and conclusions",
+        "conclusion and outlook",
+        "further work",
+        "discussions and future directions",
+    ],
+}
 
 
 class SectionClassifier(pl.LightningModule):
@@ -99,5 +133,40 @@ class SectionClassifierTransformer(nn.Module):
         return self.label_predictor(transformed_embeddings.mean(dim=1))
 
 
-def classify_sections(paper: Paper, section_classifier: SectionClassifier):
-    pass
+def classify_sections(
+    paper: Paper, section_classifier: SectionClassifier, config: dict
+):
+    for key, section in paper.structured_content.items():
+        section_classified = False
+        for key, synonyms in SECTION_SYNONYMS.items():
+            if section.name in synonyms:
+                section.classification = key
+                section_classified = True
+                break
+
+        # Otherwise use classifier
+        if not section_classified:
+            sentences = nltk.tokenize.sent_tokenize(section.text)
+            sentences = sentences[: config["max_n_sentences_per_example"]]
+            model_inputs = section_classifier.tokenizer(
+                sentences,
+                return_tensors="pt",
+                padding=True,
+                truncation=True,
+                max_length=512,
+            ).to(config["device"])
+
+            with torch.no_grad():
+                outputs = section_classifier.embedding_model(**model_inputs)
+                model_output = outputs.last_hidden_state.mean(dim=1)
+
+            section_classifier_input = {
+                "embeddings": model_output.unsqueeze(0),
+                "mask": torch.zeros(1, model_output.shape[0]).to(config["device"]),
+                "label": 0,
+            }
+            predicted_labels = section_classifier.predict(section_classifier_input)
+            predicted_label = predicted_labels.argmax(dim=1).cpu().item()
+            section.classification = LABEL2SECTION[predicted_label]
+
+    return paper

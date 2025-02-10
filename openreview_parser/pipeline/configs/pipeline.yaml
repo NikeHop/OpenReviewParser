@@ -1,6 +1,9 @@
 ---
+device: "cuda:0"
+max_n_sentences_per_example: 200
 debug: True
 save_directory: "../dataset"
+use_s2_api_key: True
 openreview:
   guest_client: True
 
@@ -15,6 +18,11 @@ clean_up: True
 metadata:
   classify_sections: True
   get_references: True
-  get_citation_score: True
+  get_s2_info: True
   annotate_hypotheses: True
-  
+
+llm:
+  provider: "openai"
+  model_name: "gpt-3.5-turbo"
+  max_tokens: 4096
+  temperature: 0.0

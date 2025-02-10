@@ -13,6 +13,15 @@ else
     sleep 10
 fi
 
+# Download section classifier 
+mkdir -p model_store
+
+cd model_store
+if [ ! -f "section_classifier_openreview.ckpt" ]; then
+    gdown 1O99XS4kPtubcKVtofJEuZNiUZKa9s5jU
+fi
+cd ..
+
 # Run the script to complete the openreview dataset
 python pipeline.py --config ./configs/pipeline.yaml
 

@@ -1,4 +1,5 @@
 dataset/
 logs/
+model_store/
 grobid-0.7.3
 __pycache__/

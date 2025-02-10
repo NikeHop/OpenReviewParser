@@ -86,13 +86,12 @@ class Comment(BaseModel):
 
 class Reference(BaseModel):
     # Basic paper info
-    paperhash: str
     title: str
     abstract: str = ""
     authors: list[str]
 
     # IDs
-    arxiv_id: str | None = ""
+    arxv_id: str | None = ""
     s2_corpus_id: str | None = ""
     external_ids: dict | None = {}
 
@@ -130,7 +129,6 @@ class Paper(BaseModel):
     n_references: int | None = None
     n_citations: int | None = None
     n_influential_citations: int | None = None
-    open_access: bool | None = None
     external_ids: dict | None = None
 
     # Content
@@ -159,11 +157,13 @@ class Paper(BaseModel):
         conclusion_passed = False
         last_sec_num = "Unnumbered"
         if (
-            "pdf_parse" not in self.parsed_pdf
+            self.parsed_pdf is None
+            or "pdf_parse" not in self.parsed_pdf
+            or self.parsed_pdf["pdf_parse"] is None
             or "body_text" not in self.parsed_pdf["pdf_parse"]
         ):
             self.structured_content = {}
-            return
+            return None
 
         for part in self.parsed_pdf["pdf_parse"]["body_text"]:
             # Update conclusion passed
@@ -246,7 +246,6 @@ class Paper(BaseModel):
         for section in self.structured_content.values():
             if section.name == section_name:
                 return section.text
-
         return ""
 
     def get_section_by_classification(self, section_type: str) -> str:

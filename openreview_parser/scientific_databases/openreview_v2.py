@@ -90,15 +90,13 @@ def giveup_code(details):
     return None
 
 
-backoff.on_exception(
+@backoff.on_exception(
     backoff.expo,
     (HTTPError, ConnectionError, Timeout, OpenReviewException),
     max_tries=5,
     on_backoff=on_backoff,
-    on_give_up=giveup_code,
+    on_giveup=giveup_code,
 )
-
-
 def get_notes(client: openreview.Client, **kwargs: str) -> list[openreview.Note]:
     """
     Wraps the get_all_notes function from the OpenReview client such that request limits are respected.

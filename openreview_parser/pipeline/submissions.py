@@ -2,11 +2,10 @@
 Obtaining the submissions from the OpenReview data model and parse them into the data model.
 """
 
-import glob
 import json
 import logging
 import os
-import time
+
 
 import openreview
 import tqdm
@@ -19,11 +18,16 @@ from doc2json.grobid2json.tei_to_json import (
 )
 
 from openreview.api import OpenReviewClient
+
+
+from openreview_parser.hypothesis_annotation.annotate import annotate_paper
 from openreview_parser.pipeline.utils import urlretrieve_backoff
 from openreview_parser.scientific_databases.openreview_v2 import (
     get_submissions,
     get_notes,
 )
+from openreview_parser.scientific_databases.s2 import get_s2info, get_s2_references
+
 from openreview_parser.section_classification.classify import (
     classify_sections,
     SectionClassifier,
@@ -172,7 +176,11 @@ def parse_submissions(
     """
 
     if config["metadata"]["classify_sections"]:
-        section_classifier = SectionClassifier(config["metadata"]["section_classifier"])
+        section_classifier = SectionClassifier.load_from_checkpoint(
+            "./model_store/section_classifier_openreview.ckpt",
+            map_location=config["device"],
+        )
+        section_classifier.load_preprocessing_utils(config["device"])
 
     n_submissions, n_reviews = 0, 0
     for submission in tqdm.tqdm(submissions):
@@ -290,29 +298,44 @@ def parse_submissions(
             **paper_info,
         )
 
+        # Organize structured content
+        paper.organize_text()
+
         # Section classifier
         if config["metadata"]["classify_sections"]:
-            paper = classify_sections(paper, section_classifier)
+            paper = classify_sections(paper, section_classifier, config)
 
-        """
         # Get citation score
-        if config["get_citation_score"]:
-            paper = get_citation_score(paper)
+        if config["metadata"]["get_s2_info"]:
+            # Obtain citation counts for accepted papers
+            if paper.decision:
+                s2_info = get_s2info(
+                    paper.title,
+                    ["citationCount", "influentialCitationCount", "externalIds"],
+                    config["use_s2_api_key"],
+                )
+                print(s2_info)
+                if len(s2_info) != 0:
+                    paper.n_citations = s2_info.get("citationCount", None)
+                    paper.n_influential_citations = s2_info.get(
+                        "influentialCitationCount", None
+                    )
+                    paper.external_ids = s2_info.get("externalIds", None)
 
         # Get references
         if config["get_references"]:
-            paper = get_references(paper)
+            # For accepted papers get references from s2
+            if paper.decision and paper.s2_corpus_id is not None:
+                references = get_s2_references(paper)
+            else:
+                # For rejected papers get references from the GROBID parse
+                references = get_references_grobid(paper)
+
+            paper.references = references
 
         # Get hypotheses
-        if config["annotate_hypotheses"]:
-            paper = annotate_hypothesis(paper)
-
-        with open(os.path.join(config["save_directory"], paperhash), "w+") as file:
-            json.dump(file)
-
-        n_submissions += 1
-        n_reviews += len(reviews)
-        """
+        if config["metadata"]["annotate_hypotheses"]:
+            paper = annotate_paper(paper)
 
         with open(
             os.path.join(config["save_directory"], "papers", f"{paperhash}.json"), "w+"
@@ -521,3 +544,7 @@ def process_decision(
             continue
 
     return decision_bool, decision_text
+
+
+def get_references_grobid():
+    pass
