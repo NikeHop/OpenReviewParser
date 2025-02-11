@@ -1,5 +1,5 @@
 """
-Utitlity functions for annotating OpenReview submissions with Hypothesis annotations.
+Utility functions for annotating OpenReview submissions with Hypothesis annotations.
 """
 
 import backoff
@@ -8,7 +8,11 @@ import logging
 import openai
 import tiktoken
 
+from langchain.schema.messages import BaseMessage
 from langchain_openai import ChatOpenAI
+
+
+from openreview_parser_v2.utils.data import Paper
 
 EXAMPLE_PAPER = """Introduction 
 What is encoded in vector representations of textual data, and can we control it? Word embeddings, pre-trained language models, and more generally deep learning methods emerge as very effective techniques for text classification. Accordingly, they are increasingly being used for predictions in real-world situations. A large part of the success is due to the models' ability to perform representation learning, coming up with effective feature representations for the prediction task at hand. However, these learned representations, while effective, are also notoriously opaque: we do not know what is encoded in them. Indeed, there is an emerging line of work on probing deep-learning derived representations for syntactic (Linzen et al., 2016; Hewitt and Manning, 2019;, semantic and factual knowledge (Petroni et al., 2019). There is also evidence that they capture a lot of information regarding the demographics of the author of the text (Blodgett et al., 2016;Elazar and Goldberg, 2018) What can we do in situations where we do not want our representations to encode certain kinds of information? For example, we may want a word representation that does not take tense into account, or that does not encode part-of-speech distinctions. We may want a classifier that judges the formality of the text, but which is also oblivious to the topic the text was taken from. Finally, and also our empirical focus in this work, this situation often arises when considering fairness and bias of languagebased classification. We may not want our wordembeddings to encode gender stereotypes, and we do not want sensitive decisions on hiring or loan approvals to condition on the race, gender or age of the applicant. We present a novel method for selectively removing specific kinds of information from a representation. Previous methods are either based on projection on a pre-specified, user-provided direction (Bolukbasi et al., 2016), or on adding an adversarial objective to an end-to-end training process. Both of these have benefits and limitations, as we discuss in the related work section ( §2). Our proposed method, Iterative Nullspace Projection (INLP), presented in section 4, can be seen as a combination of these approaches, capitalizing on the benefits of both. Like the projection methods, it is also based on the mathematical notion of linear projection, a commonly used de-terministic operator. Like the adversarial methods, it is data-driven in the directions it removes: we do not presuppose specific directions in the latent space that correspond to the protected attribute, but rather learn those directions, and remove them. Empirically, we find it to work well. We evaluate the method on the challenging task of removing gender signals from word embeddings Zhao et al., 2018). Recently, Gonen and Goldberg (2019) showed several limitations of current methods for this task. We show that our method is effective in reducing many, but not all, of these ( §4).We also consider the context of fair classification, where we want to ensure that a classifier's decision is oblivious to a protected attribute such as race, gender or age. There, we need to integrate the projection-based method within a pre-trained classifier. We propose a method to do so in section §5, and demonstrate its effectiveness in a controlled setup ( §6.2) as well as in a real-world one ( §6.3). Finally, while we propose a general purpose information-removal method, our main evaluation is in the realm of bias and fairness applications. We stress that this calls for some stricter scrutiny, as the effects of blindly trusting strong claims can have severe real-world consequences on individuals. We discuss the limitations of our model in the context of such applications in section §7. \
@@ -25,34 +29,25 @@ EXAMPLE_HYPOTHESIS = "Problem: Neural representations in language-based classifi
 MODELNAME2CONTEXT_SIZE = {"gpt-3.5-turbo": 16000}
 
 
-def get_chat_model(config: dict) -> ChatOpenAI:
-    if config["model"] == "openai":
-        model = ChatOpenAI(
-            temperature=config["temperature"],
-            model_name=config["model_name"],
-            max_tokens=config["max_tokens"],
-        )
-    else:
-        raise NotImplementedError(f"Chat model: {config['model']} not implemented")
+def annotate_paper(paper: Paper, config: dict) -> str | None:
+    """
+    Annotates the given paper with its research hypothesis.
 
-    return model
+    Args:
+        paper (Paper): The paper object to be annotated.
+        config (dict): Configuration settings for the annotation process.
 
-
-def get_human_message(paper):
-    paper_text = paper.get_text()
-    human_message = f"Annotate the following paper with its hypothesis: {paper_text}"
-    return human_message
-
-
-def annotate_paper(paper, config):
+    Returns:
+        str: The research hypothesis of the paper, or None if the context is too long.
+    """
     logging.info(f"Annotating paper {paper.title} with its research hypothesis")
 
     encoder = tiktoken.encoding_for_model(config["model_name"])
-    chat_model = get_chat_model(config["chat_model"])
+    chat_model = get_chat_model(config)
 
-    # Get promts
+    # Get prompts
     system_message = get_system_message()
-    human_message = get_human_message(paper, config)
+    human_message = get_human_message(paper)
 
     # Check number of tokens
     system_message_token = encoder.encode(system_message, disallowed_special=())
@@ -80,23 +75,53 @@ def annotate_paper(paper, config):
     messages = [system_message, human_message]
 
     output = get_llm_response(chat_model, messages)
+    print(output)
     if output is not None:
-        hypothesis = output.content
+        hypothesis = str(output.content)
+    else:
+        hypothesis = None
 
     return hypothesis
 
 
 def get_chat_model(config: dict) -> ChatOpenAI:
-    if config["model"] == "openai":
+    """
+    Get a chat model based on the provided configuration.
+
+    Args:
+        config (dict): A dictionary containing the configuration parameters for the chat model.
+
+    Returns:
+        ChatOpenAI: An instance of the ChatOpenAI class.
+
+    Raises:
+        NotImplementedError: If the specified chat model is not implemented.
+    """
+    if config["provider"] == "openai":
         model = ChatOpenAI(
             temperature=config["temperature"],
-            model_name=config["model_name"],
-            max_tokens=config["max_tokens"],
+            model=config["model_name"],
+            max_completion_tokens=config["max_tokens"],
         )
     else:
-        raise NotImplementedError(f"Chat model: {config['model']} not implemented")
+        raise NotImplementedError(f"Chat model: {config['provider']} not implemented")
 
     return model
+
+
+def get_human_message(paper: Paper) -> str:
+    """
+    Get a the human prompt to annotate the given paper with its hypothesis.
+
+    Args:
+        paper (str): The text of the paper.
+
+    Returns:
+        str: Part of the prompt to annotate the paper with its hypothesis.
+    """
+    paper_text = paper.get_text(False)
+    human_message = f"Annotate the following paper with its hypothesis: {paper_text}"
+    return human_message
 
 
 @backoff.on_exception(
@@ -104,13 +129,29 @@ def get_chat_model(config: dict) -> ChatOpenAI:
     openai.BadRequestError,
     max_tries=5,
     raise_on_giveup=False,
-    giveup=lambda x: None,
+    on_giveup=lambda x: None,
 )
-def get_llm_response(chat_model, messages):
+def get_llm_response(chat_model: ChatOpenAI, messages: list[str]) -> BaseMessage:
+    """
+    Get the response from the chat model.
+
+    Args:
+        chat_model (ChatOpenAI): The chat model to use for generating the response.
+        messages (list[str]): The list of messages in the conversation.
+
+    Returns:
+        AIMessage: The generated response from the chat model.
+    """
     return chat_model.invoke(messages)
 
 
-def get_system_message():
+def get_system_message() -> str:
+    """
+    Returns a system message with the task description, requirements, and an example of a paper with annotated hypothesis.
+
+    Returns:
+        str: System message with task description, requirements, and example.
+    """
     return f"""
         Task Description:
         You are a PhD student tasked to annotate research papers with the hypothesis they investigate.

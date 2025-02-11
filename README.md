@@ -1,34 +1,46 @@
-# OpenReview Parser
+# OpenReview Parser V2
 
+![Mypy](https://img.shields.io/badge/mypy-checked-blue)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-This repo contains a pipeline that parses all OpenReview submissions and reviews into a unified format and annotates them with metadata including:
+This repo contains a pipeline that parses the submissions and reviews of all OpenReview venues accessible with the API V2 into a unified format and annotates them with metadata including:
 
 * research_hypothesis (annotated via LLM)
 * references (from [Semantic Scholar](https://www.semanticscholar.org/))
 * citation counts for accepted papers (from [Semantic Scholar](https://www.semanticscholar.org/))
 
+
+**Note:** For venues requiring API V1 see [here]().
+
 ## Dependencies 
 
+Create a new conda environment and install the dependencies 
+
+```
+conda create -n openreview_parser2 
+```
 
 #### GROBID 
 
-#### Environment API version 1
+We parse the pdfs of submissions using [GROBID](https://github.com/kermitt2/grobid). To setup GROBID run from the `./openreview_parser/pipeline` directory:
 
 ```
-conda create -n openreview_parser_v1 python=3.11
-conda activate openreview_parser_v1
-pip install 
+bash ./scripts/setup_grobid.sh
 ```
-
-#### Environment API version 2
+To test whether the setup worked run:
 
 ```
-conda create -n openreview_parser_v2 python=3.11
-conda
+bash ./scripts/run_grobid.sh
 ```
+
+If you run into trouble setting up GROBID some git issues from the followin [repo](https://github.com/allenai/s2orc-doc2json) might be helpful.
+
+## Data Model
+
+An overview of the unifying data model for submissions and reviews can be found [here](./openreview_parser_v2/utils/README.md).
+
 ## Run pipeline 
 
-There are two pipeline depending on the version of the OpenReview API used. That is because older submissions can only be retrieved using OpenReview API version 1 while more recent submissions can only be retrieved using API version 2.
 
 The pipeline proceeds in the following steps:
 
@@ -40,18 +52,22 @@ The pipeline proceeds in the following steps:
     * Research Hypothesis 
     * Citation Counts
 
-
-To run the pipeline activate the corresponding conda environment and run:
-
-For pipeline API version 1:
+#### Run Script
+Run the pipeline from the `./openreview_parser_v2/pipeline` directory:
 
 ```
-python pipeline.py 
+bash ./scripts/run_pipeline.sh
 ```
 
-```
-```
+**Note 1:** The metadata annotation steps are optional and can be toggled on/off via in the `./configs/pipeline.yaml`
 
+**Note 2:** For steps that require querying Semantic Scholar an API key is recommended. Rate limits will be easily reached leading leading to metadata being None.
+ 
+
+
+## Dataset 
+
+A dataset derived from running the pipeline can be found on HF: [dataset](https://huggingface.co/datasets/nhop/scientific-quality-score-prediction).
 
 ## Updates 
 

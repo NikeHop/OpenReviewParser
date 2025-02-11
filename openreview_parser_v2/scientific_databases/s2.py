@@ -1,11 +1,21 @@
+"""
+Utilties to interact with the Semantic Scholar API.
+"""
+
 import logging
 import os
-import time
+
+from typing import TypedDict, Callable
 
 import backoff
 import requests
 
-from openreview_parser.utils.data import Reference
+from openreview_parser_v2.utils.data import Reference
+
+
+def on_backoff_s2(details) -> None:
+    logging.warning(f"Backing off {details['wait']}")
+    print(details["exception"], type(details["exception"]))
 
 
 def get_s2_header(use_api_key: bool) -> dict:
@@ -13,10 +23,10 @@ def get_s2_header(use_api_key: bool) -> dict:
     Retrieves the header for making API requests to Semantic Scholar.
 
     Returns:
-        str: The header containing the API key.
+        dict: The header containing the API key if it exists.
     """
-    if use_api_key:
-        api_key = os.environ.get("SEMANTIC_SCHOLAR_API_KEY", "")
+    api_key = os.environ.get("SEMANTIC_SCHOLAR_API_KEY", None)
+    if use_api_key and api_key is not None:
         return {"X-API-KEY": api_key}
     else:
         return {}
@@ -39,14 +49,14 @@ def clean_arxiv_id(arxiv_id: str) -> str:
 
 def get_formatted_id(id_type: str, idd: str) -> str:
     """
-    Returns the URL for a given ID type and arXiv ID.
+    Returns the format of the id needed for semantic scholar for a given ID type.
 
     Parameters:
         id_type (str): The type of ID (e.g., "arxiv", "semantic_scholar").
         idd (str): The ID.
 
     Returns:
-        str: The URL corresponding to the given ID type and arXiv ID.
+        str: The formatted ID.
 
     Raises:
         NotImplementedError: If the provided ID type is not available.
@@ -65,24 +75,27 @@ def get_formatted_id(id_type: str, idd: str) -> str:
         raise NotImplementedError(f"The id_type {id_type} is not available")
 
 
-def on_backoff(details):
-    logging.warning(f"Backing off {details['wait']}")
-    print(details["exception"], type(details["exception"]))
-
-
-def giveup(details):
-    return {}
-
-
 @backoff.on_exception(
     backoff.expo,
     requests.exceptions.HTTPError,
     max_time=5,
-    on_backoff=on_backoff,
-    giveup=giveup,
+    on_backoff=on_backoff_s2,
     raise_on_giveup=False,
 )
-def get_s2info(paper_title, paper_info, use_api_key: bool = False) -> dict:
+def get_s2info(
+    paper_title: str, paper_info: list[str], use_api_key: bool = False
+) -> dict:
+    """
+    Retrieves information about a scientific paper from the Semantic Scholar API.
+
+    Args:
+        paper_title (str): The title of the paper.
+        paper_info (list[str]): A list of information fields to retrieve for the paper.
+        use_api_key (bool, optional): Whether to use an API key for accessing the Semantic Scholar API. Defaults to False.
+
+    Returns:
+        dict: A dictionary containing the retrieved information about the paper.
+    """
     if use_api_key:
         assert os.environ.get("S2_API_KEY") is not None, "S2 API key not found"
     header = get_s2_header(use_api_key)
@@ -93,19 +106,12 @@ def get_s2info(paper_title, paper_info, use_api_key: bool = False) -> dict:
         headers=header,
     )
     response.raise_for_status()
-    response = response.json()
+    s2info = response.json()
 
-    if "data" not in response:
+    if "data" not in s2info:
         return {}
-
     else:
-        return response["data"]
-
-
-def giveup_on_404(details):
-    if details["exception"].response.status_code == 404:
-        return True
-    return False
+        return s2info["data"]
 
 
 @backoff.on_exception(
@@ -113,8 +119,7 @@ def giveup_on_404(details):
     requests.exceptions.RequestException,
     raise_on_giveup=False,
     max_time=5,
-    on_backoff=on_backoff,
-    giveup=giveup,
+    on_backoff=on_backoff_s2,
 )
 def get_s2_references(
     idd: str, id_type: str, use_api_key: bool, max_n_references: int = 100
@@ -137,10 +142,10 @@ def get_s2_references(
     url = f"https://api.semanticscholar.org/graph/v1/paper/{formatted_id}/references?fields=title,abstract,intents,authors,isInfluential,isOpenAccess,openAccessPdf,externalIds&offset=0&limit={max_n_references}"
     response = requests.get(url, headers=header)
     response.raise_for_status()
-    response = response.json()
+    reference_info = response.json()
 
     # Parse response into Reference objects
-    references = response["data"]
+    references = reference_info["data"]
     parsed_references = []
 
     for reference in references:

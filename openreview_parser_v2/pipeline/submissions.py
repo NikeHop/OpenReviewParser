@@ -6,7 +6,6 @@ import json
 import logging
 import os
 
-
 import openreview
 import tqdm
 
@@ -16,29 +15,26 @@ from doc2json.grobid2json.grobid.grobid_client import (
 from doc2json.grobid2json.tei_to_json import (
     convert_tei_xml_file_to_s2orc_json,
 )
-
 from openreview.api import OpenReviewClient
 
-
-from openreview_parser.hypothesis_annotation.annotate import annotate_paper
-from openreview_parser.pipeline.utils import urlretrieve_backoff
-from openreview_parser.scientific_databases.openreview_v2 import (
+from openreview_parser_v2.hypothesis_annotation.annotate import annotate_paper
+from openreview_parser_v2.pipeline.utils import urlretrieve_backoff
+from openreview_parser_v2.scientific_databases.openreview import (
     get_submissions,
     get_notes,
 )
-from openreview_parser.scientific_databases.s2 import get_s2info, get_s2_references
-
-from openreview_parser.section_classification.classify import (
+from openreview_parser_v2.scientific_databases.s2 import get_s2info, get_s2_references
+from openreview_parser_v2.section_classification.classify import (
     classify_sections,
     SectionClassifier,
 )
-
-from openreview_parser.utils.data import (
+from openreview_parser_v2.utils.data import (
     VenueInstance,
     Comment,
     Review,
     TextReview,
     Paper,
+    Reference,
 )
 
 SPECIAL_CASES_DECISIONS = ["ICLR_cc_2024_Conference", "ICLR_cc_2025_Conference"]
@@ -49,6 +45,17 @@ def submissions2papers(
     openreview_client: openreview.Client,
     config: dict,
 ) -> None:
+    """
+    Process submissions and convert them into paper objects.
+
+    Args:
+        venue_instances (list[VenueInstance]): List of VenueInstance objects representing the venues to process.
+        openreview_client (openreview.Client): OpenReview client for accessing the OpenReview API.
+        config (dict): Configuration settings for the processing pipeline.
+
+    Returns:
+        None
+    """
     parsed_venues = load_existing_venue_datasets(config)
 
     (
@@ -58,7 +65,7 @@ def submissions2papers(
         venue2review_encodings,
         decision_fields_mapping,
         venue2decision_encodings,
-    ) = load_encodings(config)
+    ) = load_encodings()
 
     for venue_instance in venue_instances:
         print(venue_instance)
@@ -75,7 +82,7 @@ def submissions2papers(
             logging.info(f"No submissions found for {venue_instance.venue}")
             continue
 
-        n_submissions, n_reviews = parse_submissions(
+        statistics = parse_submissions(
             submissions,
             note_type_mapping,
             submission_fields_mapping,
@@ -87,12 +94,17 @@ def submissions2papers(
             venue_id,
             config,
         )
+        if statistics is None:
+            logging.warning(f"Could not parse submissions for {venue_instance.venue}")
+        else:
+            n_submissions, n_reviews = statistics
+            logging.info(f"Finished processing {venue_id} submissions")
+            logging.info(
+                f"Retrieved {n_submissions} submissions and {n_reviews} reviews"
+            )
 
-        logging.info(f"Finished processing {venue_id} submissions")
-        logging.info(f"Retrieved {n_submissions} submissions and {n_reviews} reviews")
 
-
-def load_encodings(config: dict) -> dict:
+def load_encodings() -> tuple[dict, dict, dict, dict, dict, dict]:
     """
     Loads the encodings for the review fields.
 
@@ -133,6 +145,15 @@ def load_encodings(config: dict) -> dict:
 
 
 def load_existing_venue_datasets(config: dict) -> list[str]:
+    """
+    Load existing venue datasets from a JSON file.
+
+    Args:
+        config (dict): Configuration dictionary containing the save directory.
+
+    Returns:
+        list[str]: List of parsed venue instances.
+    """
     parsed_venues_file = os.path.join(
         config["save_directory"], "venues", "parsed_venues.json"
     )
@@ -159,20 +180,24 @@ def parse_submissions(
     client: OpenReviewClient,
     venue_id: str,
     config: dict,
-) -> tuple[dict, int]:
+) -> tuple[int, int] | None:
     """
-    Parses a submission and extracts relevant information such as PDF, reviews, comments, and decisions.
+    Parses a list of submissions and extracts relevant information such as submission details, reviews, comments, and decisions.
 
     Args:
-        client (openreview.Client): The OpenReview client object.
-        note_type_mapping (dict): A mapping of note types to their corresponding labels.
-        sub (dict): The submission to parse.
-        venue (str): The venue of the submission.
+        submissions (list[openreview.Note]): List of submission notes.
+        note_type_mapping (dict): Mapping of note types to their corresponding labels.
+        submission_fields_mapping (dict): Mapping of submission fields to their corresponding labels.
+        review_fields_mapping (dict): Mapping of review fields to their corresponding labels.
+        venue2review_encodings (dict): Mapping of venue IDs to review field encodings.
+        decision_fields_mapping (dict): Mapping of decision fields to their corresponding labels.
+        venue2decision_encodings (dict): Mapping of venue IDs to decision encodings.
+        client (OpenReviewClient): OpenReview client for accessing the OpenReview API.
+        venue_id (str): ID of the venue.
         config (dict): Configuration settings.
 
     Returns:
-        dataset (dict): The dataset containing the submission information.
-        n_reviews (int): The number of reviews for the submission.
+        tuple[dict, int]: A tuple containing the parsed submissions as a dictionary and the total number of reviews.
     """
 
     if config["metadata"]["classify_sections"]:
@@ -300,10 +325,12 @@ def parse_submissions(
 
         # Organize structured content
         paper.organize_text()
+        paper.create_bibref2paperhash()
 
         # Section classifier
         if config["metadata"]["classify_sections"]:
             paper = classify_sections(paper, section_classifier, config)
+            paper.create_bibref2section()
 
         # Get citation score
         if config["metadata"]["get_s2_info"]:
@@ -323,19 +350,23 @@ def parse_submissions(
                     paper.external_ids = s2_info.get("externalIds", None)
 
         # Get references
-        if config["get_references"]:
+        if config["metadata"]["get_references"]:
             # For accepted papers get references from s2
             if paper.decision and paper.s2_corpus_id is not None:
-                references = get_s2_references(paper)
+                references = get_s2_references(
+                    paper.s2_corpus_id, "corpus_id", config["use_s2_api_key"]
+                )
             else:
                 # For rejected papers get references from the GROBID parse
-                references = get_references_grobid(paper)
+                # references = get_references_grobid(paper)
+                pass
 
             paper.references = references
 
         # Get hypotheses
         if config["metadata"]["annotate_hypotheses"]:
-            paper = annotate_paper(paper)
+            hypothesis = annotate_paper(paper, config["llm"])
+            paper.hypothesis = hypothesis
 
         with open(
             os.path.join(config["save_directory"], "papers", f"{paperhash}.json"), "w+"
@@ -356,6 +387,8 @@ def handle_special_cases_decision(
             return False, "Withdrawn"
         else:
             return None, None
+    else:
+        return None, None
 
 
 def parse_submission_note(submission: dict, submission_fields_mapping: dict) -> dict:
@@ -386,7 +419,7 @@ def parse_pdf(
     max_workers: int,
     config: dict,
     remove: bool = False,
-) -> dict[str, dict]:
+) -> dict[str, dict] | None:
     pdf_directory = os.path.join(config["save_directory"], "pdfs")
     pdf_file = os.path.join(pdf_directory, f"{paperhash}.pdf")
     xml_directory = os.path.join(config["save_directory"], "xmls")
@@ -438,12 +471,11 @@ def process_comments(comments: list[dict]) -> list[Comment]:
         if comment == None:
             continue
 
-        if comment != None:
-            comment = comment["value"]
+        comment_text = comment["value"]
         if title != None:
             title = title["value"]
 
-        processed_comments.append(Comment(title=title, comment=comment))
+        processed_comments.append(Comment(title=title, comment=comment_text))
 
     return processed_comments
 
@@ -500,11 +532,11 @@ def process_reviews(
                 review_part = field_type.split("|")[1]
                 text_review[review_part] = f"{review_part}: {field_value}"
 
-        text_review = TextReview(**text_review)
-        encoded_review["review"] = text_review
+        parsed_text_review = TextReview(**text_review)
+        encoded_review["review"] = parsed_text_review
 
-        review = Review(**encoded_review)
-        processed_reviews.append(review)
+        parsed_review = Review(**encoded_review)
+        processed_reviews.append(parsed_review)
 
     return processed_reviews
 
@@ -546,5 +578,20 @@ def process_decision(
     return decision_bool, decision_text
 
 
-def get_references_grobid():
-    pass
+def get_references_grobid(paper: Paper, title2s2info: dict) -> list[Reference]:
+    references = []
+
+    if not (
+        paper.parsed_pdf is None
+        or "pdf_parse" not in paper.parsed_pdf
+        or paper.parsed_pdf["pdf_parse"] is None
+        or "bib_entries" not in paper.parsed_pdf["pdf_parse"]
+    ):
+        for value in paper.parsed_pdf["pdf_parse"]["bib_entries"].values():
+            title = value["title"].lower()
+            if title in title2s2info:
+                s2info = title2s2info[title]
+                reference = Reference(**s2info)
+                references.append(reference)
+
+    return references

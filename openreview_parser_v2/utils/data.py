@@ -4,6 +4,7 @@ PyDantic Data Models for Unification of OpenReview Data
 
 import logging
 
+from collections import defaultdict
 from typing import Any
 
 from fuzzywuzzy import process
@@ -91,7 +92,7 @@ class Reference(BaseModel):
     authors: list[str]
 
     # IDs
-    arxv_id: str | None = ""
+    arxiv_id: str | None = ""
     s2_corpus_id: str | None = ""
     external_ids: dict | None = {}
 
@@ -143,11 +144,12 @@ class Paper(BaseModel):
 
     # References
     references: list[Reference] | None = None
+    section_name2section: dict = {}
     bibref2section: dict = {}
     bibref2paperhash: dict = {}
 
     # Hypothesis
-    hypothesis: dict | None = None
+    hypothesis: str | None = None
 
     def organize_text(self) -> None:
         """
@@ -202,7 +204,7 @@ class Paper(BaseModel):
                         Section(name=section, sec_num=sub_sec, text=part["text"])
                     )
 
-    def get_text(self, with_appendix: True) -> str:
+    def get_text(self, with_appendix: bool = True) -> str:
         """
         Return the text of the paper.
         """
@@ -253,6 +255,79 @@ class Paper(BaseModel):
             if section.classification == section_type:
                 return section.text
         return ""
+
+    def create_section_name2section(self):
+        self.section_name2section = {}
+        for section in self.structured_content.values():
+            section_name = section.name.lower()
+            sec_cls = section.classification
+            self.section_name2section[section_name] = sec_cls
+
+            for subsection in section.subsections:
+                self.section_name2section[subsection.name] = section
+
+    def create_bibref2section(self):
+        self.bibref2section = {}
+        self.create_section_name2section()
+
+        if not (
+            len(self.section_name2section) != 0
+            or self.parsed_pdf is None
+            or "pdf_parse" not in self.parsed_pdf
+            or self.parsed_pdf["pdf_parse"] is None
+            or "body_text" not in self.parsed_pdf["pdf_parse"]
+        ):
+            self.bibref2section = defaultdict(lambda: defaultdict(int))
+            for elem in self.parsed_pdf["pdf_parse"]["body_text"]:
+                # Understand which section this element belongs to
+                section_name = elem["section"].lower()
+                if section_name in self.section_name2section:
+                    section = self.section_name2section[section_name]
+                else:
+                    continue
+
+                if "cite_spans" in elem:
+                    for citation in elem["cite_spans"]:
+                        if "ref_id" not in citation:
+                            continue
+                        ref_id = citation["ref_id"]
+                        # Add everything to the mapping
+                        self.bibref2section[ref_id][section] += 1
+
+    def create_bibref2paperhash(self):
+        self.bibref2paperhash = {}
+
+        if not (
+            self.parsed_pdf is None
+            or "pdf_parse" not in self.parsed_pdf
+            or self.parsed_pdf["pdf_parse"] is None
+            or "bib_entries" not in self.parsed_pdf["pdf_parse"]
+        ):
+            for key, value in self.parsed_pdf["pdf_parse"]["bib_entries"].items():
+                title = value["title"]
+                authors = [
+                    parse_author_bibentries(author) for author in value["authors"]
+                ]
+                paperhash = get_paperhash(title, authors)
+                self.bibref2paperhash[key] = paperhash
+
+
+def parse_author_bibentries(author: dict) -> str:
+    name = (
+        author["first"].lower()
+        + " "
+        + " ".join(author["middle"]).lower()
+        + " "
+        + author["last"].lower()
+    )
+    return name
+
+
+def get_paperhash(title: str, authors: list[str]) -> str:
+    if len(authors) == 0:
+        return "|" + "_".join(title.split(" ")).lower()
+    first_author_last_name = authors[0].split(" ")[-1]
+    return first_author_last_name + "|" + "_".join(title.split(" ")).lower()
 
 
 def fuzzy_matching(

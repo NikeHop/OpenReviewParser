@@ -15,7 +15,7 @@ from requests.exceptions import ConnectionError, Timeout
 from openreview import OpenReviewException
 from openreview.api import OpenReviewClient
 
-from openreview_parser.utils.data import VenueInstance
+from openreview_parser_v2.utils.data import VenueInstance
 
 
 def get_openreview_client_v2(config: dict) -> OpenReviewClient:
@@ -63,7 +63,9 @@ def get_submissions(client: OpenReviewClient, venue: VenueInstance):
         venue_group = client.get_group(venue.venue)
 
         if not hasattr(venue_group, "content"):
-            logging(f"Does not have a content attribute {venue.venue}")
+            logging.warning(
+                f"The venue group {venue.venue} of does not have a content attribute."
+            )
             return []
 
         submission_name = venue_group.content["submission_name"]["value"]

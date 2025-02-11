@@ -4,3 +4,10 @@ repos:
     hooks:
       - id: black
         language_version: python3  # Specify the Python version
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.8.0  # Replace with the latest mypy version
+    hooks:
+      - id: mypy
+        # Optional: Add additional mypy arguments
+        additional_dependencies: [types-requests==2.32.0.20241016,types-PyYAML==6.0.12.20241230]
+        args: [--ignore-missing-imports]

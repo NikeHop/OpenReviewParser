@@ -16,8 +16,8 @@ import openreview
 from openreview.api import OpenReviewClient
 from tqdm import tqdm
 
-from openreview_parser.scientific_databases.openreview_v2 import get_submissions
-from openreview_parser.utils.data import VenueInstance
+from openreview_parser_v2.scientific_databases.openreview import get_submissions
+from openreview_parser_v2.utils.data import VenueInstance
 
 REVIEW_FIELDS = [
     "score",
@@ -54,18 +54,17 @@ def get_schemas(
     client: OpenReviewClient, venues: list[VenueInstance], config: dict
 ) -> list[VenueInstance]:
     """
-    Checks which venues have accessible submissions and reviews and
-    what is the schema of theses submissions and reviews.
+    Retrieves and processes schemas for the given venues.
 
-    Parameters:
-        client (openreview.Client): The OpenReview client.
-        venues (list[VenueInstance]): The list of venue instances.
-        save_directory (str): The directory to save the schemas.
+    Args:
+        client (OpenReviewClient): An instance of the OpenReviewClient class.
+        venues (list[VenueInstance]): A list of VenueInstance objects representing the venues.
+        config (dict): A dictionary containing configuration parameters.
 
     Returns:
-        None
-    """
+        list[VenueInstance]: A list of VenueInstance objects with updated schemas.
 
+    """
     existing_schemas, venues_with_infos = load_schema_data(config)
     (
         note_type_mapping,
@@ -145,7 +144,7 @@ def get_schemas(
     return venues_with_infos
 
 
-def load_schema_data(config: dict) -> tuple[dict[str, str], list[VenueInstance]]:
+def load_schema_data(config: dict) -> tuple[list[str], list[VenueInstance]]:
     """
     Load schema data from the specified directory.
 
@@ -176,7 +175,13 @@ def load_schema_data(config: dict) -> tuple[dict[str, str], list[VenueInstance]]
     return existing_schemas, venues_with_infos
 
 
-def load_encodings() -> dict:
+def load_encodings() -> tuple[dict, dict, dict, dict]:
+    """
+    Load encodings from JSON files.
+
+    Returns:
+        A tuple containing the encodings for note types, submission fields, review fields, and decision fields.
+    """
     directory = "./data/"
 
     # Get note-type mapping
@@ -250,7 +255,6 @@ def get_submission_schema(submissions: list[openreview.Note]) -> dict:
 
     Returns:
         dict: The generated submission schema.
-
     """
     submission_schema: dict[str, list] = defaultdict(list)
     example_submission = submissions[0]
@@ -277,7 +281,6 @@ def get_reply_types(submissions: list[openreview.Note]) -> list[str]:
 
     Returns:
         list[str]: A list of unique reply types.
-
     """
     reply_types = set()
     for sub in submissions:
@@ -347,15 +350,16 @@ def update_note_types(
     submissions: list[openreview.Note], note_type_mapping: dict
 ) -> dict:
     """
-    Updates the note types based on the provided submissions.
+    Updates the note types in the given submissions based on the provided note type mapping.
 
     Args:
-        submissions (list[openreview.Note]): A list of OpenReview submissions.
+        submissions (list[openreview.Note]): A list of submissions to update.
+        note_type_mapping (dict): A dictionary mapping note types to note data models.
 
     Returns:
-        None
-    """
+        dict: The updated note type mapping.
 
+    """
     for sub in submissions:
         for reply in sub.details["directReplies"]:
             for invitation in reply["invitations"]:
@@ -379,6 +383,17 @@ def update_note_types(
 def update_submission_fields_mapping(
     submission_schema: dict, submission_fields_mapping: dict
 ) -> dict:
+    """
+    Updates the submission fields mapping based on the given submission schema.
+
+    Args:
+        submission_schema (dict): The schema of the submission.
+        submission_fields_mapping (dict): The current mapping of fields to the submission data model.
+
+    Returns:
+        dict: The updated submission fields mapping.
+
+    """
     for field, content in submission_schema.items():
         if field not in submission_fields_mapping:
             not_correct_field = True
@@ -408,6 +423,17 @@ def update_submission_fields_mapping(
 def update_review_fields_mapping(
     review_schema: dict, review_fields_mapping: dict
 ) -> dict:
+    """
+    Updates the review fields mapping based on the review schema.
+
+    Args:
+        review_schema (dict): The review schema containing the fields and their values.
+        review_fields_mapping (dict): The current mapping of fields to the review data model.
+
+    Returns:
+        dict: The updated review fields mapping.
+
+    """
     for field, content in review_schema.items():
         if field not in review_fields_mapping:
             not_correct_field = True
@@ -437,6 +463,16 @@ def update_review_fields_mapping(
 def update_decision_fields_mapping(
     decision_schema: dict, decision_fields_mapping: dict
 ) -> dict:
+    """
+    Update the decision fields mapping based on the decision schema.
+
+    Args:
+        decision_schema (dict): The decision schema containing the field names and example values.
+        decision_fields_mapping (dict): The current mapping of decision fields.
+
+    Returns:
+        dict: The updated decision fields mapping.
+    """
     for decision_field, content in decision_schema.items():
         if decision_field not in decision_fields_mapping:
             not_correct_field = True
@@ -496,7 +532,7 @@ def schemas2data_models(
             ]:
                 encoding = encoder(set(content["values"]))
                 if len(encoding) == 0:
-                    logging(f"No encoding for {review_field}")
+                    logging.warning(f"No encoding for {review_field}")
                     continue
                 all_encodings[review_field] = encoding
         venue2review_encodings[venue_id] = all_encodings
@@ -561,7 +597,7 @@ def schemas2data_models(
             json.dump(venue2decision_encodings, file, indent=4)
 
 
-def encoder(values: list) -> dict:
+def encoder(values: set) -> dict:
     """
     Encodes a list of values using a string split approach.
 
@@ -580,9 +616,8 @@ def encoder(values: list) -> dict:
         {'10:apple': 10, '20:banana': 20, '30:orange': 30}
     """
 
-    print("All values of the field:", set(values))
+    print("All values of the field:", values)
     encoding = {}
-    values = list(set(values))
     for value in values:
         try:
             score = int(value)

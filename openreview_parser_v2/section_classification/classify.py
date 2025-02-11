@@ -1,7 +1,6 @@
 """
 All utility functions for section classification
 """
-
 import nltk
 import pytorch_lightning as pl
 import torch
@@ -12,7 +11,7 @@ from adapters import AutoAdapterModel
 from torch.optim import Adam
 from transformers import AutoTokenizer
 
-from openreview_parser.utils.data import Paper
+from openreview_parser_v2.utils.data import Paper
 
 SECTIONS = [
     "introduction",
@@ -89,7 +88,11 @@ class SectionClassifier(pl.LightningModule):
             mask = labels == cl
             if mask.sum() > 0:
                 class_acc = (predicted_labels[mask].argmax(dim=1) == cl).float().mean()
-                self.log(f"{split}/accuracy_{cl}", class_acc, batch_size=mask.sum())
+                self.log(
+                    f"{split}/accuracy_{cl}",
+                    class_acc,
+                    batch_size=int(mask.sum().item()),
+                )
 
     def predict(self, data: dict) -> torch.Tensor:
         predicted_labels = self.model(data)
@@ -135,9 +138,22 @@ class SectionClassifierTransformer(nn.Module):
 
 def classify_sections(
     paper: Paper, section_classifier: SectionClassifier, config: dict
-):
+) -> Paper:
+    """
+    Classifies the sections of a given paper based on their content.
+
+    Args:
+        paper (Paper): The paper object containing the structured content.
+        section_classifier (SectionClassifier): The section classifier model.
+        config (dict): Configuration parameters for the classification process.
+
+    Returns:
+        Paper: The paper object with the classified sections.
+
+    """
     for key, section in paper.structured_content.items():
         section_classified = False
+        # Check whether section is in synonyms
         for key, synonyms in SECTION_SYNONYMS.items():
             if section.name in synonyms:
                 section.classification = key
@@ -166,7 +182,7 @@ def classify_sections(
                 "label": 0,
             }
             predicted_labels = section_classifier.predict(section_classifier_input)
-            predicted_label = predicted_labels.argmax(dim=1).cpu().item()
+            predicted_label = int(predicted_labels.argmax(dim=1).cpu().item())
             section.classification = LABEL2SECTION[predicted_label]
 
     return paper

@@ -9,13 +9,13 @@ import os
 import yaml
 import tqdm
 
-from openreview_parser.scientific_databases.openreview_v2 import (
+from openreview_parser_v2.scientific_databases.openreview import (
     get_openreview_client_v2,
 )
-from openreview_parser.pipeline.submissions import submissions2papers
-from openreview_parser.pipeline.venue import get_venue_instances
-from openreview_parser.pipeline.schema import get_schemas
-from openreview_parser.utils.data import VenueInstance
+from openreview_parser_v2.pipeline.submissions import submissions2papers
+from openreview_parser_v2.pipeline.venue import get_venue_instances
+from openreview_parser_v2.pipeline.schema import get_schemas
+from openreview_parser_v2.utils.data import VenueInstance
 
 DEBUG_VENUE = VenueInstance(
     venue="NeurIPS.cc/2023/Conference",

@@ -1,5 +1,7 @@
 dataset/
 logs/
+data/
 model_store/
+openreview_parser/scientific_databases/data/
 grobid-0.7.3
 __pycache__/

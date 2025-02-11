@@ -17,7 +17,7 @@ clean_up: True
 
 metadata:
   classify_sections: True
-  get_references: True
+  get_references: False
   get_s2_info: True
   annotate_hypotheses: True
 

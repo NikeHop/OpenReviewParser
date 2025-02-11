@@ -9,7 +9,7 @@ import openreview
 
 from openreview.api import OpenReviewClient
 
-from openreview_parser.utils.data import VenueInstance
+from openreview_parser_v2.utils.data import VenueInstance
 
 
 def get_venue_instances(client: OpenReviewClient, config: dict) -> list[VenueInstance]:
@@ -21,7 +21,7 @@ def get_venue_instances(client: OpenReviewClient, config: dict) -> list[VenueIns
         config (dict): The relevant configuration.
 
     Returns:
-        None
+        list[VenueInstance]: A list of VenueInstance objects.
     """
 
     # Load existing venues
@@ -98,12 +98,12 @@ def get_venue_instances(client: OpenReviewClient, config: dict) -> list[VenueIns
     with open(failed_venue_strings_filepath, "w+") as file:
         json.dump(list(failed_venue_strings), file, indent=4)
 
-    return venue_instances
+    return list(venue_instances)
 
 
-def load_venue_dataset(config: dict) -> set[VenueInstance]:
+def load_venue_dataset(config: dict) -> tuple[set[VenueInstance], set[str], set[str]]:
     """
-    Load the existing venues.
+    Load the existing venue data.
 
     Args:
         config (dict): Configuration dictionary.
@@ -121,7 +121,7 @@ def load_venue_dataset(config: dict) -> set[VenueInstance]:
             venue_instances = json.load(file)
             venue_instances = [VenueInstance(**vi) for vi in venue_instances]
 
-    failed_venue_strings = []
+    failed_venue_strings = set()
     failed_venue_strings_filepath = os.path.join(
         config["save_directory"], "venues", "failed_venue_strings.json"
     )
@@ -130,7 +130,7 @@ def load_venue_dataset(config: dict) -> set[VenueInstance]:
             failed_venue_strings = json.load(file)
             failed_venue_strings = set(failed_venue_strings)
 
-    venue_strings_api_v1 = []
+    venue_strings_api_v1 = set()
     with open("data/venue_strings_api_v1.json", "r") as file:
         venue_strings_api_v1 = json.load(file)
         venue_strings_api_v1 = set(venue_strings_api_v1)
