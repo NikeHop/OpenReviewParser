@@ -208,7 +208,7 @@ def parse_submissions(
         section_classifier.load_preprocessing_utils(config["device"])
 
     n_submissions, n_reviews = 0, 0
-    for submission in tqdm.tqdm(submissions):
+    for submission in tqdm.tqdm(submissions[:10]):
         paper_info = {}
         submission = submission.to_json()
         id = submission["id"]
@@ -221,7 +221,11 @@ def parse_submissions(
             )
             return None
 
-        paperhash = submission["content"]["paperhash"]["value"].replace("/", "_")
+        paperhash = (
+            submission["content"]["paperhash"]["value"].replace("/", "_")
+            + "|"
+            + venue_id
+        )
 
         if os.path.exists(
             os.path.join(config["save_directory"], "papers", f"{paperhash}.json")
@@ -281,7 +285,11 @@ def parse_submissions(
                     submission, venue_id
                 )
             if decision is None:
-                logging.info(f"Could not find decision for submission {id}")
+                logging.info(
+                    f"Could not find decision for submission {id} ({venue_id})"
+                )
+                decision = None
+                decision_text = None
         else:
             decision, decision_text = process_decision(
                 decision, decision_fields_mapping, decision_encodings, venue_id
@@ -305,7 +313,7 @@ def parse_submissions(
         url = f"https://openreview.net/pdf?id={id}"
         filename = os.path.join(config["save_directory"], "pdfs", f"{paperhash}.pdf")
         response = urlretrieve_backoff(url, filename)
-        print(response)
+
         if response is None:
             logging.info(f"Could not download pdf for submission {id}")
             continue
@@ -341,8 +349,9 @@ def parse_submissions(
                     ["citationCount", "influentialCitationCount", "externalIds"],
                     config["use_s2_api_key"],
                 )
-                print(s2_info)
-                if len(s2_info) != 0:
+                if s2_info is None:
+                    logging.warning(f"Could not get s2 info for submission {id}")
+                elif len(s2_info) != 0:
                     paper.n_citations = s2_info.get("citationCount", None)
                     paper.n_influential_citations = s2_info.get(
                         "influentialCitationCount", None
@@ -385,15 +394,16 @@ def handle_special_cases_decision(
     if venue_id == "ICLR_cc_2024_Conference":
         if "withdrawn" in submission["content"]["venue"]["value"].lower():
             return False, "Withdrawn"
-        else:
-            return None, None
-    else:
-        return None, None
+
+    if venue_id == "ICLR_cc_2025_Conference":
+        if "withdrawn" in submission["content"]["venue"]["value"].lower():
+            return False, "Withdrawn"
+
+    return None, None
 
 
 def parse_submission_note(submission: dict, submission_fields_mapping: dict) -> dict:
-    paper_info = {}
-    print(submission)
+    paper_info: dict = {}
     for key, value in submission["content"].items():
         if key not in submission_fields_mapping:
             continue
@@ -405,9 +415,16 @@ def parse_submission_note(submission: dict, submission_fields_mapping: dict) -> 
         elif model_field == "field_of_study":
             # Check whether its str or list; convert str to list[str]
             if isinstance(value["value"], str):
-                paper_info[model_field] = [value["value"]]
+                field_of_study_value = [value["value"]]
             else:
-                paper_info[model_field] = value["value"]
+                field_of_study_value = value["value"]
+
+            # Check whether field already exists, if yes concatenate
+            if "field_of_study" in paper_info:
+                paper_info["field_of_study"] += field_of_study_value
+            else:
+                paper_info["field_of_study"] = field_of_study_value
+
         else:
             paper_info[model_field] = value["value"]
 
@@ -437,6 +454,7 @@ def parse_pdf(
 
     # XML -> JSON
     if not os.path.exists(xml_file):
+        logging.warning(f"Parsing of the pdf failed, no xml file found for {paperhash}")
         return None
 
     paper = convert_tei_xml_file_to_s2orc_json(xml_file)

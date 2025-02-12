@@ -67,7 +67,6 @@ def get_submissions(client: OpenReviewClient, venue: VenueInstance):
                 f"The venue group {venue.venue} of does not have a content attribute."
             )
             return []
-
         submission_name = venue_group.content["submission_name"]["value"]
         submissions = client.get_all_notes(
             invitation=f"{venue.venue}/-/{submission_name}", details="directReplies"

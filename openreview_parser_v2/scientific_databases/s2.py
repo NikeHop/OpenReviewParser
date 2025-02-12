@@ -96,8 +96,6 @@ def get_s2info(
     Returns:
         dict: A dictionary containing the retrieved information about the paper.
     """
-    if use_api_key:
-        assert os.environ.get("S2_API_KEY") is not None, "S2 API key not found"
     header = get_s2_header(use_api_key)
 
     response = requests.get(
@@ -111,7 +109,10 @@ def get_s2info(
     if "data" not in s2info:
         return {}
     else:
-        return s2info["data"]
+        if s2info["data"] is None:
+            return {}
+        else:
+            return s2info["data"][0]
 
 
 @backoff.on_exception(

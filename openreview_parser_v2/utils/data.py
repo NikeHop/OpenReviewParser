@@ -352,7 +352,6 @@ def fuzzy_matching(
         best_match, score = result
 
     if score < threshold:
-        logging.info("No match found that exceeds the threshold")
         return "", score
 
     return best_match, score

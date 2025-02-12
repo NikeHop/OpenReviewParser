@@ -1,11 +1,11 @@
 ---
 device: "cuda:0"
 max_n_sentences_per_example: 200
-debug: True
+debug: False
 save_directory: "../dataset"
 use_s2_api_key: True
 openreview:
-  guest_client: True
+  guest_client: False
 
 grobid:
   max_workers: 4
@@ -19,7 +19,7 @@ metadata:
   classify_sections: True
   get_references: False
   get_s2_info: True
-  annotate_hypotheses: True
+  annotate_hypotheses: False
 
 llm:
   provider: "openai"

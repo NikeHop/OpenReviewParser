@@ -52,7 +52,7 @@ def build_dataset(config: dict) -> None:
     openreview_client = get_openreview_client_v2(config["openreview"])
 
     # Prepare Directory Structure for Dataset
-    for directory in ["venues", "dataset", "papers", "schemas", "pdfs", "xmls"]:
+    for directory in ["venues", "papers", "schemas", "pdfs", "xmls"]:
         os.makedirs(os.path.join(config["save_directory"], directory), exist_ok=True)
 
     # Get all venue instances
@@ -65,8 +65,6 @@ def build_dataset(config: dict) -> None:
     # Get schema for venue instances
     venue_instances_full_info = get_schemas(openreview_client, venue_instances, config)
     logging.info(f"Obtained schemas")
-    print(venue_instances_full_info)
-    print([type(venue) for venue in venue_instances_full_info])
 
     # Parse submissions into data model for each venue instance
     submissions2papers(venue_instances_full_info, openreview_client, config)

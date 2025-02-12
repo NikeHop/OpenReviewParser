@@ -97,9 +97,10 @@ def add_abstracts():
         with gzip.open(filepath, "rt") as file:
             data = [json.loads(line) for line in file]
             for elem in tqdm.tqdm(data):
-                if elem["corpusid"] not in corpus_id2title:
+                corpus_id = str(elem["corpusid"])
+                if corpus_id not in corpus_id2title:
                     continue
-                info = corpus_id2title[elem["corpusid"]]
+                info = corpus_id2title[corpus_id]
                 title = info["title"]
                 title2paper_info[title] = {}
                 title2paper_info[title]["title"] = info["title"]
@@ -114,6 +115,10 @@ def add_abstracts():
 
 def create_title2s2_paper_info():
     add_abstracts()
+
+
+def update():
+    pass
 
 
 if __name__ == "__main__":

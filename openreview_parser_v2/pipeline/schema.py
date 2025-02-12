@@ -8,7 +8,7 @@ import logging
 import os
 
 from collections import defaultdict
-from typing import Union
+from typing import Union, Optional
 
 import numpy as np
 import openreview
@@ -34,10 +34,14 @@ REVIEW_FIELDS = [
     "review|title",
     "review|strength_weakness",
     "review|limitations",
-    "",
+    None,
 ]
 
-DECISION_FIELDS = ["decision", "decision_text", ""]
+REVIEW_FIELDS_DICT = {str(i): value for i, value in enumerate(REVIEW_FIELDS)}
+
+DECISION_FIELDS = ["decision", "decision_text", None]
+
+DECISION_FIELDS_DICT = {str(i): value for i, value in enumerate(DECISION_FIELDS)}
 
 SUBMISSION_FIELDS = [
     "authors",
@@ -46,8 +50,10 @@ SUBMISSION_FIELDS = [
     "publication_data",
     "summary",
     "field_of_study",
-    "",
+    None,
 ]
+
+SUBMISSION_FIELDS_DICT = {str(i): value for i, value in enumerate(SUBMISSION_FIELDS)}
 
 
 def get_schemas(
@@ -74,11 +80,12 @@ def get_schemas(
     ) = load_encodings()
 
     for venue in tqdm(venues):
-        print(type(venue))
+        print("Building schema for venue ")
         schemas: dict[str, Union[dict, list]] = {}
 
         # Check whether venue has already got a schema
         venue_id = venue.venue.replace("/", "_").replace(".", "_")
+        print(f"Building schema for venue {venue_id}")
 
         if venue_id in existing_schemas:
             continue
@@ -360,6 +367,7 @@ def update_note_types(
         dict: The updated note type mapping.
 
     """
+    print("Checking note types of venue")
     for sub in submissions:
         for reply in sub.details["directReplies"]:
             for invitation in reply["invitations"]:
@@ -394,25 +402,26 @@ def update_submission_fields_mapping(
         dict: The updated submission fields mapping.
 
     """
+    print("Map submission fields to the paper data model")
+    submission_data_model_field: Optional[str]
     for field, content in submission_schema.items():
         if field not in submission_fields_mapping:
             not_correct_field = True
             while not_correct_field:
                 input_text = f"Map the field {field} to the submission data model\n"
-                input_text += f"Some example values: {content}"
-                input_text += f"Possible fields are: {SUBMISSION_FIELDS}."
+                input_text += f"Some example values: {content}\n"
+                input_text += f"Possible fields are: {SUBMISSION_FIELDS_DICT}.\n"
                 submission_data_model_field = input(f"{input_text} \n {field}:")
-                if submission_data_model_field in SUBMISSION_FIELDS:
+                if submission_data_model_field in SUBMISSION_FIELDS_DICT:
                     not_correct_field = False
+                    submission_data_model_field = SUBMISSION_FIELDS_DICT[
+                        submission_data_model_field
+                    ]
+                    submission_fields_mapping[field] = submission_data_model_field
                 else:
                     print(
                         f"Field {submission_data_model_field} is not a valid submission_field."
                     )
-
-            if submission_data_model_field:
-                submission_fields_mapping[field] = submission_data_model_field
-            else:
-                submission_fields_mapping[field] = None
 
     with open(os.path.join("./data", "submission_fields_mapping.json"), "w+") as file:
         json.dump(submission_fields_mapping, file, indent=4)
@@ -434,25 +443,26 @@ def update_review_fields_mapping(
         dict: The updated review fields mapping.
 
     """
+    print("Update the review fields mapping with fields from the review schema")
+    review_data_model_field: Optional[str]
     for field, content in review_schema.items():
         if field not in review_fields_mapping:
             not_correct_field = True
             while not_correct_field:
                 input_text = f"Map the field {field} to the review data model\n"
                 input_text += f"Some example values: {content['values'][:20]}"
-                input_text += f"Possible fields are: {REVIEW_FIELDS}."
+                input_text += f"Possible fields are: {REVIEW_FIELDS_DICT}."
                 review_data_model_field = input(f"{input_text} \n {field}:")
-                if review_data_model_field in REVIEW_FIELDS:
+                if review_data_model_field in REVIEW_FIELDS_DICT:
                     not_correct_field = False
+                    review_data_model_field = REVIEW_FIELDS_DICT[
+                        review_data_model_field
+                    ]
+                    review_fields_mapping[field] = review_data_model_field
                 else:
                     print(
                         f"Field {review_data_model_field} is not a valid review_field."
                     )
-
-            if review_data_model_field:
-                review_fields_mapping[field] = review_data_model_field
-            else:
-                review_fields_mapping[field] = None
 
     with open(os.path.join("./data", "review_fields_mapping.json"), "w+") as file:
         json.dump(review_fields_mapping, file, indent=4)
@@ -473,16 +483,19 @@ def update_decision_fields_mapping(
     Returns:
         dict: The updated decision fields mapping.
     """
+    print("Update the decision fields mapping with fields from the decision schema")
     for decision_field, content in decision_schema.items():
         if decision_field not in decision_fields_mapping:
             not_correct_field = True
             while not_correct_field:
                 decision_type = input(
-                    f"Example values {content['values']}. Map the field  {decision_field} to the decision data model ({DECISION_FIELDS}):"
+                    f"Example values {set(content['values'])}. Map the field  {decision_field} to the decision data model ({DECISION_FIELDS_DICT}):"
                 )
-                decision_fields_mapping[decision_field] = decision_type
-                if decision_type in DECISION_FIELDS:
+                if decision_type in DECISION_FIELDS_DICT:
                     not_correct_field = False
+                    decision_fields_mapping[decision_field] = DECISION_FIELDS_DICT[
+                        decision_type
+                    ]
                 else:
                     print(f"Field {decision_type} is not a valid decision_field.")
 
@@ -511,8 +524,9 @@ def schemas2data_models(
     directory = "./data"
 
     # Update venue2review_encoding
+    print("Update review encodings")
     if os.path.exists(os.path.join(directory, "venue2review_encodings.json")):
-        with open(os.path.join(directory, "venue2review_encodings.json"), "r+") as file:
+        with open(os.path.join(directory, "venue2review_encodings.json"), "r") as file:
             venue2review_encodings = json.load(file)
     else:
         venue2review_encodings = {}
@@ -530,7 +544,7 @@ def schemas2data_models(
                 "impact",
                 "reproducibility",
             ]:
-                encoding = encoder(set(content["values"]))
+                encoding = encoder(set(content["values"]), review_field)
                 if len(encoding) == 0:
                     logging.warning(f"No encoding for {review_field}")
                     continue
@@ -540,22 +554,33 @@ def schemas2data_models(
         # Normalized scores of venue2review_encodings to be between 0 and 1
         all_normalized_encodings = {}
         for field, encoding in venue2review_encodings[venue_id].items():
-            n_values = len(encoding)
+            # Filter NoneType from encoding
+            filtered_encoding = {
+                key: value for key, value in encoding.items() if value is not None
+            }
+
+            n_values = len(filtered_encoding)
             normalized_values = np.linspace(0, 1, n_values)
             value2rank = {
                 value[0]: rank
                 for rank, value in enumerate(
-                    sorted(encoding.items(), key=lambda x: x[1])
+                    sorted(filtered_encoding.items(), key=lambda x: x[1])
                 )
             }
 
             normalized_encoding = {}
-            for key in encoding.keys():
+            for key in filtered_encoding.keys():
                 rank = value2rank[key]
                 value = normalized_values[rank]
                 normalized_encoding[key] = value
-            encoding = normalized_encoding
-            all_normalized_encodings[field] = encoding
+            normalized_encoding = normalized_encoding
+
+            # Add None back to encoding
+            for key, value in encoding.items():
+                if value is None:
+                    normalized_encoding[key] = None
+
+            all_normalized_encodings[field] = normalized_encoding
 
         venue2review_encodings[venue_id] = all_normalized_encodings
 
@@ -564,6 +589,7 @@ def schemas2data_models(
             json.dump(venue2review_encodings, file, indent=4)
 
     # Update decision encodings
+    print("Update decision encodings")
     if os.path.exists(os.path.join(directory, "venue2decision_encodings.json")):
         with open(
             os.path.join(directory, "venue2decision_encodings.json"), "r+"
@@ -572,32 +598,61 @@ def schemas2data_models(
     else:
         venue2decision_encodings = {}
 
+    if os.path.exists(os.path.join(directory, "decision_value2encoded_value.json")):
+        with open(
+            os.path.join(directory, "decision_value2encoded_value.json"), "r"
+        ) as file:
+            decision_value2encoded_value = json.load(file)
+    else:
+        decision_value2encoded_value = {}
+
     if venue_id not in venue2decision_encodings:
         all_encodings = {}
         for decision_field, content in schemas["decision_schema"].items():
+            encoding_impossible = False
+            values = set(content["values"])
             field_type = decision_fields_mapping[decision_field]
             if field_type == "decision":
                 encoding = {}
-                input_text = (
-                    f"Example values: {set(content['values'])} Skip this field (y/n):"
-                )
-                response = input(input_text)
-                if response == "y":
-                    continue
+                for value in set(values):
+                    if encoding_impossible:
+                        break
+                    try:
+                        encoded_value = decision_value2encoded_value[value]
+                        encoding[value] = encoded_value
+                    except KeyError:
+                        encoding_successful = False
+                        while not encoding_successful:
+                            encoded_value = input(
+                                f"For field {decision_field} encode {value} (Reject=0,Accept=1,NA=not applicable if values cannot be encoded):"
+                            )
+                            if encoded_value == "NA":
+                                encoding_impossible = True
+                                break
+                            if encoded_value in ["0", "1"]:
+                                decision_value2encoded_value[value] = encoded_value
+                                encoding[value] = encoded_value
+                                encoding_successful = True
+                            else:
+                                print("Please enter a valid encoding value")
 
-                for value in list(set(content["values"])):
-                    encoding[value] = int(input(f"key: {value} (Reject=0/Accept=1):"))
-                all_encodings[decision_field] = encoding
+                if not encoding_impossible:
+                    all_encodings[field_type] = encoding
 
-        venue2decision_encodings[venue_id] = encoding
+        venue2decision_encodings[venue_id] = all_encodings
 
         with open(
             os.path.join(directory, "venue2decision_encodings.json"), "w"
         ) as file:
             json.dump(venue2decision_encodings, file, indent=4)
 
+        with open(
+            os.path.join(directory, "decision_value2encoded_value.json"), "w"
+        ) as file:
+            json.dump(decision_value2encoded_value, file, indent=4)
 
-def encoder(values: set) -> dict:
+
+def encoder(values: set, field: str) -> dict:
     """
     Encodes a list of values using a string split approach.
 
@@ -615,9 +670,9 @@ def encoder(values: set) -> dict:
         >>> string_split_encoder(values)
         {'10:apple': 10, '20:banana': 20, '30:orange': 30}
     """
-
-    print("All values of the field:", values)
     encoding = {}
+    need_to_encode_manually = False
+    score: Optional[int]
     for value in values:
         try:
             score = int(value)
@@ -628,12 +683,31 @@ def encoder(values: set) -> dict:
                 try:
                     score = int(value.split(" ")[0])
                 except Exception as e:
-                    response = input(
-                        "Skip this field, since it is not a numerical field (y/n):"
-                    )
-                    if response == "y":
-                        return {}
-                    else:
-                        score = int(input(f"{value}:"))
-        encoding[value] = score
+                    need_to_encode_manually = True
+
+    if need_to_encode_manually:
+        response = input(
+            f"Skip the field {field} with values {values}, since it is not a numerical field (y/n):"
+        )
+        if response == "y":
+            return {}
+        else:
+            print(f"All values of the field: {values}, #values: {len(values)}")
+            for value in values:
+                valid_score = False
+                while not valid_score:
+                    try:
+                        score_input = input(
+                            f"Value to encode: {value}; Choose a number between 1-{len(values)} (Higher is better):"
+                        )
+                        if score_input == "":
+                            score = None
+                        else:
+                            score = int(score_input)
+                        valid_score = True
+                    except ValueError as e:
+                        print("Please enter a valid integer")
+
+                encoding[value] = score
+
     return encoding
