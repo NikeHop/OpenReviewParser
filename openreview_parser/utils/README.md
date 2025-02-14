@@ -40,7 +40,7 @@ The data models can be found in `data.py` as [Pydantic](https://docs.pydantic.de
 | **Hypothesis**           |                                     |                                                                             |
 | `hypothesis`             | `str \| None`                       | The hypothesis proposed in the paper annotated via an LLM (optional).                           |
 **License**           |                                     |                                                                             |
-| `license`             | `str \| None`                       | The hypothesis proposed in the paper annotated via an LLM (optional).                           |
+| `license`             | `str \| None`                       | The license attached to the submission. None means no license found.                           |
 
 
 

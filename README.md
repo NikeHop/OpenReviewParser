@@ -19,6 +19,7 @@ Create a new conda environment and install the dependencies:
 conda create -n openreview_parser python=3.11
 conda activate openreview_parser
 pip install -e . 
+python -c "import nltk; nltk.download('punkt_tab')"
 ```
 
 #### GROBID 
@@ -36,12 +37,20 @@ bash ./scripts/run_grobid.sh
 
 If you run into trouble setting up GROBID some git issues from the followin [repo](https://github.com/allenai/s2orc-doc2json) might be helpful.
 
+Additionally tmux is necessary. For Ubuntu/Debian install via:
+
+```
+sudo apt update
+sudo apt install tmux
+```
+
 ## Data Model
 
 An overview of the unifying data model for submissions and reviews can be found [here](./openreview_parser/utils/README.md).
 
 ## Run pipeline 
 
+If you do not have an OpenReview sccount, run the pipeline with the guest client, by setting the corresponding field in the configs in `./openreview_parser/pipeline/configs/`.
 
 The pipeline proceeds in the following steps:
 
