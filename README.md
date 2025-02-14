@@ -68,10 +68,12 @@ bash ./scripts/run_pipeline.sh
 
 
 * **Hypothesis Annotation**: 
+
 Requires to set OPENAI_API_KEY as environment variable with the corresponding key.
 
 * **Citation Count**: 
-Semantic Scholar key recommended otherwise rate limits are easily reached. 
+
+Semantic Scholar key is recommended otherwise rate limits are easily reached. 
 
 * **References**: 
 
@@ -98,6 +100,7 @@ For venues accessible via API V2:
 python pipeline.py --config ./configs/pipeline_v2.yaml --venue "ICLR.cc/2024/Conference"
 ```
 
+The venues that are accessible via API V1 can be found [here](./openreview_parser/pipeline/data/venue_strings_api_v1.json).
 
 
 ## Dataset 
