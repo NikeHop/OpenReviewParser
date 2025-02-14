@@ -39,6 +39,9 @@ The data models can be found in `data.py` as [Pydantic](https://docs.pydantic.de
 | `bibref2paperhash`       | `dict`                              | A mapping of bibliography references to their corresponding paper hashes.  |
 | **Hypothesis**           |                                     |                                                                             |
 | `hypothesis`             | `str \| None`                       | The hypothesis proposed in the paper annotated via an LLM (optional).                           |
+**License**           |                                     |                                                                             |
+| `license`             | `str \| None`                       | The hypothesis proposed in the paper annotated via an LLM (optional).                           |
+
 
 
 ## Review 

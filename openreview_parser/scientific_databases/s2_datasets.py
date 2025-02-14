@@ -13,7 +13,7 @@ import requests
 import tqdm
 import wget
 
-from openreview_parser_v2.scientific_databases.s2 import get_s2_header
+from openreview_parser.scientific_databases.s2 import get_s2_header
 
 
 def download_datasets():
@@ -97,6 +97,7 @@ def add_abstracts():
         with gzip.open(filepath, "rt") as file:
             data = [json.loads(line) for line in file]
             for elem in tqdm.tqdm(data):
+                print(elem)
                 corpus_id = str(elem["corpusid"])
                 if corpus_id not in corpus_id2title:
                     continue
@@ -107,18 +108,60 @@ def add_abstracts():
                 title2paper_info[title]["corpusid"] = info["corpusid"]
                 title2paper_info[title]["authors"] = info["authors"]
                 title2paper_info[title]["abstract"] = elem["abstract"]
-                title2paper_info[title]["external_ids"] = elem["external_ids"]
+                title2paper_info[title]["external_ids"] = elem["openaccessinfo"][
+                    "externalids"
+                ]
 
         with open("data/s2/title2paper_info.json", "w") as file:
             json.dump(title2paper_info, file, indent=4)
 
 
 def create_title2s2_paper_info():
-    add_abstracts()
+    chunk()
 
 
-def update():
-    pass
+def chunk():
+    os.makedirs("data/s2/parsed_paper_info", exist_ok=True)
+
+    # Load title2paperinfo
+    with open("data/s2/title2paper_info.json", "r") as file:
+        title2paper_info = json.load(file)
+
+    title2paper_info = {
+        title.strip().lower(): title2paper_info[title] for title in title2paper_info
+    }
+
+    all_titles = list(title2paper_info.keys())
+
+    with open("data/s2/all_titles.json", "w") as file:
+        json.dump(all_titles, file, indent=4)
+
+    all_titles = list(sorted(all_titles))
+
+    # Chunk the title2paper_info
+    chunk_size = 5000
+    n_chunks = 0
+    current_position = 0
+    key_dictionary = {}
+    pbar = tqdm.tqdm(total=len(all_titles))
+    while current_position < len(all_titles):
+        titles = all_titles[current_position : current_position + chunk_size]
+        first_title = titles[0]
+        last_title = titles[-1]
+        key_dictionary[n_chunks] = [first_title, last_title]
+        paper_info_data = {title: title2paper_info[title] for title in titles}
+
+        with open(
+            os.path.join("./data/s2/parsed_paper_info", f"{n_chunks}.json"), "w"
+        ) as file:
+            json.dump(paper_info_data, file, indent=4)
+
+        n_chunks += 1
+        current_position += chunk_size
+        pbar.update(chunk_size)
+
+    with open("data/s2/key_dictionary.json", "w") as file:
+        json.dump(key_dictionary, file, indent=4)
 
 
 if __name__ == "__main__":

@@ -2,10 +2,11 @@
 device: "cuda:0"
 max_n_sentences_per_example: 200
 debug: False
-save_directory: "../dataset"
+save_directory: "../../dataset"
+use_openreview_api_v2: False
+openreview_guest_client: False
 use_s2_api_key: True
-openreview:
-  guest_client: False
+s2_data_directory: ../scientific_databases/data/s2
 
 grobid:
   max_workers: 4
@@ -17,7 +18,7 @@ clean_up: True
 
 metadata:
   classify_sections: True
-  get_references: False
+  get_references: True
   get_s2_info: True
   annotate_hypotheses: False
 

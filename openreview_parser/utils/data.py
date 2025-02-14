@@ -151,6 +151,9 @@ class Paper(BaseModel):
     # Hypothesis
     hypothesis: str | None = None
 
+    # License
+    license: str | None = None
+
     def organize_text(self) -> None:
         """
         Organizes the parsed_pdf into a dictionary.
@@ -264,14 +267,14 @@ class Paper(BaseModel):
             self.section_name2section[section_name] = sec_cls
 
             for subsection in section.subsections:
-                self.section_name2section[subsection.name] = section
+                self.section_name2section[subsection.name] = sec_cls
 
     def create_bibref2section(self):
         self.bibref2section = {}
         self.create_section_name2section()
 
         if not (
-            len(self.section_name2section) != 0
+            len(self.section_name2section) == 0
             or self.parsed_pdf is None
             or "pdf_parse" not in self.parsed_pdf
             or self.parsed_pdf["pdf_parse"] is None

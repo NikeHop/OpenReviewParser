@@ -9,7 +9,7 @@ import openreview
 
 from openreview.api import OpenReviewClient
 
-from openreview_parser_v2.utils.data import VenueInstance
+from openreview_parser.utils.data import VenueInstance
 
 
 def get_venue_instances(client: OpenReviewClient, config: dict) -> list[VenueInstance]:
@@ -34,12 +34,15 @@ def get_venue_instances(client: OpenReviewClient, config: dict) -> list[VenueIns
     # Get all venues from OpenReview
     venues = client.get_group(id="venues").members
     for venue in venues:
-        if (
-            venue in venue_instances
-            or venue in failed_venue_strings
-            or venue in venue_strings_api_v1
-        ):
+        if venue in venue_instances or venue in failed_venue_strings:
             continue
+
+        if config["use_openreview_api_v2"]:
+            if venue in venue_strings_api_v1:
+                continue
+        else:
+            if venue not in venue_strings_api_v1:
+                continue
 
         venue_elements = venue.split("/")
 

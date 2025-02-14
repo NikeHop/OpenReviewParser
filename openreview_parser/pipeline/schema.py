@@ -13,11 +13,11 @@ from typing import Union, Optional
 import numpy as np
 import openreview
 
+from openreview import Client
 from openreview.api import OpenReviewClient
 from tqdm import tqdm
-
-from openreview_parser_v2.scientific_databases.openreview import get_submissions
-from openreview_parser_v2.utils.data import VenueInstance
+from openreview_parser.scientific_databases.openreview import get_submissions
+from openreview_parser.utils.data import VenueInstance
 
 REVIEW_FIELDS = [
     "score",
@@ -55,9 +55,13 @@ SUBMISSION_FIELDS = [
 
 SUBMISSION_FIELDS_DICT = {str(i): value for i, value in enumerate(SUBMISSION_FIELDS)}
 
+NOTE_TYPES = ["Review", "Comment", "Decision", ""]
+
+NOTE_TYPES_DICT = {str(i): value for i, value in enumerate(NOTE_TYPES)}
+
 
 def get_schemas(
-    client: OpenReviewClient, venues: list[VenueInstance], config: dict
+    client: OpenReviewClient | Client, venues: list[VenueInstance], config: dict
 ) -> list[VenueInstance]:
     """
     Retrieves and processes schemas for the given venues.
@@ -80,36 +84,56 @@ def get_schemas(
     ) = load_encodings()
 
     for venue in tqdm(venues):
-        print("Building schema for venue ")
         schemas: dict[str, Union[dict, list]] = {}
 
         # Check whether venue has already got a schema
         venue_id = venue.venue.replace("/", "_").replace(".", "_")
-        print(f"Building schema for venue {venue_id}")
 
         if venue_id in existing_schemas:
             continue
 
+        print(f"Building schema for venue {venue_id}")
         # Get submissions
-        submissions = get_submissions(client, venue)
+        submissions = get_submissions(
+            client, venue, api_v2=config["use_openreview_api_v2"]
+        )
 
         if len(submissions) == 0:
             logging.warning(f"No submissions for Venue {venue.venue} found.")
             save_empty_schema(venue_id, config)
             continue
 
-        note_type_mapping = update_note_types(submissions, note_type_mapping)
-        submission_schema = get_submission_schema(submissions)
+        reply_types, note_type_mapping = update_note_types(
+            submissions, note_type_mapping, api_v2=config["use_openreview_api_v2"]
+        )
+        submission_schema = get_submission_schema(
+            submissions, api_v2=config["use_openreview_api_v2"]
+        )
         submission_fields_mapping = update_submission_fields_mapping(
             submission_schema, submission_fields_mapping
         )
-        reply_types = get_reply_types(submissions)
-        review_schema = get_note_schema(submissions, note_type_mapping, "Review")
+
+        review_schema = get_note_schema(
+            submissions,
+            note_type_mapping,
+            "Review",
+            api_v2=config["use_openreview_api_v2"],
+        )
         review_fields_mapping = update_review_fields_mapping(
             review_schema, review_fields_mapping
         )
-        comment_schema = get_note_schema(submissions, note_type_mapping, "Comment")
-        decision_schema = get_note_schema(submissions, note_type_mapping, "Decision")
+        comment_schema = get_note_schema(
+            submissions,
+            note_type_mapping,
+            "Comment",
+            api_v2=config["use_openreview_api_v2"],
+        )
+        decision_schema = get_note_schema(
+            submissions,
+            note_type_mapping,
+            "Decision",
+            api_v2=config["use_openreview_api_v2"],
+        )
         decision_fields_mapping = update_decision_fields_mapping(
             decision_schema, decision_fields_mapping
         )
@@ -168,7 +192,7 @@ def load_schema_data(config: dict) -> tuple[list[str], list[VenueInstance]]:
     schema_directory = os.path.join(config["save_directory"], "schemas")
     schema_files = glob.glob(schema_directory + "/*.json")
     existing_schemas = [os.path.basename(file).split(".")[0] for file in schema_files]
-
+    print(existing_schemas)
     # Get venue strings of venues with submissions and reviews
     venues_with_infos = []
     filtered_venue_dataset_filepath = os.path.join(
@@ -253,7 +277,38 @@ def save_empty_schema(venue_id: str, config: dict) -> None:
         json.dump(schemas, file, indent=4)
 
 
-def get_submission_schema(submissions: list[openreview.Note]) -> dict:
+def get_submission_schema(
+    submissions: list[openreview.Note], api_v2: bool = True
+) -> dict:
+    if api_v2:
+        return get_submission_schema_v2(submissions)
+    else:
+        return get_submission_schema_v1(submissions)
+
+
+def get_submission_schema_v1(submissions: list[openreview.Note]) -> dict:
+    """
+    Generate a submission schema based on a list of OpenReview submissions.
+
+    Args:
+        submissions (list[openreview.Note]): A list of OpenReview submissions.
+
+    Returns:
+        dict: The generated submission schema.
+    """
+    submission_schema: dict[str, list] = defaultdict(list)
+    example_submission = submissions[0]
+
+    for key, value in example_submission.content.items():
+        if isinstance(value, list):
+            value = "+".join(value)
+
+        submission_schema[key].append(value)
+
+    return submission_schema
+
+
+def get_submission_schema_v2(submissions: list[openreview.Note]) -> dict:
     """
     Generate a submission schema based on a list of OpenReview submissions.
 
@@ -279,29 +334,69 @@ def get_submission_schema(submissions: list[openreview.Note]) -> dict:
     return submission_schema
 
 
-def get_reply_types(submissions: list[openreview.Note]) -> list[str]:
+def get_note_schema(
+    submissions: list[openreview.Note],
+    note_type_mapping: dict,
+    note_type: str,
+    api_v2: bool = True,
+) -> dict:
+    if api_v2:
+        return get_note_schema_v2(submissions, note_type_mapping, note_type)
+    else:
+        return get_note_schema_v1(submissions, note_type_mapping, note_type)
+
+
+def get_note_schema_v1(
+    submissions: list[openreview.Note], note_type_mapping: dict, note_type: str
+) -> dict:
     """
-    Get a list of unique reply types from a list of submissions.
+    Retrieves the schema of notes of a specified type from a list of submissions.
 
     Args:
-        submissions (list[openreview.Note]): A list of submission notes.
+        submissions (list[openreview.Note]): A list of submissions.
+        note_type_mapping (dict): A dictionary mapping invitation types to note types.
+        note_type (str): The note type to retrieve the schema for.
 
     Returns:
-        list[str]: A list of unique reply types.
+        dict: The schema of the notes, represented as a dictionary.
+
     """
-    reply_types = set()
-    for sub in submissions:
-        replies = sub.details["directReplies"]
+    notes = []
+    print(f"Parsing notes of type {note_type}")
+    # For each submission get the notes of the specified type
+    for submission in submissions:
+        for reply in submission.details["directReplies"]:
+            invitation = reply["invitation"]
+            invitation_type = invitation.split("/")[-1]
+            print(invitation_type)
+            if invitation_type not in note_type_mapping:
+                continue
+            if note_type_mapping[invitation_type] == note_type:
+                notes.append(reply)
+                break
 
-        for reply in replies:
-            for invitation in reply["invitations"]:
-                reply_type = invitation.split("/")[-1]
-                reply_types.add(reply_type)
+    print(f"Number of Notes found {len(notes)}")
+    # From notes derive schema
+    print(note_type)
+    note_schema: dict[str, dict[str, list]] = defaultdict(lambda: defaultdict(list))
+    if len(notes) == 0:
+        return note_schema
+    else:
+        for note in notes:
+            print(note)
+            for key, value in note["content"].items():
+                print(key, value)
+                if isinstance(value, list):
+                    value = "+".join(value)
 
-    return list(reply_types)
+                note_schema[key]["values"].append(value)
+
+    note_schema[key]["values"] = list(set(note_schema[key]["values"]))
+
+    return note_schema
 
 
-def get_note_schema(
+def get_note_schema_v2(
     submissions: list[openreview.Note], note_type_mapping: dict, note_type: str
 ) -> dict:
     """
@@ -354,8 +449,17 @@ def get_note_schema(
 
 
 def update_note_types(
+    submissions: list[openreview.Note], note_type_mapping: dict, api_v2: bool = True
+) -> tuple[list[str], dict]:
+    if api_v2:
+        return update_note_types_v2(submissions, note_type_mapping)
+    else:
+        return update_note_types_v1(submissions, note_type_mapping)
+
+
+def update_note_types_v1(
     submissions: list[openreview.Note], note_type_mapping: dict
-) -> dict:
+) -> tuple[list[str], dict]:
     """
     Updates the note types in the given submissions based on the provided note type mapping.
 
@@ -368,10 +472,52 @@ def update_note_types(
 
     """
     print("Checking note types of venue")
+    reply_types = set()
+    for sub in submissions:
+        for reply in sub.details["directReplies"]:
+            invitation = reply["invitation"]
+            note_type = invitation.split("/")[-1]
+            reply_types.add(note_type)
+            if note_type not in note_type_mapping:
+                correct_field = False
+                while not correct_field:
+                    note_data_model_type = input(
+                        f"Map the note type '{note_type}' to the note data model {NOTE_TYPES_DICT}. Type the number of the correct field:"
+                    )
+                    if note_data_model_type in NOTE_TYPES_DICT:
+                        note_type_mapping[note_type] = NOTE_TYPES_DICT[
+                            note_data_model_type
+                        ]
+                        correct_field = True
+
+    # Save the update version
+    with open(os.path.join("./data", "note_type_mapping.json"), "w+") as file:
+        json.dump(note_type_mapping, file, indent=4)
+
+    return list(reply_types), note_type_mapping
+
+
+def update_note_types_v2(
+    submissions: list[openreview.Note], note_type_mapping: dict
+) -> tuple[list[str], dict]:
+    """
+    Updates the note types in the given submissions based on the provided note type mapping.
+
+    Args:
+        submissions (list[openreview.Note]): A list of submissions to update.
+        note_type_mapping (dict): A dictionary mapping note types to note data models.
+
+    Returns:
+        dict: The updated note type mapping.
+
+    """
+    print("Checking note types of venue")
+    reply_types = set()
     for sub in submissions:
         for reply in sub.details["directReplies"]:
             for invitation in reply["invitations"]:
                 note_type = invitation.split("/")[-1]
+                reply_types.add(note_type)
                 if note_type not in note_type_mapping:
                     note_data_model_type = input(
                         f"Map the note type '{note_type}' to the note data model (Decision,Review,Comment). If it does not fit any type hit ENTER:"
@@ -385,7 +531,7 @@ def update_note_types(
     with open(os.path.join("./data", "note_type_mapping.json"), "w+") as file:
         json.dump(note_type_mapping, file, indent=4)
 
-    return note_type_mapping
+    return list(reply_types), note_type_mapping
 
 
 def update_submission_fields_mapping(
@@ -411,7 +557,9 @@ def update_submission_fields_mapping(
                 input_text = f"Map the field {field} to the submission data model\n"
                 input_text += f"Some example values: {content}\n"
                 input_text += f"Possible fields are: {SUBMISSION_FIELDS_DICT}.\n"
-                submission_data_model_field = input(f"{input_text} \n {field}:")
+                submission_data_model_field = input(
+                    f"{input_text} \n {field}. Type the number of the correct field:"
+                )
                 if submission_data_model_field in SUBMISSION_FIELDS_DICT:
                     not_correct_field = False
                     submission_data_model_field = SUBMISSION_FIELDS_DICT[
@@ -452,7 +600,9 @@ def update_review_fields_mapping(
                 input_text = f"Map the field {field} to the review data model\n"
                 input_text += f"Some example values: {content['values'][:20]}"
                 input_text += f"Possible fields are: {REVIEW_FIELDS_DICT}."
-                review_data_model_field = input(f"{input_text} \n {field}:")
+                review_data_model_field = input(
+                    f"{input_text} \n {field}. Type the number of the correct field:"
+                )
                 if review_data_model_field in REVIEW_FIELDS_DICT:
                     not_correct_field = False
                     review_data_model_field = REVIEW_FIELDS_DICT[
@@ -489,7 +639,7 @@ def update_decision_fields_mapping(
             not_correct_field = True
             while not_correct_field:
                 decision_type = input(
-                    f"Example values {set(content['values'])}. Map the field  {decision_field} to the decision data model ({DECISION_FIELDS_DICT}):"
+                    f"Example values {set(content['values'])}. Map the field  {decision_field} to the decision data model ({DECISION_FIELDS_DICT}). Type the number of the correct field:"
                 )
                 if decision_type in DECISION_FIELDS_DICT:
                     not_correct_field = False
@@ -532,9 +682,11 @@ def schemas2data_models(
         venue2review_encodings = {}
 
     if venue_id not in venue2review_encodings:
+        print(f"Venue ID {venue_id} not in venue2review_encodings")
         all_encodings = {}
         for review_field, content in schemas["review_schema"].items():
             field_type = review_fields_mapping[review_field]
+            print(f"Review field: {review_field} {field_type}")
             if field_type in [
                 "score",
                 "confidence",
@@ -582,6 +734,7 @@ def schemas2data_models(
 
             all_normalized_encodings[field] = normalized_encoding
 
+        print("all_normalized_encodings", all_normalized_encodings)
         venue2review_encodings[venue_id] = all_normalized_encodings
 
         # Save updated venue2review_encodings
@@ -606,6 +759,9 @@ def schemas2data_models(
     else:
         decision_value2encoded_value = {}
 
+    print(venue_id)
+    print(venue_id in venue2decision_encodings)
+    print(schemas["decision_schema"])
     if venue_id not in venue2decision_encodings:
         all_encodings = {}
         for decision_field, content in schemas["decision_schema"].items():
@@ -618,6 +774,7 @@ def schemas2data_models(
                     if encoding_impossible:
                         break
                     try:
+                        print(value)
                         encoded_value = decision_value2encoded_value[value]
                         encoding[value] = encoded_value
                     except KeyError:
@@ -630,8 +787,8 @@ def schemas2data_models(
                                 encoding_impossible = True
                                 break
                             if encoded_value in ["0", "1"]:
-                                decision_value2encoded_value[value] = encoded_value
-                                encoding[value] = encoded_value
+                                decision_value2encoded_value[value] = int(encoded_value)
+                                encoding[value] = int(encoded_value)
                                 encoding_successful = True
                             else:
                                 print("Please enter a valid encoding value")
@@ -670,9 +827,9 @@ def encoder(values: set, field: str) -> dict:
         >>> string_split_encoder(values)
         {'10:apple': 10, '20:banana': 20, '30:orange': 30}
     """
-    encoding = {}
+    encoding: dict[str, int | None] = {}
     need_to_encode_manually = False
-    score: Optional[int]
+    score: int | None = None
     for value in values:
         try:
             score = int(value)
@@ -683,7 +840,12 @@ def encoder(values: set, field: str) -> dict:
                 try:
                     score = int(value.split(" ")[0])
                 except Exception as e:
+                    logging.info(
+                        f"None of the automatic encodings worked on value {value}"
+                    )
                     need_to_encode_manually = True
+                    break
+        encoding[value] = score
 
     if need_to_encode_manually:
         response = input(

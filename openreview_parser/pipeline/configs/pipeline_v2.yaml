@@ -1,0 +1,29 @@
+---
+device: "cuda:0"
+max_n_sentences_per_example: 200
+debug: False
+save_directory: "../../dataset"
+use_openreview_api_v2: True
+openreview_guest_client: False
+use_s2_api_key: True
+s2_data_directory: ../scientific_databases/data/s2
+
+grobid:
+  max_workers: 4
+
+metadata:
+  max_workers: 4
+
+clean_up: True
+
+metadata:
+  classify_sections: True
+  get_references: True
+  get_s2_info: True
+  annotate_hypotheses: False
+
+llm:
+  provider: "openai"
+  model_name: "gpt-3.5-turbo"
+  max_tokens: 4096
+  temperature: 0.0

@@ -6,10 +6,9 @@ import logging
 
 import backoff
 
-from requests.exceptions import ConnectionError, Timeout
 
 from urllib.request import urlretrieve
-from urllib.error import HTTPError
+from urllib.error import HTTPError, ContentTooShortError
 
 
 def on_backoff(details):
@@ -21,7 +20,7 @@ def on_backoff(details):
 
 @backoff.on_exception(
     backoff.expo,
-    (HTTPError, ConnectionError, Timeout),
+    (HTTPError, ContentTooShortError),
     max_tries=5,
     on_backoff=on_backoff,
     raise_on_giveup=False,

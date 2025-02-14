@@ -23,7 +23,7 @@ fi
 cd ..
 
 # Run the script to complete the openreview dataset
-python pipeline.py --config ./configs/pipeline.yaml
+python pipeline.py --config ./configs/pipeline_v1.yaml
 
 # Clean up the tmux session 
 tmux kill-session -t run_grobid

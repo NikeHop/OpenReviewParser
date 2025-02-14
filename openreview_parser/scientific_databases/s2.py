@@ -10,7 +10,7 @@ from typing import TypedDict, Callable
 import backoff
 import requests
 
-from openreview_parser_v2.utils.data import Reference
+from openreview_parser.utils.data import Reference
 
 
 def on_backoff_s2(details) -> None:

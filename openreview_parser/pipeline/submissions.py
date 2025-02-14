@@ -6,6 +6,8 @@ import json
 import logging
 import os
 
+from datetime import datetime
+
 import openreview
 import tqdm
 
@@ -17,18 +19,18 @@ from doc2json.grobid2json.tei_to_json import (
 )
 from openreview.api import OpenReviewClient
 
-from openreview_parser_v2.hypothesis_annotation.annotate import annotate_paper
-from openreview_parser_v2.pipeline.utils import urlretrieve_backoff
-from openreview_parser_v2.scientific_databases.openreview import (
+from openreview_parser.hypothesis_annotation.annotate import annotate_paper
+from openreview_parser.pipeline.utils import urlretrieve_backoff
+from openreview_parser.scientific_databases.openreview import (
     get_submissions,
     get_notes,
 )
-from openreview_parser_v2.scientific_databases.s2 import get_s2info, get_s2_references
-from openreview_parser_v2.section_classification.classify import (
+from openreview_parser.scientific_databases.s2 import get_s2info, get_s2_references
+from openreview_parser.section_classification.classify import (
     classify_sections,
     SectionClassifier,
 )
-from openreview_parser_v2.utils.data import (
+from openreview_parser.utils.data import (
     VenueInstance,
     Comment,
     Review,
@@ -58,6 +60,21 @@ def submissions2papers(
     """
     parsed_venues = load_existing_venue_datasets(config)
 
+    if config["metadata"]["get_references"]:
+        filepath = os.path.join(config["s2_data_directory"], "all_titles.json")
+        assert os.path.exists(
+            filepath
+        ), f"File all_s2_titles.json not found in data directory"
+        with open(filepath, "r") as file:
+            all_s2_titles = json.load(file)
+
+        filepath = os.path.join(config["s2_data_directory"], "key_dictionary.json")
+        assert os.path.exists(
+            filepath
+        ), f"File key2file.json not found in data directory"
+        with open(filepath, "r") as file:
+            key2file = json.load(file)
+
     (
         note_type_mapping,
         submission_fields_mapping,
@@ -67,8 +84,9 @@ def submissions2papers(
         venue2decision_encodings,
     ) = load_encodings()
 
-    for venue_instance in venue_instances:
-        print(venue_instance)
+    total_n_venues_to_process = len(venue_instances)
+    for i, venue_instance in enumerate(venue_instances):
+        print(f"Parsing {venue_instance} ({i/total_n_venues_to_process*100:.2f}%)")
         venue_id = venue_instance.venue.replace("/", "_").replace(".", "_")
 
         if venue_id in parsed_venues:
@@ -76,7 +94,9 @@ def submissions2papers(
             continue
 
         logging.info(f"Processing {venue_instance.venue}")
-        submissions = get_submissions(openreview_client, venue_instance)
+        submissions = get_submissions(
+            openreview_client, venue_instance, config["use_openreview_api_v2"]
+        )
 
         if len(submissions) == 0:
             logging.info(f"No submissions found for {venue_instance.venue}")
@@ -90,6 +110,8 @@ def submissions2papers(
             venue2review_encodings,
             decision_fields_mapping,
             venue2decision_encodings,
+            all_s2_titles,
+            key2file,
             openreview_client,
             venue_id,
             config,
@@ -177,6 +199,8 @@ def parse_submissions(
     venue2review_encodings: dict,
     decision_fields_mapping: dict,
     venue2decision_encodings: dict,
+    all_s2_titles: set,
+    key2file: dict,
     client: OpenReviewClient,
     venue_id: str,
     config: dict,
@@ -208,7 +232,7 @@ def parse_submissions(
         section_classifier.load_preprocessing_utils(config["device"])
 
     n_submissions, n_reviews = 0, 0
-    for submission in tqdm.tqdm(submissions[:10]):
+    for submission in tqdm.tqdm(submissions[:2]):
         paper_info = {}
         submission = submission.to_json()
         id = submission["id"]
@@ -221,11 +245,16 @@ def parse_submissions(
             )
             return None
 
-        paperhash = (
-            submission["content"]["paperhash"]["value"].replace("/", "_")
-            + "|"
-            + venue_id
-        )
+        if config["use_openreview_api_v2"]:
+            paperhash = (
+                submission["content"]["paperhash"]["value"].replace("/", "_")
+                + "|"
+                + venue_id
+            )
+        else:
+            paperhash = (
+                submission["content"]["paperhash"].replace("/", "_") + "|" + venue_id
+            )
 
         if os.path.exists(
             os.path.join(config["save_directory"], "papers", f"{paperhash}.json")
@@ -234,9 +263,16 @@ def parse_submissions(
             continue
 
         paper_info["paperhash"] = paperhash
+        paper_info["venue"] = venue_id
+        paper_info["publication_date"] = get_publication_date(submission)
+        paper_info["license"] = submission.get("license", None)
+        print(submission)
+        print(paper_info)
 
         # Parse submission
-        submission_info = parse_submission_note(submission, submission_fields_mapping)
+        submission_info = parse_submission_note(
+            submission, submission_fields_mapping, config["use_openreview_api_v2"]
+        )
         paper_info.update(submission_info)
 
         if paper_info is None:
@@ -249,8 +285,11 @@ def parse_submissions(
 
         decision = None
         for note in notes:
-            note_type = note.invitations[0].split("/")[-1]
-            print(note_type)
+            if config["use_openreview_api_v2"]:
+                note_type = note.invitations[0].split("/")[-1]
+            else:
+                note_type = note.invitation.split("/")[-1]
+
             if note_type == "Blind_Submission":
                 continue
             if note_type not in note_type_mapping:
@@ -272,10 +311,13 @@ def parse_submissions(
         if decision == None:
             if venue_id in SPECIAL_CASES_DECISIONS:
                 decision,
-        comments = process_comments(comments)
+        comments = process_comments(comments, api_v2=config["use_openreview_api_v2"])
         review_fields_encoding = venue2review_encodings[venue_id]
         reviews = process_reviews(
-            reviews, review_fields_mapping, review_fields_encoding
+            reviews,
+            review_fields_mapping,
+            review_fields_encoding,
+            config["use_openreview_api_v2"],
         )
         decision_encodings = venue2decision_encodings[venue_id]
 
@@ -292,7 +334,11 @@ def parse_submissions(
                 decision_text = None
         else:
             decision, decision_text = process_decision(
-                decision, decision_fields_mapping, decision_encodings, venue_id
+                decision,
+                decision_fields_mapping,
+                decision_encodings,
+                venue_id,
+                config["use_openreview_api_v2"],
             )
 
         paper_info["reviews"] = reviews
@@ -334,6 +380,7 @@ def parse_submissions(
         # Organize structured content
         paper.organize_text()
         paper.create_bibref2paperhash()
+        paper.n_references = len(paper.bibref2paperhash)
 
         # Section classifier
         if config["metadata"]["classify_sections"]:
@@ -357,6 +404,9 @@ def parse_submissions(
                         "influentialCitationCount", None
                     )
                     paper.external_ids = s2_info.get("externalIds", None)
+                    if paper.external_ids is not None:
+                        paper.s2_corpus_id = paper.external_ids.get("CorpusId", None)
+                        paper.arxiv_id = paper.external_ids.get("ArXiv", None)
 
         # Get references
         if config["metadata"]["get_references"]:
@@ -367,8 +417,9 @@ def parse_submissions(
                 )
             else:
                 # For rejected papers get references from the GROBID parse
-                # references = get_references_grobid(paper)
-                pass
+                references = get_references_grobid(
+                    paper, all_s2_titles, key2file, config
+                )
 
             paper.references = references
 
@@ -402,7 +453,49 @@ def handle_special_cases_decision(
     return None, None
 
 
-def parse_submission_note(submission: dict, submission_fields_mapping: dict) -> dict:
+def parse_submission_note(
+    submission: dict, submission_fields_mapping: dict, api_v2: bool = True
+) -> dict:
+    if api_v2:
+        return parse_submission_note_v2(submission, submission_fields_mapping)
+    else:
+        return parse_submission_note_v1(submission, submission_fields_mapping)
+
+
+def parse_submission_note_v1(submission: dict, submission_fields_mapping: dict) -> dict:
+    paper_info: dict = {}
+    for key, value in submission["content"].items():
+        if key not in submission_fields_mapping:
+            continue
+
+        model_field = submission_fields_mapping[key]
+        if model_field == None:
+            continue
+
+        elif model_field == "field_of_study":
+            # Check whether its str or list; convert str to list[str]
+            if isinstance(value, str):
+                field_of_study_value = [value]
+            else:
+                field_of_study_value = value
+
+            # Check whether field already exists, if yes concatenate
+            if "field_of_study" in paper_info:
+                paper_info["field_of_study"] += field_of_study_value
+            else:
+                paper_info["field_of_study"] = field_of_study_value
+        elif model_field == "authors":
+            if isinstance(value, str):
+                paper_info["authors"] = [value]
+            else:
+                paper_info["authors"] = value
+        else:
+            paper_info[model_field] = value
+
+    return paper_info
+
+
+def parse_submission_note_v2(submission: dict, submission_fields_mapping: dict) -> dict:
     paper_info: dict = {}
     for key, value in submission["content"].items():
         if key not in submission_fields_mapping:
@@ -424,7 +517,11 @@ def parse_submission_note(submission: dict, submission_fields_mapping: dict) -> 
                 paper_info["field_of_study"] += field_of_study_value
             else:
                 paper_info["field_of_study"] = field_of_study_value
-
+        elif model_field == "authors":
+            if isinstance(value["value"], str):
+                paper_info["authors"] = [value["value"]]
+            else:
+                paper_info["authors"] = value["value"]
         else:
             paper_info[model_field] = value["value"]
 
@@ -470,7 +567,42 @@ def parse_pdf(
     return paper
 
 
-def process_comments(comments: list[dict]) -> list[Comment]:
+def process_comments(comments: list[dict], api_v2: bool = True) -> list[Comment]:
+    if api_v2:
+        return process_comments_v2(comments)
+    else:
+        return process_comments_v1(comments)
+
+
+def process_comments_v1(comments: list[dict]) -> list[Comment]:
+    """
+    Postprocesses a list of comments and returns a list of Comment objects.
+
+    Args:
+        comments (list[dict]): The list of comments to be processed.
+
+    Returns:
+        list[Comment]: The processed list of Comment objects.
+    """
+    processed_comments = []
+    for comment in comments:
+        content = comment["content"]
+        title = content.get("title", None)
+        comment = content.get("comment", None)
+
+        if comment == None:
+            continue
+
+        comment_text = comment
+        if title != None:
+            title = title
+
+        processed_comments.append(Comment(title=title, comment=comment_text))
+
+    return processed_comments
+
+
+def process_comments_v2(comments: list[dict]) -> list[Comment]:
     """
     Postprocesses a list of comments and returns a list of Comment objects.
 
@@ -498,10 +630,28 @@ def process_comments(comments: list[dict]) -> list[Comment]:
     return processed_comments
 
 
+def get_publication_date(submission_note: openreview.Note) -> str | None:
+    p_date = submission_note["content"].get("publication_date", None)
+    if p_date is None:
+        # odate contains the Unix timestamp in miliseconds when Note becomes public
+        p_date = submission_note.get("odate", None)
+        if p_date is not None:
+            p_date = p_date / 1000
+            p_date = datetime.fromtimestamp(p_date).strftime("%Y-%m-%d")
+    else:
+        if isinstance(p_date, str):
+            p_date = p_date
+        else:
+            p_date = p_date["value"]
+
+    return p_date
+
+
 def process_reviews(
     reviews: list[dict],
     review_field_mapping: dict,
     review_encodings: dict,
+    api_v2: bool = True,
 ) -> list[Review]:
     """
     Postprocesses a list of reviews.
@@ -520,7 +670,11 @@ def process_reviews(
         encoded_review = {"review_id": review["id"]}
         text_review = {}
         for field, field_value in review["content"].items():
-            field_value = str(field_value["value"])
+            if api_v2:
+                field_value = str(field_value["value"])
+            else:
+                field_value = str(field_value)
+
             field_type = review_field_mapping[field]
 
             if field_type == None:
@@ -560,7 +714,11 @@ def process_reviews(
 
 
 def process_decision(
-    decision: dict, decision_mapping: dict, decision_encodings: dict, venue_id: str
+    decision: dict,
+    decision_mapping: dict,
+    decision_encodings: dict,
+    venue_id: str,
+    api_v2: bool = True,
 ) -> tuple[bool | None, str | None]:
     """
     Postprocesses a decision and returns the decision and decision text.
@@ -577,13 +735,22 @@ def process_decision(
     decision_text = ""
     decision_bool = None
     for key, value in decision["content"].items():
-        value = value["value"]
+        if api_v2:
+            value = value["value"]
+        else:
+            value = value
+
         if key not in decision_mapping:
             logging.warning(f"Key {key} not in decision mapping for {venue_id}.")
             continue
         model_field = decision_mapping[key]
 
         if model_field == "decision":
+            # For some venus the decision is a list
+            if isinstance(value, list):
+                if len(value) == 0:
+                    continue
+                value = value[0]
             if value not in decision_encodings[model_field]:
                 logging.info(f"Value {value} not in decision encodings for {venue_id}.")
                 continue
@@ -596,7 +763,9 @@ def process_decision(
     return decision_bool, decision_text
 
 
-def get_references_grobid(paper: Paper, title2s2info: dict) -> list[Reference]:
+def get_references_grobid(
+    paper: Paper, all_s2_titles: set, key2file: dict, config: dict
+) -> list[Reference]:
     references = []
 
     if not (
@@ -606,10 +775,105 @@ def get_references_grobid(paper: Paper, title2s2info: dict) -> list[Reference]:
         or "bib_entries" not in paper.parsed_pdf["pdf_parse"]
     ):
         for value in paper.parsed_pdf["pdf_parse"]["bib_entries"].values():
-            title = value["title"].lower()
-            if title in title2s2info:
-                s2info = title2s2info[title]
-                reference = Reference(**s2info)
+            title = value["title"].strip().lower()
+
+            if title in all_s2_titles:
+                print(f"{title} found")
+                # Find the file to open
+                file = find_file(title, key2file)
+                filepath = os.path.join(
+                    config["s2_data_directory"], "parsed_paper_info", f"{file}.json"
+                )
+                with open(filepath, "r") as file:
+                    title2s2info = json.load(file)
+                    s2info = title2s2info[title]
+
+                    external_ids = s2info.get("externalIds", None)
+                    if external_ids is not None:
+                        corpus_id = external_ids.get("CorpusId", None)
+                        if corpus_id is not None:
+                            corpus_id = str(corpus_id)
+                        arxiv_id = external_ids.get("ArXiv", None)
+                    else:
+                        corpus_id = None
+                        arxiv_id = None
+
+                    abstract = s2info.get("abstract", "")
+                    if abstract is None:
+                        abstract = ""
+
+                    reference_info = {
+                        "title": title,
+                        "abstract": abstract,
+                        "authors": s2info.get("authors", []),
+                        "external_ids": external_ids,
+                        "arxiv_id": arxiv_id,
+                        "s2_corpus_id": corpus_id,
+                    }
+
+                    reference = Reference(**s2info)
+                    references.append(reference)
+
+            else:
+                print(f"{title} not found")
+                s2info = get_s2info(
+                    title,
+                    ["title", "abstract", "authors", "externalIds"],
+                    config["use_s2_api_key"],
+                )
+
+                if s2info is None:
+                    logging.info(f"Could not get s2 info for reference {title}")
+                    continue
+
+                external_ids = s2info.get("externalIds", None)
+                if external_ids is not None:
+                    corpus_id = external_ids.get("CorpusId", None)
+                    if corpus_id is not None:
+                        corpus_id = str(corpus_id)
+                    arxiv_id = external_ids.get("ArXiv", None)
+                else:
+                    corpus_id = None
+                    arxiv_id = None
+
+                authors = s2info.get("authors", [])
+                authors = [author["name"] for author in authors]
+
+                abstract = s2info.get("abstract", "")
+                if abstract is None:
+                    abstract = ""
+
+                reference_info = {
+                    "title": title,
+                    "abstract": abstract,
+                    "authors": authors,
+                    "arxiv_id": arxiv_id,
+                    "s2_corpus_id": corpus_id,
+                    "external_ids": external_ids,
+                }
+
+                reference = Reference(**reference_info)
                 references.append(reference)
 
     return references
+
+
+def find_file(title, key2file):
+    print(title)
+    intervals = [(start, end, filekey) for filekey, (start, end) in key2file.items()]
+
+    left, right = 0, len(intervals) - 1
+
+    while left <= right:
+        mid = (left + right) // 2
+        start, end, _ = intervals[mid]
+
+        if start <= title <= end:
+            print(f"start {start}", f"end {end}", f"file {intervals[mid][-1]}")
+            return intervals[mid][-1]  # Element is in this interval
+        elif title < start:
+            right = mid - 1  # Search in the left half
+        else:
+            left = mid + 1  # Search in the right half
+
+    return None  # No interval found

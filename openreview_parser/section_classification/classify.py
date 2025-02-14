@@ -11,7 +11,7 @@ from adapters import AutoAdapterModel
 from torch.optim import Adam
 from transformers import AutoTokenizer
 
-from openreview_parser_v2.utils.data import Paper
+from openreview_parser.utils.data import Paper
 
 SECTIONS = [
     "introduction",

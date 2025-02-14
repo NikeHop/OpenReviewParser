@@ -3,7 +3,7 @@ requires = ["setuptools>=64", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-packages = ["openreview_parser_v2"]
+packages = ["openreview_parser"]
 
 [project]
 name = "openreview_parser"
@@ -78,7 +78,6 @@ dependencies = ["adapters==1.1.0",
     "nvidia-nvtx-cu12==12.4.127",
     "openai==1.61.1",
     "openreview-py==1.46.3",
-    "-e git+https://github.com/NikeHop/OpenReviewParser@73b029d765364a6d9c9f08ccaedd3ae35400c479#egg=openreview_parser",
     "orjson==3.10.15",
     "packaging==24.2",
     "pandas==2.2.3",

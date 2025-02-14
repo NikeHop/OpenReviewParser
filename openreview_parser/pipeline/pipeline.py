@@ -1,30 +1,20 @@
 """
 The pipeline that builds the OpenReview dataset
 """
-
 import argparse
 import logging
 import os
 
 import yaml
-import tqdm
 
-from openreview_parser_v2.scientific_databases.openreview import (
-    get_openreview_client_v2,
+from openreview_parser.scientific_databases.openreview import (
+    get_openreview_client,
 )
-from openreview_parser_v2.pipeline.submissions import submissions2papers
-from openreview_parser_v2.pipeline.venue import get_venue_instances
-from openreview_parser_v2.pipeline.schema import get_schemas
-from openreview_parser_v2.utils.data import VenueInstance
+from openreview_parser.pipeline.submissions import submissions2papers
+from openreview_parser.pipeline.venue import get_venue_instances
+from openreview_parser.pipeline.schema import get_schemas
+from openreview_parser.utils.data import VenueInstance
 
-DEBUG_VENUE = VenueInstance(
-    venue="NeurIPS.cc/2023/Conference",
-    name="NeurIPS.cc",
-    year=2023,
-    conference=True,
-    workshop=False,
-    workshop_name=None,
-)
 
 DEBUG_VENUE = VenueInstance(
     venue="ICLR.cc/2024/Conference",
@@ -49,7 +39,7 @@ def build_dataset(config: dict) -> None:
     """
 
     # Get OpenReview client
-    openreview_client = get_openreview_client_v2(config["openreview"])
+    openreview_client = get_openreview_client(config)
 
     # Prepare Directory Structure for Dataset
     for directory in ["venues", "papers", "schemas", "pdfs", "xmls"]:
@@ -65,6 +55,9 @@ def build_dataset(config: dict) -> None:
     # Get schema for venue instances
     venue_instances_full_info = get_schemas(openreview_client, venue_instances, config)
     logging.info(f"Obtained schemas")
+
+    if config["debug"]:
+        venue_instances = [DEBUG_VENUE]
 
     # Parse submissions into data model for each venue instance
     submissions2papers(venue_instances_full_info, openreview_client, config)
