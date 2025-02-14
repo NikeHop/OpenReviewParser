@@ -5,7 +5,7 @@ debug: False
 save_directory: "../../dataset"
 use_openreview_api_v2: True
 openreview_guest_client: False
-use_s2_api_key: True
+use_s2_api_key: False
 s2_data_directory: ../scientific_databases/data/s2
 venue: ""
 
@@ -19,8 +19,8 @@ clean_up: True
 
 metadata:
   classify_sections: False
-  get_references: False
-  get_s2_info: False
+  get_references: True
+  get_s2_info: True
   annotate_hypotheses: False
 
 llm:

@@ -6,7 +6,7 @@ import os
 import backoff
 import requests
 
-from requests.exceptions import HTTPError
+from requests.exceptions import HTTPError, ConnectionError, Timeout
 
 from openreview_parser.utils.data import Reference
 
@@ -22,7 +22,6 @@ def on_backoff_s2(details) -> None:
         None
     """
     logging.warning(f"Backing off {details['wait']}")
-    print(details["exception"], type(details["exception"]))
 
 
 def get_s2_header(use_api_key: bool) -> dict:
@@ -83,7 +82,7 @@ def get_formatted_id(id_type: str, idd: str) -> str:
 
 @backoff.on_exception(
     backoff.expo,
-    HTTPError,
+    (HTTPError, Timeout, ConnectionError),
     max_time=5,
     on_backoff=on_backoff_s2,
     raise_on_giveup=False,
@@ -124,10 +123,11 @@ def get_s2info(
 
 @backoff.on_exception(
     backoff.expo,
-    requests.exceptions.RequestException,
+    (HTTPError, Timeout, ConnectionError),
     raise_on_giveup=False,
     max_time=5,
     on_backoff=on_backoff_s2,
+    giveup=lambda x: isinstance(x, HTTPError) and x.response.status_code == 404,
 )
 def get_s2_references(
     idd: str, id_type: str, use_api_key: bool, max_n_references: int = 100
