@@ -97,7 +97,7 @@ This requires around 140G of disk space and a Semantic Scholar API key. The pape
  
 ### Run pipeline for individual venues 
 
-For venues accessible via API V1:
+Make sure GROBID is running. For venues accessible via API V1:
 
 ```
 python pipeline.py --config ./configs/pipeline_v1.yaml --venue "ICLR.cc/2022/Conference"

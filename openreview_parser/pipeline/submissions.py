@@ -72,6 +72,9 @@ def submissions2papers(
         ), f"File key2file.json not found in data directory"
         with open(filepath, "r") as file:
             key2file = json.load(file)
+    else:
+        all_s2_titles = set()
+        key2file = {}
 
     (
         note_type_mapping,
