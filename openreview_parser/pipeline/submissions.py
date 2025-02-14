@@ -230,7 +230,7 @@ def parse_submissions(
         section_classifier.load_preprocessing_utils(config["device"])
 
     n_submissions, n_reviews = 0, 0
-    for submission in tqdm.tqdm(submissions[:2]):
+    for submission in tqdm.tqdm(submissions):
         paper_info = {}
         submission = submission.to_json()
         id = submission["id"]
