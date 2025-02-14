@@ -1,0 +1,2848 @@
+{
+    "ICLR_cc_2022_Conference": {
+        "technical_novelty_and_significance": {
+            "3: The contributions are significant and somewhat new. Aspects of the contributions exist in prior work.": 0.6666666666666666,
+            "4: The contributions are significant, and do not exist in prior works.": 1.0,
+            "2: The contributions are only marginally significant or novel.": 0.3333333333333333,
+            "1: The contributions are neither significant nor novel.": 0.0
+        },
+        "empirical_novelty_and_significance": {
+            "2: The contributions are only marginally significant or novel.": 0.5,
+            "4: The contributions are significant, and do not exist in prior works.": 1.0,
+            "3: The contributions are significant and somewhat new. Aspects of the contributions exist in prior work.": 0.75,
+            "1: The contributions are neither significant nor novel.": 0.25,
+            "Not applicable": 0.0
+        },
+        "correctness": {
+            "2: Several of the paper\u2019s claims are incorrect or not well-supported.": 0.3333333333333333,
+            "4: All of the claims and statements are well-supported and correct.": 1.0,
+            "3: Some of the paper\u2019s claims have minor issues. A few statements are not well-supported, or require small changes to be made correct.": 0.6666666666666666,
+            "1: The main claims of the paper are incorrect or not at all supported by theory or empirical results.": 0.0
+        },
+        "confidence": {
+            "4: You are confident in your assessment, but not absolutely certain. It is unlikely, but not impossible, that you did not understand some parts of the submission or that you are unfamiliar with some pieces of related work.": 0.75,
+            "3: You are fairly confident in your assessment. It is possible that you did not understand some parts of the submission or that you are unfamiliar with some pieces of related work. Math/other details were not carefully checked.": 0.5,
+            "1: You are unable to assess this paper and have alerted the ACs to seek an opinion from different reviewers.": 0.0,
+            "5: You are absolutely certain about your assessment. You are very familiar with the related work and checked the math/other details carefully.": 1.0,
+            "2: You are willing to defend your assessment, but it is quite likely that you did not understand the central parts of the submission or that you are unfamiliar with some pieces of related work. Math/other details were not carefully checked.": 0.25
+        },
+        "recommendation": {
+            "6: marginally above the acceptance threshold": 0.6000000000000001,
+            "3: reject, not good enough": 0.2,
+            "5: marginally below the acceptance threshold": 0.4,
+            "1: strong reject": 0.0,
+            "8: accept, good paper": 0.8,
+            "10: strong accept, should be highlighted at the conference": 1.0
+        }
+    },
+    "ICLR_cc_2023_Conference": {
+        "technical_novelty_and_significance": {
+            "3: The contributions are significant and somewhat new. Aspects of the contributions exist in prior work.": 0.6666666666666666,
+            "4: The contributions are significant, and do not exist in prior works.": 1.0,
+            "2: The contributions are only marginally significant or novel.": 0.3333333333333333,
+            "1: The contributions are neither significant nor novel.": 0.0
+        },
+        "empirical_novelty_and_significance": {
+            "2: The contributions are only marginally significant or novel.": 0.5,
+            "4: The contributions are significant, and do not exist in prior works.": 1.0,
+            "3: The contributions are significant and somewhat new. Aspects of the contributions exist in prior work.": 0.75,
+            "1: The contributions are neither significant nor novel.": 0.25,
+            "Not applicable": 0.0
+        },
+        "correctness": {
+            "2: Several of the paper\u2019s claims are incorrect or not well-supported.": 0.3333333333333333,
+            "4: All of the claims and statements are well-supported and correct.": 1.0,
+            "3: Some of the paper\u2019s claims have minor issues. A few statements are not well-supported, or require small changes to be made correct.": 0.6666666666666666,
+            "1: The main claims of the paper are incorrect or not at all supported by theory or empirical results.": 0.0
+        },
+        "confidence": {
+            "4: You are confident in your assessment, but not absolutely certain. It is unlikely, but not impossible, that you did not understand some parts of the submission or that you are unfamiliar with some pieces of related work.": 0.75,
+            "3: You are fairly confident in your assessment. It is possible that you did not understand some parts of the submission or that you are unfamiliar with some pieces of related work. Math/other details were not carefully checked.": 0.5,
+            "1: You are unable to assess this paper and have alerted the ACs to seek an opinion from different reviewers.": 0.0,
+            "5: You are absolutely certain about your assessment. You are very familiar with the related work and checked the math/other details carefully.": 1.0,
+            "2: You are willing to defend your assessment, but it is quite likely that you did not understand the central parts of the submission or that you are unfamiliar with some pieces of related work. Math/other details were not carefully checked.": 0.25
+        },
+        "recommendation": {
+            "6: marginally above the acceptance threshold": 0.6000000000000001,
+            "3: reject, not good enough": 0.2,
+            "5: marginally below the acceptance threshold": 0.4,
+            "1: strong reject": 0.0,
+            "8: accept, good paper": 0.8,
+            "10: strong accept, should be highlighted at the conference": 1.0
+        }
+    },
+    "NeurIPS_cc_2022_Workshop_NeurReps": {
+        "overall_rating": {
+            "5: Technically solid paper with some limitations e.g., limited analysis or evaluation.": 0.4444444444444444,
+            "4: Technically solid paper with substantial limitations.": 0.2222222222222222,
+            "8: Technically strong paper with novel ideas and high-to-excellent impact, and excellent evaluation and reproducibility.": 0.7777777777777777,
+            "10: Technically flawless paper with excellent impact, deserving of special recognition.": 1.0,
+            "3: A paper with technical flaws, weak evaluation, or inadequate reproducibility.": 0.1111111111111111,
+            "4: Technically solid paper substantial limitations.": 0.3333333333333333,
+            "2: A paper with major technical flaws, and/or poor evaluation, limited impact, or poor reproducibility.": 0.0,
+            "6: Technically solid, moderate impact paper, with no major concerns with respect to evaluation and reproducibility.": 0.5555555555555556,
+            "9: Technically flawless paper with excellent impact.": 0.8888888888888888,
+            "7: Technically solid paper, with moderate-to-high impact, and good-to-excellent evaluation and reproducibility.": 0.6666666666666666
+        },
+        "presentation": {
+            "1: Poor": 0.0,
+            "4: Excellent": 1.0,
+            "2: Fair": 0.3333333333333333,
+            "3: Good": 0.6666666666666666
+        },
+        "soundness": {
+            "1: Poor": 0.0,
+            "4: Excellent": 1.0,
+            "2: Fair": 0.3333333333333333,
+            "3: Good": 0.6666666666666666
+        },
+        "recommended_decision": {
+            "2: Borderline": 0.5,
+            "1: Reject": 0.0,
+            "3: Accept": 1.0
+        },
+        "confidence": {
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.25,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.75,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        },
+        "contribution": {
+            "2: Fair": 0.3333333333333333,
+            "4: Excellent": 1.0,
+            "1: Poor": 0.0,
+            "3: Good": 0.6666666666666666
+        },
+        "relevance": {
+            "4: Highly relevant": 1.0,
+            "1: Not at all relevant": 0.0,
+            "3: Solid fit": 0.6666666666666666,
+            "2: Limited relevance": 0.3333333333333333
+        }
+    },
+    "NeurIPS_cc_2022_Workshop_TSRML": {
+        "overall_rating": {
+            "7: Good paper, accept": 0.5714285714285714,
+            "8: Top 50% of accepted papers, clear accept": 0.7142857142857142,
+            "9: Top 15% of accepted papers, strong accept": 0.8571428571428571,
+            "4: Ok but not good enough - rejection": 0.14285714285714285,
+            "3: Clear rejection": 0.0,
+            "10: Top 5% of accepted papers, seminal paper": 1.0,
+            "6: Marginally above acceptance threshold": 0.42857142857142855,
+            "5: Marginally below acceptance threshold": 0.2857142857142857
+        }
+    },
+    "ICLR_cc_2020_Conference": {
+        "experience_assessment": {
+            "I have published one or two papers in this area.": 0.6666666666666666,
+            "I do not know much about this area.": 0.0,
+            "I have published in this field for several years.": 1.0,
+            "I have read many papers in this area.": 0.3333333333333333
+        },
+        "rating": {
+            "1: Reject": 0.0,
+            "6: Weak Accept": 0.6666666666666666,
+            "8: Accept": 1.0,
+            "3: Weak Reject": 0.3333333333333333
+        },
+        "review_assessment:_checking_correctness_of_experiments": {
+            "I assessed the sensibility of the experiments.": 0.6666666666666666,
+            "N/A": 0.0,
+            "I did not assess the experiments.": 0.3333333333333333,
+            "I carefully checked the experiments.": 1.0
+        },
+        "review_assessment:_checking_correctness_of_derivations_and_theory": {
+            "I did not assess the derivations or theory.": 0.3333333333333333,
+            "N/A": 0.0,
+            "I assessed the sensibility of the derivations and theory.": 0.6666666666666666,
+            "I carefully checked the derivations and theory.": 1.0
+        },
+        "review_assessment:_thoroughness_in_paper_reading": {
+            "I made a quick assessment of this paper.": 0.3333333333333333,
+            "N/A": 0.0,
+            "I read the paper at least twice and used my best judgement in assessing the paper.": 0.6666666666666666,
+            "I read the paper thoroughly.": 1.0
+        }
+    },
+    "robot-learning_org_CoRL_2023_Conference": {
+        "originality": {
+            "Excellent: Surprising new results": 1.0,
+            "Poor: Very limited or no advance.": 0.0,
+            "Fair: Incremental work, no significant advance.": 0.25,
+            "Very Good:  Major advance in one or more aspects listed above.": 0.75,
+            "Good: Some advance.": 0.5
+        },
+        "confidence": {
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.25,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.75,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        },
+        "impact": {
+            "3: The work is incremental and unlikely to have much impact, even though it may be technically correct and well executed.": 0.6666666666666666,
+            "1: Not very relevant to the robot learning community.": 0.0,
+            "2: Unsure, difficult to assess.": 0.3333333333333333,
+            "4: The work contains interesting new ideas that will potentially have major impact in robotics or machine learning.": 1.0
+        },
+        "recommendation": {
+            "Strong Accept: I recommend accepting the paper and will argue for my recommendation even if other reviewers hold a different opinion.": 1.0,
+            "Weak Accept: I recommend accepting the paper, but will not argue for my recommendation if the majority of other reviewers have a different opinion.": 0.6666666666666666,
+            "Weak Reject: I recommend rejecting the paper, but will not argue for my recommendation if the majority of other reviewers have a different opinion.": 0.3333333333333333,
+            "Strong Reject: I recommend rejecting the paper and will argue for my recommendation even if other reviewers hold a different opinion.": 0.0
+        }
+    },
+    "robot-learning_org_CoRL_2022_Conference": {
+        "originality": {
+            "Excellent: Surprising new results": 1.0,
+            "Poor: Very limited or no advance.": 0.0,
+            "Fair: Incremental work, no significant advance.": 0.25,
+            "Very Good:  Major advance in one or more aspects listed above.": 0.75,
+            "Good: Some advance.": 0.5
+        },
+        "impact": {
+            "3: The work is incremental and unlikely to have much impact, even though it may be technically correct and well executed.": 0.6666666666666666,
+            "1: Not very relevant to the robot learning community.": 0.0,
+            "2: Unsure, difficult to assess.": 0.3333333333333333,
+            "4: The work contains interesting new ideas that will potentially have major impact in robotics or machine learning.": 1.0
+        },
+        "technical_quality": {
+            "Fair: Significant additional evidence required to support the claims.": 0.0,
+            "Poor: Lack of required evidence to support the claims.": 0.25,
+            "Good: Generally convincing, but some additional experiments or analyses needed.": 0.5,
+            "Very Good:  Convincing.": 0.75,
+            "Excellent: Very convincing and thorough.": 1.0
+        },
+        "clarity_of_presentation": {
+            "Good: Minor revision needed to improve organization or clarity.": 0.5,
+            "Fair: Major revision needed to improve organization or clarity.": 0.25,
+            "Very Good:  Well organized and clear.": 0.75,
+            "Poor: Difficult to follow and understand.": 0.0,
+            "Excellent: Enjoyable to read.": 1.0
+        },
+        "recommendation": {
+            "Strong Reject: I recommend rejecting the paper and will argue for my recommendation even if other reviewers hold a different opinion.": 0.0,
+            "Weak Accept: I recommend accepting the paper, but will not argue for my recommendation if the majority of other reviewers have a different opinion.": 0.3333333333333333,
+            "Weak Reject: I recommend rejecting the paper, but will not argue for my recommendation if the majority of other reviewers have a different opinion.": 0.6666666666666666,
+            "Strong Accept: I recommend accepting the paper and will argue for my recommendation even if other reviewers hold a different opinion.": 1.0
+        },
+        "reviewer_expertise": {
+            "Good: General knowledge of the are": 0.5,
+            "Poor: Limited knowledge of the area": 0.0,
+            "Excellent: Expert knowledge on the topic of the paper": 1.0,
+            "Very good: Comprehensive knowledge of the area": 0.75,
+            "Fair: Some knowledge of the area": 0.25
+        }
+    },
+    "robot-learning_org_CoRL_2021_Conference": {
+        "originality": {
+            "Excellent: Surprising new results": 1.0,
+            "Poor: Very limited or no advance.": 0.0,
+            "Fair: Incremental work, no significant advance.": 0.25,
+            "Very Good:  Major advance in one or more aspects listed above.": 0.75,
+            "Good: Some advance.": 0.5
+        },
+        "impact": {
+            "3: The work is incremental and unlikely to have much impact, even though it may be technically correct and well executed.": 0.6666666666666666,
+            "1: Not very relevant to the robot learning community.": 0.0,
+            "2: Unsure, difficult to assess.": 0.3333333333333333,
+            "4: The work contains interesting new ideas that will potentially have major impact in robotics or machine learning.": 1.0
+        },
+        "technical_quality": {
+            "Fair: Significant additional evidence required to support the claims.": 0.0,
+            "Poor: Lack of required evidence to support the claims.": 0.25,
+            "Good: Generally convincing, but some additional experiments or analyses needed.": 0.5,
+            "Very Good:  Convincing.": 0.75,
+            "Excellent: Very convincing and thorough.": 1.0
+        },
+        "clarity_of_presentation": {
+            "Good: Minor revision needed to improve organization or clarity.": 0.5,
+            "Fair: Major revision needed to improve organization or clarity.": 0.25,
+            "Very Good:  Well organized and clear.": 0.75,
+            "Poor: Difficult to follow and understand.": 0.0,
+            "Excellent: Enjoyable to read.": 1.0
+        },
+        "recommendation": {
+            "Strong Reject: I recommend rejecting the paper and will argue for my recommendation even if other reviewers hold a different opinion.": 0.0,
+            "Weak Accept: I recommend accepting the paper, but will not argue for my recommendation if the majority of other reviewers have a different opinion.": 0.3333333333333333,
+            "Weak Reject: I recommend rejecting the paper, but will not argue for my recommendation if the majority of other reviewers have a different opinion.": 0.6666666666666666,
+            "Strong Accept: I recommend accepting the paper and will argue for my recommendation even if other reviewers hold a different opinion.": 1.0
+        },
+        "reviewer_expertise": {
+            "Good: General knowledge of the area": 0.5,
+            "Poor: Limited knowledge of the area": 0.0,
+            "Excellent: Expert knowledge on the topic of the paper": 1.0,
+            "Very good: Comprehensive knowledge of the area": 0.75,
+            "Fair: Some knowledge of the area": 0.25
+        }
+    },
+    "RBCDSAI_iitm_ac_in_DAI_2023_Conference": {
+        "rating": {
+            "1: Reject": 0.0,
+            "3: Accept ": 0.6666666666666666,
+            "4: Accept (candidate for best article)": 1.0,
+            "2: Borderline": 0.3333333333333333
+        },
+        "confidence": {
+            "3: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.0
+        }
+    },
+    "AKBC_ws_2021_Workshop_CSKB": {
+        "rating": {
+            "7: Good paper, accept": 0.5,
+            "6: Marginally above acceptance threshold": 0.0,
+            "8: Top 50% of accepted papers, clear accept": 1.0
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.5,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "aclweb_org_ACL_2022_Workshop_FL4NLP": {
+        "rating": {
+            "7: Good paper, accept": 0.6000000000000001,
+            "5: Marginally below acceptance threshold": 0.2,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "6: Marginally above acceptance threshold": 0.4,
+            "4: Ok but not good enough - rejection": 0.0,
+            "8: Top 50% of accepted papers, clear accept": 0.8
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.6666666666666666,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.3333333333333333,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "aclweb_org_ACL_2022_Workshop_CSRR": {
+        "rating": {
+            "7: Good paper, accept": 0.6000000000000001,
+            "5: Marginally below acceptance threshold": 0.2,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "6: Marginally above acceptance threshold": 0.4,
+            "4: Ok but not good enough - rejection": 0.0,
+            "8: Top 50% of accepted papers, clear accept": 0.8
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.5,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "Interspeech_org_2023_Workshop_SSW": {
+        "rating": {
+            "7: Good paper, accept": 0.6000000000000001,
+            "5: Marginally below acceptance threshold": 0.2,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "6: Marginally above acceptance threshold": 0.4,
+            "4: Ok but not good enough - rejection": 0.0,
+            "8: Top 50% of accepted papers, clear accept": 0.8
+        },
+        "confidence": {
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.25,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.75,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "ACM_org_ICMI_2022_Workshop_GENEA": {
+        "rating": {
+            "7: Good paper, accept": 0.6000000000000001,
+            "5: Marginally below acceptance threshold": 0.2,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "6: Marginally above acceptance threshold": 0.4,
+            "4: Ok but not good enough - rejection": 0.0,
+            "8: Top 50% of accepted papers, clear accept": 0.8
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.5,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "ACM_org_ICMI_2023_Workshop_GENEA": {
+        "rating": {
+            "7: Good paper, accept": 0.6000000000000001,
+            "5: Marginally below acceptance threshold": 0.2,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "6: Marginally above acceptance threshold": 0.4,
+            "4: Ok but not good enough - rejection": 0.0,
+            "8: Top 50% of accepted papers, clear accept": 0.8
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.6666666666666666,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.3333333333333333,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "ecmlpkdd_org_ECMLPKDD_2021_Workshop_TeachML": {
+        "rating": {
+            "7: Good paper, accept": 0.6000000000000001,
+            "5: Marginally below acceptance threshold": 0.2,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "6: Marginally above acceptance threshold": 0.4,
+            "4: Ok but not good enough - rejection": 0.0,
+            "8: Top 50% of accepted papers, clear accept": 0.8
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.5,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "AKBC_ws_2021_Conference": {
+        "rating": {
+            "7: Good paper, accept": 0.6000000000000001,
+            "5: Marginally below acceptance threshold": 0.2,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "6: Marginally above acceptance threshold": 0.4,
+            "4: Ok but not good enough - rejection": 0.0,
+            "8: Top 50% of accepted papers, clear accept": 0.8
+        },
+        "confidence": {
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.25,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.75,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "ACM_org_ICMI_2021_Workshop_GENEA": {
+        "rating": {
+            "7: Good paper, accept": 0.6000000000000001,
+            "5: Marginally below acceptance threshold": 0.2,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "6: Marginally above acceptance threshold": 0.4,
+            "4: Ok but not good enough - rejection": 0.0,
+            "8: Top 50% of accepted papers, clear accept": 0.8
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.5,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "ICML_cc_2021_Workshop_AutoML": {
+        "rating": {
+            "7: Good paper, accept": 0.8,
+            "5: Marginally below acceptance threshold": 0.4,
+            "3: Clear rejection": 0.0,
+            "6: Marginally above acceptance threshold": 0.6000000000000001,
+            "4: Ok but not good enough - rejection": 0.2,
+            "8: Top 50% of accepted papers, clear accept": 1.0
+        },
+        "confidence": {
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.25,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.75,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "NeurIPS_cc_2022_Conference": {
+        "rating": {
+            "5: Borderline accept: Technically solid paper where reasons to accept outweigh reasons to reject, e.g., limited evaluation. Please use sparingly.": 0.4444444444444444,
+            "2: Strong Reject: For instance, a paper with major technical flaws, and/or poor evaluation, limited impact, poor reproducibility and mostly unaddressed ethical considerations.": 0.1111111111111111,
+            "7: Accept: Technically solid paper, with high impact on at least one sub-area, or moderate-to-high impact on more than one areas, with good-to-excellent evaluation, resources, reproducibility, and no unaddressed ethical considerations.": 0.6666666666666666,
+            "4: Borderline reject: Technically solid paper where reasons to reject, e.g., limited evaluation, outweigh reasons to accept, e.g., good evaluation. Please use sparingly.": 0.3333333333333333,
+            "6: Weak Accept: Technically solid, moderate-to-high impact paper, with no major concerns with respect to evaluation, resources, reproducibility, ethical considerations.": 0.5555555555555556,
+            "8: Strong Accept: Technically strong paper, with novel ideas, excellent impact on at least one area, or high-to-excellent impact on multiple areas, with excellent evaluation, resources, and reproducibility, and no unaddressed ethical considerations.": 0.7777777777777777,
+            "9: Very Strong Accept: Technically flawless paper with groundbreaking impact on at least one area of AI/ML and excellent impact on multiple areas of AI/ML, with flawless evaluation, resources, and reproducibility, and no unaddressed ethical considerations.": 0.8888888888888888,
+            "10: Award quality: Technically flawless paper with groundbreaking impact, with exceptionally strong evaluation, reproducibility, and resources, and no unaddressed ethical considerations.": 1.0,
+            "1: Very Strong Reject: For instance, a paper with trivial results or unaddressed ethical considerations": 0.0,
+            "3: Reject: For instance, a paper with technical flaws, weak evaluation, inadequate reproducibility and incompletely addressed ethical considerations.": 0.2222222222222222
+        },
+        "presentation": {
+            "4 excellent": 1.0,
+            "2 fair": 0.3333333333333333,
+            "3 good": 0.6666666666666666,
+            "1 poor": 0.0
+        },
+        "soundness": {
+            "4 excellent": 1.0,
+            "2 fair": 0.3333333333333333,
+            "3 good": 0.6666666666666666,
+            "1 poor": 0.0
+        },
+        "confidence": {
+            "4: You are confident in your assessment, but not absolutely certain. It is unlikely, but not impossible, that you did not understand some parts of the submission or that you are unfamiliar with some pieces of related work.": 0.75,
+            "3: You are fairly confident in your assessment. It is possible that you did not understand some parts of the submission or that you are unfamiliar with some pieces of related work. Math/other details were not carefully checked.": 0.5,
+            "1: Your assessment is an educated guess. The submission is not in your area or the submission was difficult to understand. Math/other details were not carefully checked.": 0.0,
+            "5: You are absolutely certain about your assessment. You are very familiar with the related work and checked the math/other details carefully.": 1.0,
+            "2: You are willing to defend your assessment, but it is quite likely that you did not understand the central parts of the submission or that you are unfamiliar with some pieces of related work. Math/other details were not carefully checked.": 0.25
+        },
+        "contribution": {
+            "4 excellent": 1.0,
+            "3 good": 0.6666666666666666,
+            "2 fair": 0.3333333333333333,
+            "1 poor": 0.0
+        }
+    },
+    "ICLR_cc_2019_Conference": {
+        "rating": {
+            "7: Good paper, accept": 0.6666666666666666,
+            "6: Marginally above acceptance threshold": 0.5555555555555556,
+            "1: Trivial or wrong": 0.0,
+            "3: Clear rejection": 0.2222222222222222,
+            "9: Top 15% of accepted papers, strong accept": 0.8888888888888888,
+            "10: Top 5% of accepted papers, seminal paper": 1.0,
+            "5: Marginally below acceptance threshold": 0.4444444444444444,
+            "4: Ok but not good enough - rejection": 0.3333333333333333,
+            "2: Strong rejection": 0.1111111111111111,
+            "8: Top 50% of accepted papers, clear accept": 0.7777777777777777
+        },
+        "confidence": {
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.25,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.75,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "ICLR_cc_2018_Conference": {
+        "rating": {
+            "7: Good paper, accept": 0.6666666666666666,
+            "6: Marginally above acceptance threshold": 0.5555555555555556,
+            "1: Trivial or wrong": 0.0,
+            "3: Clear rejection": 0.2222222222222222,
+            "9: Top 15% of accepted papers, strong accept": 0.8888888888888888,
+            "10: Top 5% of accepted papers, seminal paper": 1.0,
+            "5: Marginally below acceptance threshold": 0.4444444444444444,
+            "4: Ok but not good enough - rejection": 0.3333333333333333,
+            "2: Strong rejection": 0.1111111111111111,
+            "8: Top 50% of accepted papers, clear accept": 0.7777777777777777
+        },
+        "confidence": {
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.25,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.75,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "ICLR_cc_2021_Conference": {
+        "rating": {
+            "7: Good paper, accept": 0.6666666666666666,
+            "6: Marginally above acceptance threshold": 0.5555555555555556,
+            "1: Trivial or wrong": 0.0,
+            "3: Clear rejection": 0.2222222222222222,
+            "9: Top 15% of accepted papers, strong accept": 0.8888888888888888,
+            "10: Top 5% of accepted papers, seminal paper": 1.0,
+            "5: Marginally below acceptance threshold": 0.4444444444444444,
+            "4: Ok but not good enough - rejection": 0.3333333333333333,
+            "2: Strong rejection": 0.1111111111111111,
+            "8: Top 50% of accepted papers, clear accept": 0.7777777777777777
+        },
+        "confidence": {
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.25,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.75,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "NeurIPS_cc_2022_Workshop_SVRHM": {
+        "rating": {
+            "7: Good paper, accept": 0.5714285714285714,
+            "6: Marginally above acceptance threshold": 0.42857142857142855,
+            "3: Clear rejection": 0.0,
+            "9: Top 15% of accepted papers, strong accept": 0.8571428571428571,
+            "10: Top 5% of accepted papers, seminal paper": 1.0,
+            "5: Marginally below acceptance threshold": 0.2857142857142857,
+            "4: Ok but not good enough - rejection": 0.14285714285714285,
+            "8: Top 50% of accepted papers, clear accept": 0.7142857142857142
+        },
+        "confidence": {
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.25,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.75,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "NoDaLiDa_2023_Conference": {
+        "rating": {
+            "7: Good paper, accept": 0.5714285714285714,
+            "6: Marginally above acceptance threshold": 0.42857142857142855,
+            "3: Clear rejection": 0.0,
+            "9: Top 15% of accepted papers, strong accept": 0.8571428571428571,
+            "10: Top 5% of accepted papers, seminal paper": 1.0,
+            "5: Marginally below acceptance threshold": 0.2857142857142857,
+            "4: Ok but not good enough - rejection": 0.14285714285714285,
+            "8: Top 50% of accepted papers, clear accept": 0.7142857142857142
+        },
+        "confidence": {
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.25,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.75,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "ECMLPKDD_org_2020_Workshop_TeachML": {
+        "rating": {
+            "7: Good paper, accept": 0.5714285714285714,
+            "6: Marginally above acceptance threshold": 0.42857142857142855,
+            "3: Clear rejection": 0.0,
+            "9: Top 15% of accepted papers, strong accept": 0.8571428571428571,
+            "10: Top 5% of accepted papers, seminal paper": 1.0,
+            "5: Marginally below acceptance threshold": 0.2857142857142857,
+            "4: Ok but not good enough - rejection": 0.14285714285714285,
+            "8: Top 50% of accepted papers, clear accept": 0.7142857142857142
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.5,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "NeurIPS_cc_2020_Workshop_CAP": {
+        "rating": {
+            "7: Good paper, accept": 0.75,
+            "5: Marginally below acceptance threshold": 0.25,
+            "3: Clear rejection": 0.0,
+            "6: Marginally above acceptance threshold": 0.5,
+            "8: Top 50% of accepted papers, clear accept": 1.0
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.5,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "ICML_cc_2021_Workshop_INNF": {
+        "rating": {
+            "Reject": 0.0,
+            "Accept": 1.0,
+            "Borderline Reject": 0.3333333333333333,
+            "Borderline Accept": 0.6666666666666666
+        },
+        "confidence": {
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.25,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.75,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "icaps-conference_org_ICAPS_2019_Workshop_SPARK": {
+        "rating": {
+            "3: Marginally above acceptance threshold": 0.3333333333333333,
+            "5: Top 15% of accepted papers, strong accept": 1.0,
+            "4: Top 50% of accepted papers, clear accept": 0.6666666666666666,
+            "2: Marginally below acceptance threshold": 0.0
+        },
+        "confidence": {
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0,
+            "2: The reviewer is fairly confident that the evaluation is correct": 0.5
+        }
+    },
+    "ICLR_cc_2019_Workshop_DeepGenStruct": {
+        "rating": {
+            "3: Marginally above acceptance threshold": 0.3333333333333333,
+            "5: Top 15% of accepted papers, strong accept": 1.0,
+            "4: Top 50% of accepted papers, clear accept": 0.6666666666666666,
+            "2: Marginally below acceptance threshold": 0.0
+        },
+        "confidence": {
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0,
+            "2: The reviewer is fairly confident that the evaluation is correct": 0.5
+        }
+    },
+    "icaps-conference_org_ICAPS_2022_Workshop_XAIP": {
+        "rating": {
+            "7: Good paper, accept": 0.75,
+            "5: Marginally below acceptance threshold": 0.25,
+            "6: Marginally above acceptance threshold": 0.5,
+            "4: Ok but not good enough - rejection": 0.0,
+            "8: Top 50% of accepted papers, clear accept": 1.0
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.5,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "NeurIPS_cc_2022_Workshop_TEA": {
+        "rating": {
+            "7: Good paper, accept": 0.75,
+            "5: Marginally below acceptance threshold": 0.25,
+            "6: Marginally above acceptance threshold": 0.5,
+            "4: Ok but not good enough - rejection": 0.0,
+            "8: Top 50% of accepted papers, clear accept": 1.0
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.6666666666666666,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.3333333333333333,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "icaps-conference_org_ICAPS_2019_Workshop_XAIP": {
+        "rating": {
+            "4: Top 50% of accepted papers, clear accept": 0.75,
+            "2: Marginally below acceptance threshold": 0.25,
+            "1: Strong rejection": 0.0,
+            "3: Marginally above acceptance threshold": 0.5,
+            "5: Top 15% of accepted papers, strong accept": 1.0
+        },
+        "confidence": {
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0,
+            "2: The reviewer is fairly confident that the evaluation is correct": 0.5
+        }
+    },
+    "ICLR_cc_2019_Workshop_LLD": {
+        "rating": {
+            "4: Top 50% of accepted papers, clear accept": 0.75,
+            "2: Marginally below acceptance threshold": 0.25,
+            "1: Strong rejection": 0.0,
+            "3: Marginally above acceptance threshold": 0.5,
+            "5: Top 15% of accepted papers, strong accept": 1.0
+        },
+        "confidence": {
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0,
+            "2: The reviewer is fairly confident that the evaluation is correct": 0.5
+        }
+    },
+    "icaps-conference_org_ICAPS_2019_Workshop_KEPS": {
+        "rating": {
+            "4: Top 50% of accepted papers, clear accept": 0.75,
+            "2: Marginally below acceptance threshold": 0.25,
+            "1: Strong rejection": 0.0,
+            "3: Marginally above acceptance threshold": 0.5,
+            "5: Top 15% of accepted papers, strong accept": 1.0
+        },
+        "confidence": {
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0,
+            "2: The reviewer is fairly confident that the evaluation is correct": 0.5
+        }
+    },
+    "ICLR_cc_2019_Workshop_drlStructPred": {
+        "rating": {
+            "4: Top 50% of accepted papers, clear accept": 0.75,
+            "2: Marginally below acceptance threshold": 0.25,
+            "1: Strong rejection": 0.0,
+            "3: Marginally above acceptance threshold": 0.5,
+            "5: Top 15% of accepted papers, strong accept": 1.0
+        },
+        "confidence": {
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0,
+            "2: The reviewer is fairly confident that the evaluation is correct": 0.5
+        }
+    },
+    "icaps-conference_org_ICAPS_2019_Workshop_Hierarchical_Planning": {
+        "rating": {
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "8: Top 50% of accepted papers, clear accept": 0.0
+        },
+        "soundness": {
+            "3: correct": 0.0
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.5,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "iscaconf_org_ISCA_2022_Workshop_MLArchSys": {
+        "rating": {
+            "7: Good paper, accept": 0.75,
+            "5: Marginally below acceptance threshold": 0.25,
+            "6: Marginally above acceptance threshold": 0.5,
+            "2: Strong rejection": 0.0,
+            "8: Top 50% of accepted papers, clear accept": 1.0
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.6666666666666666,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.3333333333333333,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "icaps-conference_org_ICAPS_2023_Workshop_HSDIP": {
+        "rating": {
+            "7: Good paper, accept": 0.5,
+            "5: Marginally below acceptance threshold": 0.0,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "6: Marginally above acceptance threshold": 0.25,
+            "8: Top 50% of accepted papers, clear accept": 0.75
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 1.0,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.0
+        }
+    },
+    "ICLR_cc_2022_Workshop_OSC": {
+        "rating": {
+            "3: Strong accept": 1.0,
+            "1: Technically incorrect, off-topic, or other significant issues - rejection": 0.0,
+            "2: Good workshop paper, accept": 0.5
+        },
+        "confidence": {
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "2: The reviewer is somewhat confident that the evaluation is correct": 0.5,
+            "3: The reviewer is confident that the evaluation is correct": 1.0
+        }
+    },
+    "graphicsinterface_org_Graphics_Interface_2021_Conference_Second_Cycle": {
+        "rating": {
+            "7: Good paper, accept": 0.7142857142857142,
+            "5: Marginally below acceptance threshold": 0.42857142857142855,
+            "1: Trivial or wrong": 0.0,
+            "3: Clear rejection": 0.14285714285714285,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "6: Marginally above acceptance threshold": 0.5714285714285714,
+            "4: Ok but not good enough - rejection": 0.2857142857142857,
+            "8: Top 50% of accepted papers, clear accept": 0.8571428571428571
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.6666666666666666,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.3333333333333333,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "NeurIPS_cc_2020_Workshop_SVRHM": {
+        "rating": {
+            "7: Good paper, accept": 0.7142857142857142,
+            "5: Marginally below acceptance threshold": 0.42857142857142855,
+            "1: Trivial or wrong": 0.0,
+            "3: Clear rejection": 0.14285714285714285,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "6: Marginally above acceptance threshold": 0.5714285714285714,
+            "4: Ok but not good enough - rejection": 0.2857142857142857,
+            "8: Top 50% of accepted papers, clear accept": 0.8571428571428571
+        },
+        "confidence": {
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.25,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.75,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "NeurIPS_cc_2022_Workshop_GMML": {
+        "rating": {
+            "7: Good paper, accept": 0.7142857142857142,
+            "5: Marginally below acceptance threshold": 0.42857142857142855,
+            "1: Trivial or wrong": 0.0,
+            "3: Clear rejection": 0.14285714285714285,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "6: Marginally above acceptance threshold": 0.5714285714285714,
+            "4: Ok but not good enough - rejection": 0.2857142857142857,
+            "8: Top 50% of accepted papers, clear accept": 0.8571428571428571
+        },
+        "confidence": {
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.25,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.75,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "graphicsinterface_org_Graphics_Interface_2021_Conference": {
+        "rating": {
+            "7: Good paper, accept": 0.7142857142857142,
+            "5: Marginally below acceptance threshold": 0.42857142857142855,
+            "1: Trivial or wrong": 0.0,
+            "3: Clear rejection": 0.14285714285714285,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "6: Marginally above acceptance threshold": 0.5714285714285714,
+            "4: Ok but not good enough - rejection": 0.2857142857142857,
+            "8: Top 50% of accepted papers, clear accept": 0.8571428571428571
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.6666666666666666,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.3333333333333333,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "graphicsinterface_org_Graphics_Interface_2020_Conference": {
+        "rating": {
+            "7: Good paper, accept": 0.7142857142857142,
+            "6: Marginally above acceptance threshold": 0.5714285714285714,
+            "3: Clear rejection": 0.14285714285714285,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "5: Marginally below acceptance threshold": 0.42857142857142855,
+            "4: Ok but not good enough - rejection": 0.2857142857142857,
+            "2: Strong rejection": 0.0,
+            "8: Top 50% of accepted papers, clear accept": 0.8571428571428571
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.6666666666666666,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.3333333333333333,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "graphicsinterface_org_Graphics_Interface_2023_Conference": {
+        "rating": {
+            "7: Good paper, accept": 0.7142857142857142,
+            "6: Marginally above acceptance threshold": 0.5714285714285714,
+            "3: Clear rejection": 0.14285714285714285,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "5: Marginally below acceptance threshold": 0.42857142857142855,
+            "4: Ok but not good enough - rejection": 0.2857142857142857,
+            "2: Strong rejection": 0.0,
+            "8: Top 50% of accepted papers, clear accept": 0.8571428571428571
+        },
+        "confidence": {
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.25,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.75,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "NeurIPS_cc_2022_Workshop_Offline_RL": {
+        "rating": {
+            "7: Good paper, accept": 0.7142857142857142,
+            "6: Marginally above acceptance threshold": 0.5714285714285714,
+            "3: Clear rejection": 0.14285714285714285,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "5: Marginally below acceptance threshold": 0.42857142857142855,
+            "4: Ok but not good enough - rejection": 0.2857142857142857,
+            "2: Strong rejection": 0.0,
+            "8: Top 50% of accepted papers, clear accept": 0.8571428571428571
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.6666666666666666,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.3333333333333333,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "icaps-conference_org_ICAPS_2021_Workshop_XAIP": {
+        "rating": {
+            "7: Good paper, accept": 0.7142857142857142,
+            "6: Marginally above acceptance threshold": 0.5714285714285714,
+            "3: Clear rejection": 0.14285714285714285,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "5: Marginally below acceptance threshold": 0.42857142857142855,
+            "4: Ok but not good enough - rejection": 0.2857142857142857,
+            "2: Strong rejection": 0.0,
+            "8: Top 50% of accepted papers, clear accept": 0.8571428571428571
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.6666666666666666,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.3333333333333333,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "ICML_cc_2021_Workshop_AML": {
+        "rating": {
+            "Reject": 0.0,
+            "Accept": 1.0
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.6666666666666666,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.3333333333333333,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "ICLR_cc_2023_Workshop_TML4H": {
+        "rating": {
+            "7: Good paper, accept": 0.6666666666666666,
+            "6: Marginally above acceptance threshold": 0.5,
+            "3: Clear rejection": 0.0,
+            "10: Top 5% of accepted papers, seminal paper": 1.0,
+            "5: Marginally below acceptance threshold": 0.3333333333333333,
+            "4: Ok but not good enough - rejection": 0.16666666666666666,
+            "8: Top 50% of accepted papers, clear accept": 0.8333333333333333
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.6666666666666666,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.3333333333333333,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "ACM_org_ICMI_2023_Workshop_GENEA_Challenge": {
+        "rating": {
+            "7: Good paper, accept": 0.6666666666666666,
+            "6: Marginally above acceptance threshold": 0.5,
+            "3: Clear rejection": 0.0,
+            "10: Top 5% of accepted papers, seminal paper": 1.0,
+            "5: Marginally below acceptance threshold": 0.3333333333333333,
+            "4: Ok but not good enough - rejection": 0.16666666666666666,
+            "8: Top 50% of accepted papers, clear accept": 0.8333333333333333
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.5,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "MIDL_io_2020_Conference": {
+        "rating": {
+            "3: Weak accept": 0.6666666666666666,
+            "1: Strong reject": 0.0,
+            "2: Weak reject": 0.3333333333333333,
+            "4: Strong accept": 1.0
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.6666666666666666,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.3333333333333333,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "ICLR_cc_2022_Workshop_EmeCom": {
+        "rating": {
+            "Weak rejection": 0.4,
+            "Accept": 0.8,
+            "Weak accept": 0.6000000000000001,
+            "Strong Accept": 1.0,
+            "Rejection": 0.2,
+            "Strong rejection": 0.0
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.5,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "icaps-conference_org_ICAPS_2020_Workshop_HSDIP": {
+        "rating": {
+            "7: Good paper, accept": 0.6666666666666666,
+            "5: Marginally below acceptance threshold": 0.3333333333333333,
+            "3: Clear rejection": 0.0,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "6: Marginally above acceptance threshold": 0.5,
+            "4: Ok but not good enough - rejection": 0.16666666666666666,
+            "8: Top 50% of accepted papers, clear accept": 0.8333333333333333
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.6666666666666666,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.3333333333333333,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "NeurIPS_cc_2021_Workshop_SVRHM": {
+        "rating": {
+            "7: Good paper, accept": 0.6666666666666666,
+            "5: Marginally below acceptance threshold": 0.3333333333333333,
+            "3: Clear rejection": 0.0,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "6: Marginally above acceptance threshold": 0.5,
+            "4: Ok but not good enough - rejection": 0.16666666666666666,
+            "8: Top 50% of accepted papers, clear accept": 0.8333333333333333
+        },
+        "confidence": {
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.25,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.75,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "NeurIPS_cc_2022_Workshop_SyntheticData4ML": {
+        "rating": {
+            "7: Good paper, accept": 0.6666666666666666,
+            "5: Marginally below acceptance threshold": 0.3333333333333333,
+            "3: Clear rejection": 0.0,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "6: Marginally above acceptance threshold": 0.5,
+            "4: Ok but not good enough - rejection": 0.16666666666666666,
+            "8: Top 50% of accepted papers, clear accept": 0.8333333333333333
+        },
+        "confidence": {
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.25,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.75,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "auai_org_UAI_2022_Workshop_CRL": {
+        "rating": {
+            "7: Good paper, accept": 0.6666666666666666,
+            "5: Marginally below acceptance threshold": 0.3333333333333333,
+            "3: Clear rejection": 0.0,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "6: Marginally above acceptance threshold": 0.5,
+            "4: Ok but not good enough - rejection": 0.16666666666666666,
+            "8: Top 50% of accepted papers, clear accept": 0.8333333333333333
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.6666666666666666,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.3333333333333333,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "thecvf_com_ECCV_2020_Workshop_VIPriors": {
+        "rating": {
+            "7: Good paper, accept": 0.6666666666666666,
+            "5: Marginally below acceptance threshold": 0.3333333333333333,
+            "3: Clear rejection": 0.0,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "6: Marginally above acceptance threshold": 0.5,
+            "4: Ok but not good enough - rejection": 0.16666666666666666,
+            "8: Top 50% of accepted papers, clear accept": 0.8333333333333333
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.5,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "AKBC_ws_2020_Conference": {
+        "rating": {
+            "7: Good paper, accept": 0.6666666666666666,
+            "5: Marginally below acceptance threshold": 0.3333333333333333,
+            "3: Clear rejection": 0.0,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "6: Marginally above acceptance threshold": 0.5,
+            "4: Ok but not good enough - rejection": 0.16666666666666666,
+            "8: Top 50% of accepted papers, clear accept": 0.8333333333333333
+        },
+        "confidence": {
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.25,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.75,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "AKBC_ws_2019_Conference": {
+        "rating": {
+            "7: Good paper, accept": 0.6666666666666666,
+            "5: Marginally below acceptance threshold": 0.3333333333333333,
+            "3: Clear rejection": 0.0,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "6: Marginally above acceptance threshold": 0.5,
+            "4: Ok but not good enough - rejection": 0.16666666666666666,
+            "8: Top 50% of accepted papers, clear accept": 0.8333333333333333
+        },
+        "confidence": {
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.25,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.75,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "ICLR_cc_2023_Workshop_RRL": {
+        "rating": {
+            "5: Contributed talk, very strong accept": 1.0,
+            "4: Good paper, strong accept": 0.75,
+            "2: Marginally above acceptance threshold, paper has no serious flaws but may have limited scope or significance": 0.25,
+            "3: Accept": 0.5,
+            "1: Rejection; not related to Reincarnating RL, submission is incomplete or submission is incomprehensible (for these submissions, there is no need to fill out the other scoring sections)": 0.0
+        },
+        "confidence": {
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.25,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.75,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "AAAI_org_2022_Workshop_AdvML": {
+        "rating": {
+            "7: Good paper, accept": 0.6666666666666666,
+            "5: Marginally below acceptance threshold": 0.0,
+            "6: Marginally above acceptance threshold": 0.3333333333333333,
+            "8: Top 50% of accepted papers, clear accept": 1.0
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.6666666666666666,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.3333333333333333,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "NeurIPS_cc_2022_Workshop_LaReL": {
+        "rating": {
+            "7: Good paper, accept": 0.6666666666666666,
+            "5: Marginally below acceptance threshold": 0.0,
+            "6: Marginally above acceptance threshold": 0.3333333333333333,
+            "8: Top 50% of accepted papers, clear accept": 1.0
+        },
+        "confidence": {
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.25,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.75,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "ACM_org_IVA_2020_Workshop_GENEA": {
+        "rating": {
+            "6: Marginally above acceptance threshold": 1.0,
+            "4: Ok but not good enough - rejection": 0.0,
+            "5: Marginally below acceptance threshold": 0.5
+        }
+    },
+    "robot-learning_org_CoRL_2022_Workshop_LangRob": {
+        "rating": {
+            "7: Good paper, accept": 0.5,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "6: Marginally above acceptance threshold": 0.25,
+            "4: Ok but not good enough - rejection": 0.0,
+            "8: Top 50% of accepted papers, clear accept": 0.75
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.5,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "KDD_org_2023_Workshop_epiDAMIK": {
+        "rating": {
+            "1: Ok but not good enough - rejection": 0.0,
+            "2: Marginally below acceptance threshold": 0.25,
+            "3: Marginally above acceptance threshold": 0.5,
+            "5: Top 50% of accepted papers, clear accept": 1.0,
+            "4: Good paper, accept": 0.75
+        },
+        "confidence": {
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.25,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.75,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "sigmobile_org_MobiCom_2020_Workshop_CPS-IoTBench": {
+        "rating": {
+            "7: Good paper, accept": 0.75,
+            "5: Marginally below acceptance threshold": 0.25,
+            "3: Clear rejection": 0.0,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "6: Marginally above acceptance threshold": 0.5
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.6666666666666666,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.3333333333333333,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "MICCAI_org_2021_Workshop_COMPAY": {
+        "rating": {
+            "7: Good paper, accept": 0.625,
+            "6: Marginally above acceptance threshold": 0.5,
+            "1: Trivial or wrong": 0.0,
+            "3: Clear rejection": 0.125,
+            "9: Top 15% of accepted papers, strong accept": 0.875,
+            "10: Top 5% of accepted papers, seminal paper": 1.0,
+            "5: Marginally below acceptance threshold": 0.375,
+            "4: Ok but not good enough - rejection": 0.25,
+            "8: Top 50% of accepted papers, clear accept": 0.75
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.6666666666666666,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.3333333333333333,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "icaps-conference_org_ICAPS_2019_Workshop_WIPC": {
+        "rating": {
+            "7: Good paper, accept": 0.5,
+            "6: Marginally above acceptance threshold": 0.3333333333333333,
+            "3: Clear rejection": 0.0,
+            "9: Top 15% of accepted papers, strong accept": 0.8333333333333333,
+            "10: Top 5% of accepted papers, seminal paper": 1.0,
+            "5: Marginally below acceptance threshold": 0.16666666666666666,
+            "8: Top 50% of accepted papers, clear accept": 0.6666666666666666
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.5,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "thecvf_com_ECCV_2020_Workshop_BIC": {
+        "rating": {
+            "7: Good paper, accept": 0.5,
+            "6: Marginally above acceptance threshold": 0.3333333333333333,
+            "3: Clear rejection": 0.0,
+            "9: Top 15% of accepted papers, strong accept": 0.8333333333333333,
+            "10: Top 5% of accepted papers, seminal paper": 1.0,
+            "5: Marginally below acceptance threshold": 0.16666666666666666,
+            "8: Top 50% of accepted papers, clear accept": 0.6666666666666666
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.5,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "graphicsinterface_org_Graphics_Interface_2022_Conference": {
+        "rating": {
+            "7: Good paper, accept": 0.75,
+            "6: Marginally above acceptance threshold": 0.625,
+            "1: Trivial or wrong": 0.0,
+            "3: Clear rejection": 0.25,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "5: Marginally below acceptance threshold": 0.5,
+            "4: Ok but not good enough - rejection": 0.375,
+            "2: Strong rejection": 0.125,
+            "8: Top 50% of accepted papers, clear accept": 0.875
+        },
+        "confidence": {
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.25,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.75,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "aclweb_org_ACL_2022_Workshop_CMCL": {
+        "rating": {
+            "7: Good paper, accept": 0.75,
+            "6: Marginally above acceptance threshold": 0.625,
+            "1: Trivial or wrong": 0.0,
+            "3: Clear rejection": 0.25,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "5: Marginally below acceptance threshold": 0.5,
+            "4: Ok but not good enough - rejection": 0.375,
+            "2: Strong rejection": 0.125,
+            "8: Top 50% of accepted papers, clear accept": 0.875
+        },
+        "confidence": {
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.25,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.75,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "ICLR_cc_2022_Workshop_DGM4HSD": {
+        "rating": {
+            "7: Good paper, accept": 0.625,
+            "6: Marginally above acceptance threshold": 0.5,
+            "3: Clear rejection": 0.125,
+            "9: Top 15% of accepted papers, strong accept": 0.875,
+            "10: Top 5% of accepted papers, seminal paper": 1.0,
+            "5: Marginally below acceptance threshold": 0.375,
+            "4: Ok but not good enough - rejection": 0.25,
+            "2: Strong rejection": 0.0,
+            "8: Top 50% of accepted papers, clear accept": 0.75
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.6666666666666666,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.3333333333333333,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "NeurIPS_cc_2020_Workshop_DL-IG": {
+        "rating": {
+            "7: Good paper, accept": 0.625,
+            "6: Marginally above acceptance threshold": 0.5,
+            "3: Clear rejection": 0.125,
+            "9: Top 15% of accepted papers, strong accept": 0.875,
+            "10: Top 5% of accepted papers, seminal paper": 1.0,
+            "5: Marginally below acceptance threshold": 0.375,
+            "4: Ok but not good enough - rejection": 0.25,
+            "2: Strong rejection": 0.0,
+            "8: Top 50% of accepted papers, clear accept": 0.75
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.6666666666666666,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.3333333333333333,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "ICLR_cc_2019_Workshop_RML": {
+        "rating": {
+            "3: Marginally above acceptance threshold": 0.0,
+            "5: Top 15% of accepted papers, strong accept": 1.0,
+            "4: Top 50% of accepted papers, clear accept": 0.5
+        },
+        "confidence": {
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "NeurIPS_cc_2022_Workshop_HITY": {
+        "rating": {
+            "1: accept": 1.0,
+            "0: reject": 0.0
+        },
+        "confidence": {
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.25,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.75,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "NeurIPS_cc_2022_Workshop_nCSI": {
+        "rating": {
+            "3: Excellent workshop paper, Strong Accept": 1.0,
+            "1: Insufficient workshop paper, Reject": 0.0,
+            "2: Good workshop paper, Accept": 0.5
+        },
+        "confidence": {
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "2: The reviewer is confident that the evaluation is correct": 0.5,
+            "3: The reviewer is certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "thecvf_com_ECCV_2022_Workshop_VIPriors": {
+        "rating": {
+            "7: Good paper, accept": 0.6000000000000001,
+            "5: Marginally below acceptance threshold": 0.2,
+            "10: Top 5% of accepted papers, seminal paper": 1.0,
+            "6: Marginally above acceptance threshold": 0.4,
+            "4: Ok but not good enough - rejection": 0.0,
+            "8: Top 50% of accepted papers, clear accept": 0.8
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.6666666666666666,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.3333333333333333,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "WBIR_info_2022_Workshop_Biomedical_Imaging_Registration": {
+        "rating": {
+            "4: Weak accept": 0.75,
+            "1: Strong reject": 0.0,
+            "3: Borderline": 0.5,
+            "2: Weak reject": 0.25,
+            "5: Strong accept": 1.0
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.6666666666666666,
+            "1: The reviewer 's evaluation is an educated guess": 0.0,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.3333333333333333,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "NeurIPS_cc_2021_Conference": {
+        "rating": {
+            "7: Good paper, accept": 0.6666666666666666,
+            "6: Marginally above the acceptance threshold": 0.5555555555555556,
+            "1: Trivial or wrong": 0.0,
+            "9: Top 15% of accepted NeurIPS papers, strong accept": 0.8888888888888888,
+            "3: Clear rejection": 0.2222222222222222,
+            "8: Top 50% of accepted NeurIPS papers, clear accept": 0.7777777777777777,
+            "5: Marginally below the acceptance threshold": 0.4444444444444444,
+            "4: Ok but not good enough - rejection": 0.3333333333333333,
+            "2: Strong rejection": 0.1111111111111111,
+            "10: Top 5% of accepted NeurIPS papers, seminal paper": 1.0
+        },
+        "confidence": {
+            "4: You are confident in your assessment, but not absolutely certain. It is unlikely, but not impossible, that you did not understand some parts of the submission or that you are unfamiliar with some pieces of related work.": 0.75,
+            "2: You are willing to defend your assessment, but it is quite likely that you did not understand central parts of the submission or that you are unfamiliar with some pieces of related work. Math/other details were not carefully checked.": 0.25,
+            "3: You are fairly confident in your assessment. It is possible that you did not understand some parts of the submission or that you are unfamiliar with some pieces of related work. Math/other details were not carefully checked.": 0.5,
+            "1: Your assessment is an educated guess. The submission is not in your area or the submission was difficult to understand. Math/other details were not carefully checked.": 0.0,
+            "5: You are absolutely certain about your assessment. You are very familiar with the related work and checked the math/other details carefully.": 1.0
+        }
+    },
+    "MLSys_2023_Workshop_RCLWN": {
+        "rating": {
+            "7: Good paper, accept": 0.5,
+            "9: Top 15% of accepted papers, strong accept": 0.75,
+            "10: Top 5% of accepted papers, seminal paper": 1.0,
+            "6: Marginally above acceptance threshold": 0.25,
+            "4: Ok but not good enough - rejection": 0.0
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.6666666666666666,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.3333333333333333,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "iscaconf_org_ISCA_2023_Workshop_ASSYST": {
+        "rating": {
+            "7: Good paper, accept": 1.0,
+            "5: Marginally below acceptance threshold": 0.5,
+            "3: Clear rejection": 0.0,
+            "6: Marginally above acceptance threshold": 0.75,
+            "4: Ok but not good enough - rejection": 0.25
+        },
+        "Reviewer expertise": {
+            "Little or no familiarity.": 0.0,
+            "Knowledgeable: I used to work in this area and/or I try to keep up with the literature but might not know the latest developments.": 0.5,
+            "Expert: I have written one or more papers on this topic and/or I currently work in this area.": 1.0
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.6666666666666666,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.3333333333333333,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "icaps-conference_org_ICAPS_2019_Workshop_HSDIP": {
+        "rating": {
+            "7: Good paper, accept": 0.625,
+            "6: Marginally above acceptance threshold": 0.5,
+            "1: Trivial or wrong": 0.0,
+            "9: Top 15% of accepted papers, strong accept": 0.875,
+            "10: Top 5% of accepted papers, seminal paper": 1.0,
+            "5: Marginally below acceptance threshold": 0.375,
+            "4: Ok but not good enough - rejection": 0.25,
+            "2: Strong rejection": 0.125,
+            "8: Top 50% of accepted papers, clear accept": 0.75
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.6666666666666666,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.3333333333333333,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "NeurIPS_cc_2019_Workshop_Neuro_AI": {
+        "evaluation": {
+            "5: Excellent": 1.0,
+            "3: Good": 0.5,
+            "4: Very good": 0.75,
+            "1: Very poor": 0.0,
+            "2: Poor": 0.25
+        },
+        "importance": {
+            "5: Astounding importance": 1.0,
+            "4: Very important": 0.75,
+            "3: Important": 0.5,
+            "2: Marginally important": 0.25,
+            "1: Irrelevant": 0.0
+        },
+        "technical_rigor": {
+            "5: Near certainty": 1.0,
+            "2: Marginally convincing": 0.25,
+            "3: Convincing": 0.5,
+            "1: Not convincing": 0.0,
+            "4: Very convincing": 0.75
+        }
+    },
+    "auai_org_UAI_2022_Conference": {
+        "Q6 Overall score": {
+            "6: Weak Accept: Technically solid, moderate to high impact paper, with no major concerns with respect to evaluation, resources, reproducibility, ethical considerations. ": 0.5,
+            "9: Very Strong Accept: Technically flawless paper with groundbreaking impact on at least one area of AI and excellent impact on multiple areas of AI, with flawless evaluation, resources, and reproducibility, and no unaddressed ethical considerations. ": 0.875,
+            "7: Accept: Technically solid paper, with high impact on at least one sub-area of AI or moderate to high impact on more than one area of AI, with good to excellent evaluation, resources, reproducibility, and no unaddressed ethical considerations. ": 0.625,
+            "10: Award quality: Technically flawless paper with groundbreaking impact on one or more areas of AI, with exceptionally strong evaluation, reproducibility, and resources, and no unaddressed ethical considerations.": 1.0,
+            "5: Borderline accept: Technically solid paper where reasons to accept, e.g., novelty, outweigh reasons to reject, e.g., limited evaluation. Please use sparingly.": 0.375,
+            "2: Strong Reject: For instance, a paper with major technical flaws, and/or poor evaluation, limited impact, poor reproducibility, mostly unaddressed ethical considerations.": 0.0,
+            "4: Borderline reject: Technically solid paper where reasons to reject, e.g., lack of novelty, outweigh reasons to accept, e.g., good evaluation. Please use sparingly.": 0.25,
+            "3: Reject: For instance, a paper with technical flaws, weak evaluation, inadequate reproducibility, incompletely addressed ethical considerations.": 0.125,
+            "8: Strong Accept: Technically strong paper with, with novel ideas, excellent impact on at least one area of AI or high to excellent impact on multiple areas of AI, with excellent evaluation, resources, and reproducibility, and no unaddressed ethical considerations. ": 0.75
+        },
+        "Q2(3) Correctness/Technical quality": {
+            "3: Good: The paper appears to be technically sound, but I have not carefully checked the details.": 0.6666666666666666,
+            "1: Poor: The paper has major technical flaws.": 0.0,
+            "4: Excellent: I am confident that the paper is technically sound, and I have carefully checked the details.": 1.0,
+            "2: Fair: The paper has minor, easily fixable, technical flaws that do not impact the validity of the main results.": 0.3333333333333333
+        },
+        "Q2(5) Reproducibility": {
+            "4: Excellent: Key resources (e.g., proofs, code, data) are available and key details (e.g., proof sketches, experimental setup) are comprehensively described for competent researchers to confidently and easily reproduce the main results.": 1.0,
+            "3: Good: Key resources (e.g., proofs, code, data) are available and key details (e.g., proofs, experimental setup) are sufficiently well-described for competent researchers to confidently reproduce the main results.": 0.6666666666666666,
+            "1: Poor: Key details (e.g., proof sketches, experimental setup) are incomplete/unclear, or key resources (e.g., proofs, code, data) are unavailable.": 0.0,
+            "2: Fair: Key resources (e.g., proofs, code, data) are unavailable but key details (e.g., proof sketches, experimental setup) are sufficiently well-described for an expert to confidently reproduce the main results.": 0.3333333333333333
+        },
+        "Q2(4) Quality of experiments (Optional)": {
+            "3: Good: The experimental evaluation is adequate, and the results convincingly support the main claims.": 0.6666666666666666,
+            "4: Excellent: The experimental evaluation is comprehensive and the results are compelling.": 1.0,
+            "1: Poor: The experimental evaluation is flawed or the results fail to adequately support the main claims.": 0.0,
+            "2: Fair: The experimental evaluation is weak: important baselines are missing, or the results do not adequately support the main claims.": 0.3333333333333333
+        }
+    },
+    "cclear_cc_CLeaR_2022_Conference": {
+        "Overall score": {
+            "7: Good paper, accept": 0.6666666666666666,
+            "5: Marginally below acceptance threshold": 0.3333333333333333,
+            "3: Clear rejection": 0.0,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "6: Marginally above acceptance threshold": 0.5,
+            "4: Ok but not good enough - rejection": 0.16666666666666666,
+            "8: Top 50% of accepted papers, clear accept": 0.8333333333333333
+        },
+        "confidence": {
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.25,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.75,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "NeurIPS_cc_2021_Workshop_DLDE": {
+        "confidence": {
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.25,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.75,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        },
+        "score": {
+            "2: Borderline paper": 0.25,
+            "1: Reject: trivial or wrong": 0.0,
+            "4: Very good paper": 0.75,
+            "5: Excellent paper: should definitely be a contributed talk": 1.0,
+            "3: Good paper": 0.5
+        }
+    },
+    "MIDL_io_2023_Conference": {
+        "confidence": {
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.25,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.75,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "icaps-conference_org_ICAPS_2021_Workshop_HSDIP": {
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.5,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        },
+        "Overall Score": {
+            "Strong Accept": 1.0,
+            "Reject": 0.0,
+            "Accept": 0.6666666666666666,
+            "Weak Accept": 0.3333333333333333
+        }
+    },
+    "icaps-conference_org_ICAPS_2022_Workshop_HSDIP": {
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.6666666666666666,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.3333333333333333,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        },
+        "Overall Score": {
+            "Strong Accept": 1.0,
+            "Accept": 0.5,
+            "Weak Accept": 0.0
+        }
+    },
+    "logconference_io_LOG_2022_Conference": {
+        "Overall Score": {
+            "6: Weak accept. A good paper where merits, e.g., significance, slightly weigh over weaknesses, e.g., poor presentation.": 0.6000000000000001,
+            "5: Weak reject. A fair paper where weaknesses, e.g., limited technical contributions, slightly weigh over merits, e.g., solid experiments.": 0.4,
+            "8: Clear accept. A strong paper with novel ideas, flawless evaluation, resources, and reproducibility, and no ethical concerns.": 0.8,
+            "3: Clear reject. A paper with moderate to major weaknesses, e.g., technical flaws, weak evaluations, inadequate reproducibility, and incompletely addressed ethical considerations.": 0.2,
+            "1: Strong reject. A must-reject paper with trivial/already known results, technical flaws, wrong evaluations, or unaddressed ethical considerations.": 0.0,
+            "10: Strong accept. An award-worthy paper that presents a theoretical breakthrough or a novel solution to an important research problem with solid experiments.": 1.0
+        }
+    },
+    "automl_cc_AutoML_2023_Conference": {
+        "technical_quality_and_correctness_rating": {
+            "3: The work has some minor flaws, which can easily be fixed and likely do not affect the conclusions to a meaningful degree.": 0.6666666666666666,
+            "4: The work has no identified flaws and I have high trust in all contributions and claims.": 1.0,
+            "2: The work has flaws, which likely affect the conclusions. However, after fixing the flaws, the conclusions will most likely remain qualitatively similar.": 0.3333333333333333,
+            "1: The work has severe flaws, and the presented conclusions are wrong or not trustworthy.": 0.0
+        },
+        "potential_impact_on_the_field_of_AutoML_rating": {
+            "2": 0.3333333333333333,
+            "1": 0.0,
+            "4": 1.0,
+            "3": 0.6666666666666666
+        },
+        "clarity_rating": {
+            "2": 0.3333333333333333,
+            "1": 0.0,
+            "4": 1.0,
+            "3": 0.6666666666666666
+        },
+        "review_rating": {
+            "8": 0.8333333333333333,
+            "3": 0.0,
+            "6": 0.5,
+            "7": 0.6666666666666666,
+            "9": 1.0,
+            "4": 0.16666666666666666,
+            "5": 0.3333333333333333
+        },
+        "review_confidence": {
+            "2": 0.25,
+            "1": 0.0,
+            "4": 0.75,
+            "3": 0.5,
+            "5": 1.0
+        }
+    },
+    "ICLR_cc_2021_Workshop_Rethinking_ML_Papers": {
+        "relevance": {
+            "Score of 4 (Strong): The submission directly addresses a theme of the workshop, and does so in a very professional manner.": 0.6666666666666666,
+            "Score of 3 (Neutral): Attempt was clearly made to address a theme of the workshop, but it seems that the work was \u2018retrofitted\u2019 to match the theme of the workshop.": 0.3333333333333333,
+            "Score of 2 (Needs Improvement): Submission attempts to address a theme of the workshop, but either misunderstands the theme or only superficially addresses it (i.e brings it up in an introduction, but does not attempt to address it or connect it to the submission)": 0.0,
+            "Score of 5 (Exceptional): Like (4) but does so with multiple themes of the workshop.": 1.0
+        },
+        "score": {
+            "Accept: The reviewer believes the submission provides a novel and reliable scheme to improve science communication but needs improvement.": 0.5,
+            "Strong reject: The reviewer observed significant issues in the submission.": 0.0,
+            "Strong accept: The reviewer has a strong enthusiasm to apply the proposed framework in their work.": 1.0
+        }
+    },
+    "robot-learning_org_CoRL_2021_Conference_Blue_Sky": {
+        "impact": {
+            "3: The work is incremental and unlikely to have much impact, even though it may be technically correct and well executed.": 0.5,
+            "2: Unsure, difficult to assess.": 0.0,
+            "4: The work contains interesting new ideas that will potentially have major impact in robotics or machine learning.": 1.0
+        },
+        "novelty": {
+            "Very Good:  Major advance in one or more aspects listed above.": 1.0,
+            "Poor: Very limited or no advance.": 0.0,
+            "Good: Some advance.": 0.6666666666666666,
+            "Fair: Incremental work, no significant advance.": 0.3333333333333333
+        },
+        "recommendation": {
+            "Weak Reject: I recommend rejecting the paper, but will not argue for my recommendation if the majority of other reviewers have a different opinion.": 0.3333333333333333,
+            "Strong Accept: I recommend accepting the paper and will argue for my recommendation even if other reviewers hold a different opinion.": 1.0,
+            "Strong Reject: I recommend rejecting the paper and will argue for my recommendation even if other reviewers hold a different opinion.": 0.0,
+            "Weak Accept: I recommend accepting the paper, but will not argue for my recommendation if the majority of other reviewers have a different opinion.": 0.6666666666666666
+        },
+        "clarity_of_presentation": {
+            "Good: Minor revision needed to improve clarity.": 0.0,
+            "Very Good:  Well organized and clear.": 0.5,
+            "Excellent: Enjoyable to read.": 1.0
+        }
+    },
+    "NeurIPS_cc_2022_Workshop_Federated_Learning": {},
+    "ACM_org_SIGIR_CHIIR_2021_Workshop_Future_Conversations": {},
+    "IEEE_org_2022_Workshop_altVIS": {},
+    "ICML_cc_2018_Workshop_NAMPI": {
+        "rating": {
+            "5: Marginally below acceptance threshold": 0.2,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "7: Good paper, accept": 0.6000000000000001,
+            "6: Marginally above acceptance threshold": 0.4,
+            "8: Top 50% of accepted papers, clear accept": 0.8,
+            "4: Ok but not good enough - rejection": 0.0
+        },
+        "confidence": {
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.0,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.5,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "CPAL_cc_2024_Conference": {
+        "rating": {
+            "9: Top 15% of accepted papers, strong accept": 0.9,
+            "8: Top 50% of accepted papers, clear accept": 0.7000000000000001,
+            "5": 0.1,
+            "6": 0.30000000000000004,
+            "7": 0.5,
+            "8": 0.8,
+            "9": 1.0,
+            "5: Marginally below acceptance threshold": 0.2,
+            "7: Good paper, accept": 0.6000000000000001,
+            "4: Ok but not good enough - rejection": 0.0,
+            "6: Marginally above acceptance threshold": 0.4
+        },
+        "confidence": {
+            "2": 0.14285714285714285,
+            "3": 0.42857142857142855,
+            "4": 0.7142857142857142,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.2857142857142857,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.8571428571428571,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5714285714285714
+        }
+    },
+    "thecvf_com_ECCV_2024_Workshop_ROAM": {
+        "rating": {
+            "4": 0.0,
+            "5": 0.25,
+            "6": 0.5,
+            "7": 0.75,
+            "8": 1.0
+        },
+        "confidence": {
+            "3": 0.0,
+            "4": 1.0
+        }
+    },
+    "ICLR_cc_2024_Workshop_Re-Align": {
+        "workshop_rating": {
+            "1": 0.0,
+            "2": 0.5,
+            "3": 1.0
+        },
+        "workshop_confidence": {
+            "1": 0.0,
+            "2": 0.5,
+            "3": 1.0
+        }
+    },
+    "ICML_cc_2024_Workshop_AI4MATH": {
+        "rating": {
+            "3": 0.0,
+            "4": 0.16666666666666666,
+            "5": 0.3333333333333333,
+            "6": 0.5,
+            "7": 0.6666666666666666,
+            "8": 0.8333333333333333,
+            "9": 1.0
+        },
+        "confidence": {
+            "1": 0.0,
+            "2": 0.25,
+            "3": 0.5,
+            "4": 0.75,
+            "5": 1.0
+        }
+    },
+    "KDD_org_2023_Workshop_Fragile_Earth": {
+        "rating": {
+            "7: Good paper, accept": 0.5,
+            "8: Top 50% of accepted papers, clear accept": 1.0,
+            "6: Marginally above acceptance threshold": 0.0
+        },
+        "confidence": {
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.3333333333333333,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.6666666666666666,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "humanrobotinteraction_org_HRI_2023_Workshop_VAM-HRI": {
+        "rating": {
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "8: Top 50% of accepted papers, clear accept": 0.6666666666666666,
+            "7: Good paper, accept": 0.3333333333333333,
+            "6: Marginally above acceptance threshold": 0.0
+        },
+        "confidence": {
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 0.0
+        }
+    },
+    "KDD_org_2024_Workshop_AIDSH": {
+        "rating": {
+            "3": 0.0,
+            "4": 0.16666666666666666,
+            "5": 0.3333333333333333,
+            "6": 0.5,
+            "7": 0.6666666666666666,
+            "8": 0.8333333333333333,
+            "9": 1.0
+        },
+        "confidence": {
+            "1": 0.0,
+            "2": 0.25,
+            "3": 0.5,
+            "4": 0.75,
+            "5": 1.0
+        }
+    },
+    "humanrobotinteraction_org_HRI_2024_Workshop_VAM-HRI": {
+        "rating": {
+            "8": 0.6666666666666666,
+            "9": 1.0,
+            "6": 0.0,
+            "7": 0.3333333333333333
+        },
+        "confidence": {
+            "4": 0.0,
+            "5": 1.0
+        }
+    },
+    "NeurIPS_cc_2024_Workshop_UniReps": {
+        "rating": {
+            "3": 0.0,
+            "4": 0.14285714285714285,
+            "5": 0.2857142857142857,
+            "6": 0.42857142857142855,
+            "7": 0.5714285714285714,
+            "8": 0.7142857142857142,
+            "9": 0.8571428571428571,
+            "10": 1.0
+        },
+        "confidence": {
+            "1": 0.0,
+            "2": 0.25,
+            "3": 0.5,
+            "4": 0.75,
+            "5": 1.0
+        }
+    },
+    "IEEE_org_EMBS_BHI_2024_Conference": {
+        "Overall_rating": {
+            "2": 0.0,
+            "4": 0.2,
+            "5": 0.4,
+            "6": 0.6000000000000001,
+            "7": 0.8,
+            "8": 1.0
+        },
+        "confidence": {
+            "1": 0.0,
+            "2": 0.25,
+            "3": 0.5,
+            "4": 0.75,
+            "5": 1.0
+        }
+    },
+    "ijcai_org_IJCAI_2024_Workshop_TIDMwFM": {
+        "rating": {
+            "7": 0.0
+        },
+        "confidence": {
+            "3": 0.0
+        }
+    },
+    "NeurIPS_cc_2024_Workshop_MLNCP": {
+        "rating": {
+            "2": 0.0,
+            "3": 0.125,
+            "4": 0.25,
+            "5": 0.375,
+            "6": 0.5,
+            "7": 0.625,
+            "8": 0.75,
+            "9": 0.875,
+            "10": 1.0
+        },
+        "confidence": {
+            "1": 0.0,
+            "2": 0.25,
+            "3": 0.5,
+            "4": 0.75,
+            "5": 1.0
+        }
+    },
+    "NeurIPS_cc_2024_Workshop_BDU": {
+        "rating": {
+            "1": 0.0,
+            "2": 0.125,
+            "3": 0.25,
+            "4": 0.375,
+            "5": 0.5,
+            "6": 0.625,
+            "7": 0.75,
+            "8": 0.875,
+            "9": 1.0
+        },
+        "confidence": {
+            "1": 0.0,
+            "2": 0.25,
+            "3": 0.5,
+            "4": 0.75,
+            "5": 1.0
+        }
+    },
+    "ACM_org_TheWebConf_2024_Conference": {
+        "novelty": {
+            "3": 0.3333333333333333,
+            "6": 0.8333333333333333,
+            "1": 0.0,
+            "2": 0.16666666666666666,
+            "7": 1.0,
+            "4": 0.5,
+            "5": 0.6666666666666666
+        },
+        "technical_quality": {
+            "3": 0.3333333333333333,
+            "6": 0.8333333333333333,
+            "1": 0.0,
+            "2": 0.16666666666666666,
+            "7": 1.0,
+            "4": 0.5,
+            "5": 0.6666666666666666
+        },
+        "reviewer_confidence": {
+            "3: The reviewer is confident but not certain that the evaluation is correct": 0.6666666666666666,
+            "2: The reviewer is willing to defend the evaluation, but it is likely that the reviewer did not understand parts of the paper": 0.3333333333333333,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "4: The reviewer is certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "KDD_org_2024_Workshop_Fragile_Earth": {
+        "rating": {
+            "5": 0.0,
+            "6": 0.25,
+            "7": 0.5,
+            "8": 0.75,
+            "9": 1.0
+        },
+        "confidence": {
+            "3": 0.0,
+            "4": 0.5,
+            "5": 1.0
+        }
+    },
+    "NeurIPS_cc_2023_Workshop_UniReps": {
+        "rating": {
+            "5: Marginally below acceptance threshold": 0.0,
+            "8": 0.75,
+            "8: Top 50% of accepted papers, clear accept": 1.0,
+            "7: Good paper, accept": 0.5,
+            "6: Marginally above acceptance threshold": 0.25
+        },
+        "confidence": {
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.6666666666666666,
+            "4": 1.0,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.3333333333333333,
+            "1: The reviewer's evaluation is an educated guess": 0.0
+        }
+    },
+    "ijcai_org_IJCAI_2024_Workshop_AI4Research": {
+        "rating": {
+            "3": 0.0,
+            "4": 0.2,
+            "5": 0.4,
+            "6": 0.6000000000000001,
+            "7": 0.8,
+            "8": 1.0
+        },
+        "confidence": {
+            "2": 0.0,
+            "3": 0.3333333333333333,
+            "4": 0.6666666666666666,
+            "5": 1.0
+        }
+    },
+    "thecvf_com_CVPR_2024_Workshop_MedSAMonLaptop": {
+        "rating": {
+            "2": 0.0,
+            "3": 0.125,
+            "4": 0.25,
+            "5": 0.375,
+            "6": 0.5,
+            "7": 0.625,
+            "8": 0.75,
+            "9": 0.875,
+            "10": 1.0
+        },
+        "confidence": {
+            "3": 0.0,
+            "4": 0.5,
+            "5": 1.0
+        }
+    },
+    "ACM_org_ICMI_2024_Workshop_GENEA": {
+        "rating": {
+            "5": 0.0,
+            "6": 0.25,
+            "7": 0.5,
+            "8": 0.75,
+            "9": 1.0
+        },
+        "confidence": {
+            "3": 0.0,
+            "4": 0.5,
+            "5": 1.0
+        }
+    },
+    "ICML_cc_2024_Workshop_Agentic_Markets": {
+        "rating": {
+            "2": 0.0,
+            "3": 0.14285714285714285,
+            "4": 0.2857142857142857,
+            "5": 0.42857142857142855,
+            "6": 0.5714285714285714,
+            "7": 0.7142857142857142,
+            "8": 0.8571428571428571,
+            "9": 1.0
+        },
+        "confidence": {
+            "1": 0.0,
+            "2": 0.25,
+            "3": 0.5,
+            "4": 0.75,
+            "5": 1.0
+        }
+    },
+    "NeurIPS_cc_2024_Workshop_SafeGenAi": {
+        "rating": {
+            "1": 0.0,
+            "2": 0.1111111111111111,
+            "3": 0.2222222222222222,
+            "4": 0.3333333333333333,
+            "5": 0.4444444444444444,
+            "6": 0.5555555555555556,
+            "7": 0.6666666666666666,
+            "8": 0.7777777777777777,
+            "9": 0.8888888888888888,
+            "10": 1.0
+        },
+        "confidence": {
+            "1": 0.0,
+            "2": 0.25,
+            "3": 0.5,
+            "4": 0.75,
+            "5": 1.0
+        }
+    },
+    "roboticsfoundation_org_RSS_2024_Workshop_EARL": {
+        "rating": {
+            "8": 1.0,
+            "6": 0.0,
+            "7": 0.5
+        },
+        "confidence": {
+            "3": 0.0,
+            "4": 0.5,
+            "5": 1.0
+        }
+    },
+    "ICML_cc_2024_Workshop_WANT": {
+        "confidence": {
+            "1": 0.0,
+            "2": 0.25,
+            "3": 0.5,
+            "4": 0.75,
+            "5": 1.0
+        }
+    },
+    "EMNLP_2024_Workshop_BlackBoxNLP": {
+        "overall_assessment": {
+            "2": 0.0,
+            "3": 0.3333333333333333,
+            "4": 0.6666666666666666,
+            "5": 1.0
+        },
+        "confidence": {
+            "2": 0.0,
+            "3": 0.3333333333333333,
+            "4": 0.6666666666666666,
+            "5": 1.0
+        }
+    },
+    "ACM_org_SIGIR_ICTIR_2024_Conference": {
+        "rating": {
+            "0": 0.5,
+            "1": 0.75,
+            "2": 1.0,
+            "-2": 0.0,
+            "-1": 0.25
+        },
+        "confidence": {
+            "1": 0.0,
+            "2": 0.25,
+            "3": 0.5,
+            "4": 0.75,
+            "5": 1.0
+        }
+    },
+    "NeurIPS_cc_2023_Workshop_WANT": {
+        "rating": {
+            "2": 0.0,
+            "5": 0.3333333333333333,
+            "6": 0.6666666666666666,
+            "7": 1.0
+        },
+        "confidence": {
+            "1": 0.0,
+            "2": 0.25,
+            "3": 0.5,
+            "4": 0.75,
+            "5": 1.0
+        }
+    },
+    "KDD_org_2024_Workshop_epiDAMIK": {
+        "rating": {
+            "0": 0.0,
+            "2": 0.25,
+            "3": 0.5,
+            "4": 0.75,
+            "5": 1.0
+        },
+        "confidence": {
+            "1": 0.0,
+            "3": 0.3333333333333333,
+            "4": 0.6666666666666666,
+            "5": 1.0
+        }
+    },
+    "ICML_cc_2023_Workshop_IMLH": {
+        "rating": {
+            "7: Good paper, accept": 0.6666666666666666,
+            "9: Top 15% of accepted papers, strong accept": 1.0,
+            "6: Marginally above acceptance threshold": 0.5,
+            "5: Marginally below acceptance threshold": 0.3333333333333333,
+            "4: Ok but not good enough - rejection": 0.16666666666666666,
+            "8: Top 50% of accepted papers, clear accept": 0.8333333333333333,
+            "3: Clear rejection": 0.0
+        },
+        "confidence": {
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.25,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.75,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "swsa_semanticweb_org_ISWC_2023_Workshop_Wikidata": {
+        "rating": {
+            "10: Top 5% of accepted papers, seminal paper": 1.0,
+            "9: Top 15% of accepted papers, strong accept": 0.8571428571428571,
+            "5: Marginally below acceptance threshold": 0.2857142857142857,
+            "8: Top 50% of accepted papers, clear accept": 0.7142857142857142,
+            "6: Marginally above acceptance threshold": 0.42857142857142855,
+            "4: Ok but not good enough - rejection": 0.14285714285714285,
+            "7: Good paper, accept": 0.5714285714285714,
+            "3: Clear rejection": 0.0
+        },
+        "confidence": {
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.3333333333333333,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.0,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.6666666666666666
+        }
+    },
+    "iscaconf_org_ISCA_2024_Workshop_MLArchSys": {
+        "confidence": {
+            "2": 0.0,
+            "3": 0.3333333333333333,
+            "4": 0.6666666666666666,
+            "5": 1.0
+        },
+        "Rating": {
+            "3": 0.0,
+            "4": 0.25,
+            "5": 0.5,
+            "6": 0.75,
+            "7": 1.0
+        }
+    },
+    "NeurIPS_cc_2023_Workshop_BUGS": {
+        "rating": {
+            "1": 0.0,
+            "4": 0.16666666666666666,
+            "5": 0.3333333333333333,
+            "6": 0.5,
+            "7": 0.6666666666666666,
+            "8": 0.8333333333333333,
+            "9": 1.0
+        },
+        "confidence": {
+            "2": 0.0,
+            "3": 0.3333333333333333,
+            "4": 0.6666666666666666,
+            "5": 1.0
+        }
+    },
+    "colmweb_org_COLM_2024_Conference": {
+        "rating": {
+            "2": 0.0,
+            "3": 0.125,
+            "4": 0.25,
+            "5": 0.375,
+            "6": 0.5,
+            "7": 0.625,
+            "8": 0.75,
+            "9": 0.875,
+            "10": 1.0
+        },
+        "confidence": {
+            "1": 0.0,
+            "2": 0.25,
+            "3": 0.5,
+            "4": 0.75,
+            "5": 1.0
+        }
+    },
+    "swsa_semanticweb_org_ISWC_2024_Workshop_WOP": {
+        "rating": {
+            "2": 0.0,
+            "4": 0.16666666666666666,
+            "5": 0.3333333333333333,
+            "6": 0.5,
+            "7": 0.6666666666666666,
+            "8": 0.8333333333333333,
+            "9": 1.0
+        },
+        "confidence": {
+            "3": 0.0,
+            "4": 0.5,
+            "5": 1.0
+        }
+    },
+    "auai_org_UAI_2024_Conference": {
+        "Q2-1_Originality-Novelty": {
+            "3: Good: The paper makes non-trivial advances over the current state-of-the-art.": 0.6666666666666666,
+            "1: Poor: The main ideas of the paper are either not novel or only incremental.": 0.0,
+            "2: Fair: The paper contributes some new ideas.": 0.3333333333333333,
+            "4: Excellent: The main ideas of the paper are ground-breaking.": 1.0
+        },
+        "Q2-2_Correctness-Technical_quality": {
+            "4: Excellent: I am confident that the paper is technically sound, and I have carefully checked the details.": 1.0,
+            "2: Fair: The paper has minor, easily fixable, technical flaws that do not impact the validity of the main results.": 0.3333333333333333,
+            "3: Good: The paper appears to be technically sound, but I have not carefully checked the details.": 0.6666666666666666,
+            "1: Poor: The paper has major technical flaws.": 0.0
+        },
+        "Q2-4_Reproducibility": {
+            "4: Excellent: key resources (e.g. proofs, code, data) are available and key details (e.g. proof sketches, experimental setup) are comprehensively described for competent researchers to confidently and easily reproduce the main results.": 1.0,
+            "1: Poor: key details (e.g. proof sketches, experimental setup) are incomplete/unclear, or key resources (e.g. proofs, code, data) are unavailable.": 0.0,
+            "2: Fair: key resources (e.g. proofs, code, data) are unavailable but key details (e.g. proof sketches, experimental setup) are sufficiently well-described for an expert to confidently reproduce the main results.": 0.3333333333333333,
+            "3: Good: key resources (e.g. proofs, code, data) are available and key details (e.g. proofs, experimental setup) are sufficiently well-described for competent researchers to confidently reproduce the main results.": 0.6666666666666666
+        },
+        "Q2-5_Clarity_of_writing": {
+            "2: Fair: The paper is somewhat clear, but some important details are missing or unclear.": 0.3333333333333333,
+            "3: Good: The paper is well organized but the presentation could be improved.": 0.6666666666666666,
+            "4: Excellent: The paper is well-organized and clearly written.": 1.0,
+            "1: Poor: The paper is unclear and very hard to understand.": 0.0
+        }
+    },
+    "ICLR_cc_2024_Workshop_AI4DiffEqtnsInSci": {
+        "rating": {
+            "3": 0.0,
+            "4": 0.14285714285714285,
+            "5": 0.2857142857142857,
+            "6": 0.42857142857142855,
+            "7": 0.5714285714285714,
+            "8": 0.7142857142857142,
+            "9": 0.8571428571428571,
+            "10": 1.0
+        },
+        "confidence": {
+            "1": 0.0,
+            "2": 0.25,
+            "3": 0.5,
+            "4": 0.75,
+            "5": 1.0
+        }
+    },
+    "wikimedia_it_Wikidata_and_Research_2025_Conference": {
+        "scientific_quality": {
+            "3": 0.0,
+            "4": 0.5,
+            "5": 1.0
+        },
+        "originality": {
+            "3": 0.0,
+            "4": 0.5,
+            "5": 1.0
+        },
+        "impact": {
+            "2": 0.0,
+            "3": 0.3333333333333333,
+            "4": 0.6666666666666666,
+            "5": 1.0
+        },
+        "confidence": {
+            "2": 0.0,
+            "3": 0.3333333333333333,
+            "4": 0.6666666666666666,
+            "5": 1.0
+        },
+        "rating": {
+            "1": 0.0
+        }
+    },
+    "ICML_cc_2024_Conference": {
+        "soundness": {
+            "2": 0.0,
+            "3": 1.0
+        },
+        "presentation": {
+            "2": 0.0,
+            "3": 1.0
+        },
+        "contribution": {
+            "2": 0.0,
+            "3": 1.0
+        },
+        "rating": {
+            "4": 0.0,
+            "6": 1.0
+        },
+        "confidence": {
+            "2": 0.0,
+            "4": 1.0
+        }
+    },
+    "acmmm_org_ACMMM_2024_Conference": {
+        "rating": {
+            "1": 0.0,
+            "2": 0.2,
+            "3": 0.4,
+            "4": 0.6000000000000001,
+            "5": 0.8,
+            "6": 1.0
+        },
+        "confidence": {
+            "1": 0.0,
+            "2": 0.3333333333333333,
+            "3": 0.6666666666666666,
+            "4": 1.0
+        }
+    },
+    "NeurIPS_cc_2023_Workshop_AI4Science": {
+        "rating": {
+            "9: Top 15% of accepted papers, strong accept": 0.875,
+            "7: Good paper, accept": 0.625,
+            "5: Marginally below acceptance threshold": 0.375,
+            "6: Marginally above acceptance threshold": 0.5,
+            "10: Top 5% of accepted papers, seminal paper": 1.0,
+            "4: Ok but not good enough - rejection": 0.25,
+            "2: Strong rejection": 0.0,
+            "8: Top 50% of accepted papers, clear accept": 0.75,
+            "3: Clear rejection": 0.125
+        },
+        "confidence": {
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.25,
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.5,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.75
+        }
+    },
+    "AAAI_org_2024_Workshop_LLM-CP": {
+        "rating": {
+            "1: Insufficient workshop paper, Reject": 0.0,
+            "3: Excellent workshop paper, Strong Accept": 1.0,
+            "2: Good workshop paper, Accept": 0.5
+        },
+        "confidence": {
+            "2: The reviewer is confident that the evaluation is correct": 0.0,
+            "3: The reviewer is certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "thecvf_com_CVPR_2024_Workshop_HuMoGen": {
+        "rating": {
+            "2": 0.0,
+            "3": 0.5,
+            "4": 1.0
+        },
+        "confidence": {
+            "3": 0.0,
+            "4": 0.5,
+            "5": 1.0
+        }
+    },
+    "thecvf_com_CVPR_2024_Workshop_SyntaGen": {
+        "rating": {
+            "4": 0.0,
+            "5": 0.2,
+            "6": 0.4,
+            "7": 0.6000000000000001,
+            "8": 0.8,
+            "9": 1.0
+        },
+        "confidence": {
+            "3": 0.0,
+            "4": 1.0
+        }
+    },
+    "AAAI_org_2025_Workshop_NeurMAD": {
+        "rating": {
+            "2": 0.0,
+            "3": 0.2,
+            "4": 0.4,
+            "5": 0.6000000000000001,
+            "6": 0.8,
+            "7": 1.0
+        },
+        "confidence": {
+            "1": 0.0,
+            "2": 0.25,
+            "3": 0.5,
+            "4": 0.75,
+            "5": 1.0
+        }
+    },
+    "IEEE_org_2024_ICRA_Workshop_CookingRobot": {
+        "rating": {
+            "8": 0.3333333333333333,
+            "9": 0.6666666666666666,
+            "10": 1.0,
+            "7": 0.0
+        },
+        "confidence": {
+            "3": 0.0,
+            "4": 0.5,
+            "5": 1.0
+        }
+    },
+    "ICML_cc_2024_Workshop_ICL": {
+        "workshop_rating": {
+            "1": 0.0,
+            "2": 0.5,
+            "3": 1.0
+        },
+        "workshop_confidence": {
+            "1": 0.0,
+            "2": 0.5,
+            "3": 1.0
+        }
+    },
+    "MIDL_io_2024_Conference": {
+        "confidence": {
+            "2": 0.0,
+            "3": 0.3333333333333333,
+            "4": 0.6666666666666666,
+            "5": 1.0
+        },
+        "preliminary_rating": {
+            "1": 0.0,
+            "2": 0.25,
+            "3": 0.5,
+            "4": 0.75,
+            "5": 1.0
+        },
+        "final_rating": {
+            "1": 0.0,
+            "2.5": 0.2,
+            "2": 0.4,
+            "3.5": 0.6000000000000001,
+            "4": 0.8,
+            "5": 1.0
+        }
+    },
+    "NLDL_org_2025_Conference": {
+        "confidence": {
+            "1": 0.0,
+            "2": 0.25,
+            "3": 0.5,
+            "4": 0.75,
+            "5": 1.0
+        },
+        "final_rebuttal_confidence": {
+            "2": 0.0,
+            "3": 0.3333333333333333,
+            "4": 0.6666666666666666,
+            "5": 1.0
+        }
+    },
+    "MICCAI_org_2024_Workshop_MSB": {
+        "Reproducibility": {
+            "Not enough amount of details available for reproducing the main results, and open access details are unclear": 0.0,
+            "Sufficient amount of details available for reproducing the main results, and open access is provided (or promised upon acceptance) to source code and/or data": 1.0,
+            "Sufficient amount of details available for reproducing the main results, but open access is not provided to source code and/or data": 0.6666666666666666,
+            "Some amount of details available for reproducing the main results, and open access details are unclear": 0.3333333333333333
+        },
+        "Clarity": {
+            "The paper has significant clarity issues that hinder understanding, substantial revision is required to improve clarity": 0.0,
+            "The paper is clear and well-written, with minor areas for improvement in clarity": 0.6666666666666666,
+            "The paper is generally clear but has some clarity issues that could be addressed with moderate revision": 0.3333333333333333,
+            "The paper is exceptionally well-written, organized and easy to follow": 1.0
+        }
+    },
+    "EMNLP_2023_Conference": {
+        "Reproducibility": {
+            "2: Would be hard pressed to reproduce the results. The contribution depends on data that are simply not available outside the author's institution or consortium; not enough details are provided.": 0.25,
+            "4: Could mostly reproduce the results, but there may be some variation because of sample variance or minor variations in their interpretation of the protocol or method.": 0.75,
+            "1: Could not reproduce the results here no matter how hard they tried.": 0.0,
+            "3: Could reproduce the results with some difficulty. The settings of parameters are underspecified or subjectively determined; the training/evaluation data are not widely available.": 0.5,
+            "5: Could easily reproduce the results.": 1.0,
+            "N/A: Doesn't apply, since the paper does not include empirical results.": null
+        }
+    },
+    "ICLR_cc_2024_Conference": {
+        "soundness": {
+            "2 fair": 0.3333333333333333,
+            "1 poor": 0.0,
+            "3 good": 0.6666666666666666,
+            "4 excellent": 1.0
+        },
+        "presentation": {
+            "2 fair": 0.3333333333333333,
+            "1 poor": 0.0,
+            "3 good": 0.6666666666666666,
+            "4 excellent": 1.0
+        },
+        "contribution": {
+            "2 fair": 0.3333333333333333,
+            "1 poor": 0.0,
+            "3 good": 0.6666666666666666,
+            "4 excellent": 1.0
+        },
+        "rating": {
+            "8: accept, good paper": 0.8,
+            "5: marginally below the acceptance threshold": 0.4,
+            "10: strong accept, should be highlighted at the conference": 1.0,
+            "6: marginally above the acceptance threshold": 0.6000000000000001,
+            "3: reject, not good enough": 0.2,
+            "1: strong reject": 0.0
+        },
+        "confidence": {
+            "2: You are willing to defend your assessment, but it is quite likely that you did not understand the central parts of the submission or that you are unfamiliar with some pieces of related work. Math/other details were not carefully checked.": 0.25,
+            "4: You are confident in your assessment, but not absolutely certain. It is unlikely, but not impossible, that you did not understand some parts of the submission or that you are unfamiliar with some pieces of related work.": 0.75,
+            "5: You are absolutely certain about your assessment. You are very familiar with the related work and checked the math/other details carefully.": 1.0,
+            "3: You are fairly confident in your assessment. It is possible that you did not understand some parts of the submission or that you are unfamiliar with some pieces of related work. Math/other details were not carefully checked.": 0.5,
+            "1: You are unable to assess this paper and have alerted the ACs to seek an opinion from different reviewers.": 0.0
+        }
+    },
+    "robot-learning_org_CoRL_2023_Workshop_OOD": {
+        "rating": {
+            "6: Marginally above acceptance threshold": 0.2,
+            "9: Top 15% of accepted papers, strong accept": 0.8,
+            "7: Good paper, accept": 0.4,
+            "5: Marginally below acceptance threshold": 0.0,
+            "10: Top 5% of accepted papers, seminal paper": 1.0,
+            "8: Top 50% of accepted papers, clear accept": 0.6000000000000001
+        },
+        "confidence": {
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.3333333333333333,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.6666666666666666,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.0
+        }
+    },
+    "AAAI_org_2024_Workshop_NuCLeaR": {
+        "rating": {
+            "3": 0.0,
+            "4": 0.16666666666666666,
+            "5": 0.3333333333333333,
+            "6": 0.5,
+            "7": 0.6666666666666666,
+            "8": 0.8333333333333333,
+            "9": 1.0
+        },
+        "confidence": {
+            "3": 0.0,
+            "4": 0.5,
+            "5": 1.0
+        }
+    },
+    "EMNLP_2023_Workshop_CALCS": {
+        "rating": {
+            "4: Strong: This paper deepens the understanding of some phenomenon or lowers the barriers to an existing research direction.": 1.0,
+            "3: Ambivalent: It has merits (e.g., it reports state-of-the-art results, the idea is nice), but there are key weaknesses (e.g., it describes incremental work), and it can significantly benefit from another round of revision. However, I won\u2019t object to accepting it if my co-reviewers champion it.": 0.5,
+            "2: Mediocre: This paper makes marginal contributions (vs non-contemporaneous work), so I would rather not see it in the conference.": 0.0
+        },
+        "confidence": {
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.3333333333333333,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.6666666666666666,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0,
+            "2: The reviewer is willing to defend the evaluation, but it is quite likely that the reviewer did not understand central parts of the paper": 0.0
+        }
+    },
+    "ifaamas_org_AAMAS_2025_Conference": {
+        "technical_quality": {
+            "3": 0.0
+        },
+        "significance": {
+            "2": 0.0,
+            "3": 1.0
+        },
+        "presentation_quality": {
+            "4": 0.0
+        },
+        "overall_rating": {
+            "4": 0.0,
+            "7": 1.0
+        },
+        "confidence": {
+            "3": 0.0
+        }
+    },
+    "robot-learning_org_CoRL_2024_Conference": {
+        "originality": {
+            "1": 0.0,
+            "2": 0.25,
+            "3": 0.5,
+            "4": 0.75,
+            "5": 1.0
+        },
+        "technical_quality": {
+            "1": 0.0,
+            "2": 0.25,
+            "3": 0.5,
+            "4": 0.75,
+            "5": 1.0
+        },
+        "clarity_of_presentation": {
+            "1": 0.0,
+            "2": 0.25,
+            "3": 0.5,
+            "4": 0.75,
+            "5": 1.0
+        },
+        "potential_impact": {
+            "1": 0.0,
+            "2": 0.3333333333333333,
+            "3": 0.6666666666666666,
+            "4": 1.0
+        },
+        "recommendation": {
+            "1": 0.0,
+            "2": 0.3333333333333333,
+            "3": 0.6666666666666666,
+            "4": 1.0
+        },
+        "confidence": {
+            "1": 0.0,
+            "2": 0.25,
+            "3": 0.5,
+            "4": 0.75,
+            "5": 1.0
+        }
+    },
+    "ACM_org_SIGIR_2024_Workshop_Gen-IR": {
+        "rating": {
+            "1": 0.6666666666666666,
+            "2": 1.0,
+            "-1": 0.3333333333333333,
+            "-2": 0.0
+        },
+        "confidence": {
+            "2": 0.0,
+            "3": 0.3333333333333333,
+            "4": 0.6666666666666666,
+            "5": 1.0
+        }
+    },
+    "ACM_org_TheWebConf_2025_Conference": {
+        "novelty": {
+            "5": 0.6666666666666666,
+            "7": 1.0,
+            "1": 0.0,
+            "2": 0.16666666666666666,
+            "4": 0.5,
+            "3": 0.3333333333333333,
+            "6": 0.8333333333333333
+        },
+        "technical_quality": {
+            "5": 0.6666666666666666,
+            "7": 1.0,
+            "1": 0.0,
+            "2": 0.16666666666666666,
+            "4": 0.5,
+            "3": 0.3333333333333333,
+            "6": 0.8333333333333333
+        },
+        "reviewer_confidence": {
+            "3: The reviewer is confident but not certain that the evaluation is correct": 0.6666666666666666,
+            "1: The reviewer's evaluation is an educated guess": 0.0,
+            "4: The reviewer is certain that the evaluation is correct and very familiar with the relevant literature": 1.0,
+            "2: The reviewer is willing to defend the evaluation, but it is likely that the reviewer did not understand parts of the paper": 0.3333333333333333
+        }
+    },
+    "ICLR_cc_2025_Conference": {
+        "soundness": {
+            "1": 0.0,
+            "2": 0.3333333333333333,
+            "3": 0.6666666666666666,
+            "4": 1.0
+        },
+        "presentation": {
+            "1": 0.0,
+            "2": 0.3333333333333333,
+            "3": 0.6666666666666666,
+            "4": 1.0
+        },
+        "contribution": {
+            "1": 0.0,
+            "2": 0.3333333333333333,
+            "3": 0.6666666666666666,
+            "4": 1.0
+        },
+        "rating": {
+            "1": 0.0,
+            "3": 0.2,
+            "5": 0.4,
+            "6": 0.6000000000000001,
+            "8": 0.8,
+            "10": 1.0
+        },
+        "confidence": {
+            "1": 0.0,
+            "2": 0.25,
+            "3": 0.5,
+            "4": 0.75,
+            "5": 1.0
+        }
+    },
+    "KDD_org_2024_Workshop_DL4KG": {
+        "rating": {
+            "1": 0.0,
+            "2": 0.14285714285714285,
+            "3": 0.2857142857142857,
+            "4": 0.42857142857142855,
+            "5": 0.5714285714285714,
+            "6": 0.7142857142857142,
+            "7": 0.8571428571428571,
+            "8": 1.0
+        },
+        "confidence": {
+            "3": 0.0,
+            "4": 0.5,
+            "5": 1.0
+        }
+    },
+    "icaps-conference_org_ICAPS_2024_Conference": {
+        "significance_and_importance": {
+            "3: Substantial contribution or strong impact.": 1.0,
+            "1: Minimal contribution or weak impact.": 0.0,
+            "2: Modest contribution or average impact.": 0.5
+        },
+        "soundness": {
+            "1: The paper has major technical flaws. For example, the proof of the main theorem is incorrect, or the experimental evaluation is flawed and fails to adequately support the main claims.": 0.0,
+            "2: The paper has minor technical flaws. For example, the proof of a theorem has some fixable errors, or the experimental evaluation is weak.": 0.3333333333333333,
+            "3: I am confident that the paper is technically sound. However, the proofs, if applicable, are not laid out clearly, and I had to work hard to convince myself that they are correct. The experimental evaluation, if applicable, is adequate, and the results convincingly support the main claims.": 0.6666666666666666,
+            "4: The paper is technically sound, and I have carefully checked the details of proofs, if applicable. The experimental evaluation, if applicable, is comprehensive, and the results are compelling.": 1.0
+        },
+        "novelty": {
+            "4: The main ideas of the paper are ground-breaking.": 1.0,
+            "3: The paper makes non-trivial advances over the current state-of-the-art.": 0.6666666666666666,
+            "1: The main ideas of the paper are not novel or have limited novelty.": 0.0,
+            "2: The paper contributes some new ideas or represents incremental advances.": 0.3333333333333333
+        },
+        "clarity": {
+            "3: The paper is well organized, but the presentation has minor details that could be improved.": 0.6666666666666666,
+            "1: The paper is unclear and very hard to understand.": 0.0,
+            "4: The paper is well-organized and clearly written.": 1.0,
+            "2: The paper is somewhat clear, but some important details are missing or unclear.": 0.3333333333333333
+        },
+        "reproducibility": {
+            "3: Authors describe the implementation and domains in sufficient detail.": 0.6000000000000001,
+            "1: Difficult to reproduce because of missing detail.": 0.2,
+            "5: Code and domains (whichever apply) are already publicly available": 1.0,
+            "0: N/A - nothing to reproduce.": 0.0,
+            "2: Some details are missing, but the paper still appears to be replicable with some effort.": 0.4,
+            "4: Authors promise to release code and domains (whichever apply).": 0.8
+        },
+        "overall_evaluation": {
+            "-2: (reject)": 0.0,
+            "3: (strong accept)": 1.0,
+            "-1: (weak reject)": 0.25,
+            "1: (weak accept)": 0.5,
+            "2: (accept)": 0.75
+        },
+        "confidence": {
+            "5: I have undertaken research on the topic of the paper": 1.0,
+            "2: My assessment is an informed guess": 0.0,
+            "3: I have a general understanding of the area": 0.3333333333333333,
+            "4: I have up-to-date knowledge of the area": 0.6666666666666666
+        }
+    },
+    "robot-learning_org_CoRL_2023_Workshop_TGR": {
+        "rating": {
+            "7: Good paper, accept": 0.0,
+            "10: Top 5% of accepted papers, seminal paper": 1.0,
+            "8: Top 50% of accepted papers, clear accept": 0.3333333333333333,
+            "9: Top 15% of accepted papers, strong accept": 0.6666666666666666
+        },
+        "confidence": {
+            "3: The reviewer is fairly confident that the evaluation is correct": 0.0,
+            "4: The reviewer is confident but not absolutely certain that the evaluation is correct": 0.5,
+            "5: The reviewer is absolutely certain that the evaluation is correct and very familiar with the relevant literature": 1.0
+        }
+    },
+    "SEMANTiCS_cc_2024_Workshop_NXDG": {
+        "rating": {
+            "1": 0.0,
+            "3": 0.16666666666666666,
+            "4": 0.3333333333333333,
+            "5": 0.5,
+            "6": 0.6666666666666666,
+            "7": 0.8333333333333333,
+            "8": 1.0
+        },
+        "confidence": {
+            "2": 0.0,
+            "3": 0.3333333333333333,
+            "4": 0.6666666666666666,
+            "5": 1.0
+        }
+    }
+}

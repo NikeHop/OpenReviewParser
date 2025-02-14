@@ -78,7 +78,7 @@ bash ./scripts/run_pipeline.sh
 
 * **Hypothesis Annotation**: 
 
-Requires to set OPENAI_API_KEY as environment variable with the corresponding key.
+Set the OPENAI_API_KEY environment variable with your key.
 
 * **Citation Count**: 
 

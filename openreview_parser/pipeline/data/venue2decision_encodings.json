@@ -1,0 +1,947 @@
+{
+    "ICML_cc_2024_Conference": {
+        "decision": {
+            "Reject": 0
+        }
+    },
+    "KDD_org_2024_Workshop_AIDSH": {
+        "decision": {
+            "Accept (Oral)": 1,
+            "Accept (Poster)": 1
+        }
+    },
+    "ICLR_cc_2024_Workshop_Re-Align": {
+        "decision": {
+            "Accept (Contributed Talk)": 1,
+            "Accept (Poster)": 1
+        }
+    },
+    "automl_cc_AutoML_2024_Conference": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "thecvf_com_CVPR_2024_Workshop_VLADR": {
+        "decision": {
+            "Accept (Oral)": 1,
+            "Accept (Poster)": 1
+        }
+    },
+    "humanrobotinteraction_org_HRI_2023_Workshop_VAM-HRI": {
+        "decision": {
+            "Accept (Oral)": 1
+        }
+    },
+    "EMNLP_2023_Workshop_CALCS": {},
+    "iscaconf_org_ISCA_2024_Workshop_MLArchSys": {
+        "decision": {
+            "Accept (Oral/Poster)": 1
+        }
+    },
+    "ACM_org_ICMI_2024_Workshop_GENEA": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "icaps-conference_org_ICAPS_2024_Conference": {
+        "decision": {
+            "Accept (Oral)": 1,
+            "Accept (Poster)": 1
+        }
+    },
+    "NeurIPS_cc_2024_Workshop_BDU": {
+        "decision": {
+            "Reject": 0,
+            "Accept (Oral)": 1,
+            "Accept (Poster)": 1
+        }
+    },
+    "ACM_org_SIGIR_ICTIR_2024_Conference": {
+        "decision": {
+            "Reject": 0,
+            "Accept (Oral)": 1
+        }
+    },
+    "MICCAI_org_2024_Workshop_MSB": {
+        "decision": {
+            "Accept (Oral)": 1
+        }
+    },
+    "roboticsfoundation_org_RSS_2024_Workshop_EARL": {
+        "decision": {
+            "Accept (Poster)": 1
+        }
+    },
+    "NeurIPS_cc_2023_Workshop_AI4Science": {
+        "decision": {
+            "Reject": 0,
+            "Accept (Oral)": 1,
+            "Accept (Poster)": 1
+        }
+    },
+    "ICML_cc_2023_Workshop_ILHF": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "ICML_cc_2024_Workshop_AI4MATH": {
+        "decision": {
+            "Accept (Oral)": 1,
+            "Accept (Poster)": 1
+        }
+    },
+    "thecvf_com_CVPR_2024_Workshop_HuMoGen": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "ICLR_cc_2024_Workshop_AI4DiffEqtnsInSci": {
+        "decision": {
+            "Accept (Oral)": 1,
+            "Accept (Poster)": 1
+        }
+    },
+    "ICLR_cc_2024_Conference": {
+        "decision": {
+            "Reject": 0,
+            "Accept (poster)": 1,
+            "Accept (oral)": 1,
+            "Accept (spotlight)": 1
+        }
+    },
+    "colmweb_org_COLM_2024_Conference": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "AAAI_org_2025_Conference": {
+        "decision": {
+            "Accept (Poster)": 1
+        }
+    },
+    "MIDL_io_2024_Conference": {
+        "decision": {
+            "Accept (Oral)": 1,
+            "Accept (Poster)": 1
+        }
+    },
+    "EMNLP_2023_Conference": {
+        "decision": {
+            "Reject": 0,
+            "Accept-Main": 1,
+            "Accept-Findings": 1
+        }
+    },
+    "AAAI_org_2024_Workshop_LLM-CP": {
+        "decision": {
+            "Accept (Oral)": 1
+        }
+    },
+    "KDD_org_2024_Workshop_Fragile_Earth": {
+        "decision": {
+            "Accept (Short Presentation)": 1,
+            "Accept (Full Presentation)": 1
+        }
+    },
+    "NeurIPS_cc_2023_Workshop_Gaze_Meets_ML": {
+        "decision": {
+            "Reject": 0,
+            "Accept (Oral)": 1,
+            "Accept (Poster)": 1
+        }
+    },
+    "ijcai_org_IJCAI_2024_Workshop_TIDMwFM": {
+        "decision": {
+            "Accept (Poster)": 1
+        }
+    },
+    "robot-learning_org_CoRL_2024_Conference": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "wikimedia_it_Wikidata_and_Research_2025_Conference": {
+        "decision": {
+            "Reject": 0,
+            "Accept (LT)": 1,
+            "Accept (Poster)": 1,
+            "Accept (different format)": 1,
+            "Accept (Paper)": 1
+        }
+    },
+    "NeurIPS_cc_2024_Conference": {
+        "decision": {
+            "Reject": 0,
+            "Accept (poster)": 1,
+            "Accept (oral)": 1,
+            "Accept (spotlight)": 1
+        }
+    },
+    "NeurIPS_cc_2024_Workshop_UniReps": {
+        "decision": {
+            "Accept (Oral)": 1,
+            "Accept": 1
+        }
+    },
+    "acmmm_org_ACMMM_2024_Conference": {
+        "decision": {
+            "Accept (Oral)": 1,
+            "Accept (Poster)": 1
+        }
+    },
+    "NeurIPS_cc_2023_Workshop_UniReps": {
+        "decision": {
+            "Accept (Oral)": 1,
+            "Accept (Poster)": 1
+        }
+    },
+    "thecvf_com_CVPR_2024_Workshop_SyntaGen": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "NLDL_org_2025_Conference": {
+        "decision": {
+            "Reject": 0,
+            "Accept (Oral)": 1,
+            "Accept (Poster)": 1
+        }
+    },
+    "NeurIPS_cc_2024_Workshop_MATH-AI": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "ICML_cc_2023_Workshop_IMLH": {
+        "decision": {
+            "Accept (Oral)": 1,
+            "Accept (Poster Short Paper)": 1,
+            "Accept (Oral Short Paper)": 1,
+            "Accept (Poster)": 1
+        }
+    },
+    "ICLR_cc_2025_Conference": {
+        "decision": {
+            "Reject": 0,
+            "Accept (Oral)": 1,
+            "Accept (Poster)": 1,
+            "Accept (conditional poster)": 1,
+            "Accept (Spotlight)": 1,
+            "Accept (conditional oral)": 1,
+            "Accept (conditional spotlight)": 1
+        }
+    },
+    "IEEE_org_2024_ICRA_Workshop_CookingRobot": {},
+    "thecvf_com_CVPR_2024_Workshop_MedSAMonLaptop": {
+        "decision": {
+            "Major Revision": 0,
+            "Accept": 1
+        }
+    },
+    "NeurIPS_cc_2024_Workshop_SafeGenAi": {
+        "decision": {
+            "Accept (Poster)": 1
+        }
+    },
+    "auai_org_UAI_2024_Conference": {},
+    "IEEE_org_ICIST_2024_Conference": {
+        "decision": {
+            "Reject": 0,
+            "Accept (Oral)": 1
+        }
+    },
+    "ACM_org_TheWebConf_2024_Conference": {
+        "decision": {
+            "Accept (Oral)": 1,
+            "Accept": 1
+        }
+    },
+    "CPAL_cc_2024_Conference": {
+        "decision": {
+            "Accept (Oral)": 1
+        }
+    },
+    "KDD_org_2024_Workshop_DL4KG": {
+        "decision": {
+            "Reject": 0,
+            "Accept": 1
+        }
+    },
+    "NeurIPS_cc_2023_Conference": {
+        "decision": {
+            "Reject": 0,
+            "Accept (poster)": 1,
+            "Accept (oral)": 1,
+            "Accept (spotlight)": 1
+        }
+    },
+    "KDD_org_2023_Workshop_Fragile_Earth": {
+        "decision": {
+            "Accept (Oral)": 1
+        }
+    },
+    "ACM_org_SIGIR_2024_Workshop_Gen-IR": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "swsa_semanticweb_org_ISWC_2024_Workshop_WOP": {},
+    "ifaamas_org_AAMAS_2025_Conference": {
+        "decision": {
+            "Accept (Extended Abstract)": 1
+        }
+    },
+    "AAAI_org_2024_Workshop_NuCLeaR": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "ACM_org_TheWebConf_2025_Conference": {},
+    "KDD_org_2024_Workshop_epiDAMIK": {},
+    "IEEE_org_EMBS_BHI_2024_Conference": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "ICML_cc_2024_Workshop_WANT": {
+        "decision": {
+            "Accept (Oral)": 1,
+            "Accept (Poster)": 1
+        }
+    },
+    "AAAI_org_2025_Workshop_NeurMAD": {
+        "decision": {
+            "Reject": 0,
+            "Accept": 1
+        }
+    },
+    "robot-learning_org_CoRL_2023_Workshop_TGR": {
+        "decision": {
+            "Accept (Oral)": 1,
+            "Accept (Poster)": 1
+        }
+    },
+    "NeurIPS_cc_2023_Workshop_WANT": {
+        "decision": {
+            "Accept (Oral)": 1,
+            "Accept (Poster)": 1
+        }
+    },
+    "ijcai_org_IJCAI_2024_Workshop_AI4Research": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "SEMANTiCS_cc_2024_Workshop_NXDG": {
+        "decision": {
+            "Reject": 0,
+            "Conditionally Accepted": 1,
+            "Accept": 1
+        }
+    },
+    "ICML_cc_2024_Workshop_ML4LMS": {},
+    "thecvf_com_ECCV_2024_Workshop_ROAM": {
+        "decision": {
+            "Accept (Oral)": 1
+        }
+    },
+    "NeurIPS_cc_2023_Workshop_BUGS": {
+        "decision": {
+            "Accept (Oral)": 1,
+            "Accept (Poster)": 1
+        }
+    },
+    "EMNLP_2024_Workshop_BlackBoxNLP": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "ICML_cc_2024_Workshop_ICL": {
+        "decision": {
+            "Accept (Contributed talk)": 1,
+            "Accept (Poster)": 1
+        }
+    },
+    "ICML_cc_2024_Workshop_Agentic_Markets": {},
+    "swsa_semanticweb_org_ISWC_2023_Workshop_Wikidata": {
+        "decision": {
+            "Reject": 0,
+            "Accept": 1
+        }
+    },
+    "thecvf_com_CVPR_2024_Workshop_POETS": {
+        "decision": {
+            "Accept (Oral)": 1,
+            "Accept (Poster)": 1
+        }
+    },
+    "robot-learning_org_CoRL_2023_Workshop_OOD": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "humanrobotinteraction_org_HRI_2024_Workshop_VAM-HRI": {
+        "decision": {
+            "Accept (Oral)": 1
+        }
+    },
+    "MICCAI_org_2024_Workshop_COMPAYL": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "NeurIPS_cc_2024_Workshop_MLNCP": {
+        "decision": {
+            "Reject": 0,
+            "Accept (Oral)": 1,
+            "Accept (Poster)": 1
+        }
+    },
+    "IEEE_org_2022_Workshop_altVIS": {
+        "decision": {
+            "Reject": 0,
+            "Accept": 1
+        }
+    },
+    "NeurIPS_cc_2022_Workshop_GMML": {
+        "decision": {
+            "Accept (Oral)": 1,
+            "Accept (Poster)": 1
+        }
+    },
+    "icaps-conference_org_ICAPS_2019_Workshop_WIPC": {},
+    "MLSys_2023_Workshop_RCLWN": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "ICML_cc_2018_Workshop_NAMPI": {
+        "decision": {
+            "Accept": 1,
+            "Reject": 0
+        }
+    },
+    "cclear_cc_CLeaR_2022_Conference": {
+        "decision": {
+            "Accept (Oral)": 1,
+            "Accept (Poster)": 1
+        }
+    },
+    "aclweb_org_ACL_2022_Workshop_FL4NLP": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "NeurIPS_cc_2020_Workshop_SVRHM": {
+        "decision": {
+            "Reject": 0,
+            "Accept (Oral)": 1,
+            "Accept (Poster)": 1
+        }
+    },
+    "ICLR_cc_2022_Workshop_EmeCom": {
+        "decision": {
+            "Accept": 1,
+            "Reject": 0
+        }
+    },
+    "ECMLPKDD_org_2020_Workshop_TeachML": {
+        "decision": {
+            "Accept": 1,
+            "Reject": 0
+        }
+    },
+    "ICLR_cc_2021_Workshop_Rethinking_ML_Papers": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "icaps-conference_org_ICAPS_2021_Workshop_XAIP": {
+        "decision": {
+            "Accept": 1,
+            "Reject": 0
+        }
+    },
+    "icaps-conference_org_ICAPS_2019_Workshop_Hierarchical_Planning": {},
+    "ICLR_cc_2020_Conference": {
+        "decision": {
+            "Reject": 0,
+            "Accept (Poster)": 1,
+            "Accept (Talk)": 1,
+            "Accept (Spotlight)": 1
+        }
+    },
+    "ICLR_cc_2019_Workshop_drlStructPred": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "MIDL_io_2020_Conference": {
+        "decision": {
+            "": 0,
+            "Oral": 1,
+            "Best Paper Award+Oral": 1,
+            "Poster": 1,
+            "Oral+Poster": 1
+        }
+    },
+    "NeurIPS_cc_2022_Workshop_nCSI": {
+        "decision": {
+            "2: Good workshop paper, Accept": 1,
+            "3: Excellent workshop paper, Strong Accept": 1,
+            "1: Insufficient workshop paper, Reject": 0
+        }
+    },
+    "NeurIPS_cc_2021_Workshop_DLDE": {
+        "decision": {
+            "Reject": 0,
+            "Accept (Poster)": 1,
+            "Accept (Spotlight)": 1
+        }
+    },
+    "icaps-conference_org_ICAPS_2022_Workshop_HSDIP": {},
+    "icaps-conference_org_ICAPS_2023_Workshop_HSDIP": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "icaps-conference_org_ICAPS_2019_Workshop_HSDIP": {
+        "decision": {
+            "Reject": 0,
+            "Accept": 1
+        }
+    },
+    "thecvf_com_ECCV_2022_Workshop_VIPriors": {
+        "decision": {
+            "Accept (Oral/Poster TBD)": 1
+        }
+    },
+    "aclweb_org_ACL_2022_Workshop_CMCL": {
+        "decision": {
+            "Reject": 0,
+            "Accept (non-archival)": 1,
+            "Accept": 1
+        }
+    },
+    "NeurIPS_cc_2019_Workshop_Neuro_AI": {
+        "decision": {
+            "Accept (Oral)": 1,
+            "Accept (Poster)": 1,
+            "Reject": 0
+        }
+    },
+    "robot-learning_org_CoRL_2023_Conference": {
+        "decision": {
+            "Accept (Oral)": 1,
+            "Accept (Poster)": 1
+        }
+    },
+    "NeurIPS_cc_2022_Workshop_NeurReps": {
+        "decision": {
+            "Accept (Oral)": 1,
+            "Accept (Poster)": 1
+        }
+    },
+    "ICLR_cc_2022_Workshop_OSC": {
+        "decision": {
+            "Reject": 0,
+            "Accept (Poster)": 1,
+            "Accept (Oral)": 1
+        }
+    },
+    "RBCDSAI_iitm_ac_in_DAI_2023_Conference": {
+        "decision": {
+            "Accept (Oral Presentation)": 1,
+            "Accept (Poster)": 1
+        }
+    },
+    "ecmlpkdd_org_ECMLPKDD_2021_Workshop_TeachML": {
+        "decision": {
+            "Reject": 0,
+            "Accept": 1
+        }
+    },
+    "AKBC_ws_2019_Conference": {
+        "decision": {
+            "Accept (Oral)": 1,
+            "Accept (Poster)": 1
+        }
+    },
+    "MICCAI_org_2021_Workshop_COMPAY": {
+        "decision": {
+            "Reject": 0,
+            "Accept": 1
+        }
+    },
+    "iscaconf_org_ISCA_2022_Workshop_MLArchSys": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "KDD_org_2023_Workshop_epiDAMIK": {},
+    "ACM_org_ICMI_2022_Workshop_GENEA": {
+        "decision": {
+            "Accept (Workshop proceeding)": 1,
+            "Accept (Main proceeding)": 1
+        }
+    },
+    "thecvf_com_ECCV_2020_Workshop_BIC": {
+        "decision": {
+            "Accept (Oral)": 1
+        }
+    },
+    "icaps-conference_org_ICAPS_2020_Workshop_HSDIP": {
+        "decision": {
+            "Accept": 1,
+            "Reject": 0
+        }
+    },
+    "icaps-conference_org_ICAPS_2019_Workshop_SPARK": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "ACM_org_ICMI_2023_Workshop_GENEA": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "ICLR_cc_2018_Conference": {
+        "decision": {
+            "Reject": 0,
+            "Invite to Workshop Track": 0,
+            "Accept (Oral)": 1,
+            "Accept (Poster)": 1
+        }
+    },
+    "ICML_cc_2021_Workshop_AutoML": {
+        "decision": {
+            "Accept (Poster)": 1,
+            "Accept (Oral)": 1
+        }
+    },
+    "robot-learning_org_CoRL_2022_Workshop_LangRob": {
+        "decision": {
+            "Accept (Poster)": 1,
+            "Accept (Spotlight)": 1
+        }
+    },
+    "ICLR_cc_2023_Workshop_RRL": {},
+    "ICLR_cc_2019_Workshop_DeepGenStruct": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "NeurIPS_cc_2022_Workshop_HITY": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "NeurIPS_cc_2022_Workshop_Federated_Learning": {
+        "decision": {
+            "Accept (Poster)": 1,
+            "Accept (Oral)": 1
+        }
+    },
+    "ICML_cc_2021_Workshop_AML": {
+        "decision": {
+            "Accept (Poster)": 1,
+            "Accept (Oral)": 1
+        }
+    },
+    "NeurIPS_cc_2022_Workshop_LaReL": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "NeurIPS_cc_2022_Workshop_SyntheticData4ML": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "ICLR_cc_2022_Conference": {
+        "decision": {
+            "Accept (Poster)": 1,
+            "Reject": 0,
+            "Accept (Oral)": 1,
+            "Accept (Spotlight)": 1
+        }
+    },
+    "NeurIPS_cc_2021_Workshop_SVRHM": {
+        "decision": {
+            "Accept (Poster)": 1,
+            "Accept (Oral)": 1
+        }
+    },
+    "graphicsinterface_org_Graphics_Interface_2021_Conference": {
+        "decision": {
+            "Reject": 0,
+            "Accept": 1
+        }
+    },
+    "sigmobile_org_MobiCom_2020_Workshop_CPS-IoTBench": {
+        "decision": {
+            "Conditional Accept": 1,
+            "Accept": 1
+        }
+    },
+    "AAAI_org_2022_Workshop_AdvML": {
+        "decision": {
+            "Accept (Long Paper)": 1,
+            "Accept (Short Paper)": 1,
+            "Accept (Oral)": 1
+        }
+    },
+    "auai_org_UAI_2022_Workshop_CRL": {
+        "decision": {
+            "Accept (Poster)": 1,
+            "Accept (Oral)": 1
+        }
+    },
+    "AKBC_ws_2021_Workshop_CSKB": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "auai_org_UAI_2022_Conference": {
+        "decision": {
+            "Accept (Poster)": 1,
+            "Accept (Oral)": 1
+        }
+    },
+    "icaps-conference_org_ICAPS_2022_Workshop_XAIP": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "ICLR_cc_2023_Conference": {
+        "decision": {
+            "Reject": 0,
+            "Accept: notable-top-5%": 1,
+            "Accept: poster": 1,
+            "Accept: notable-top-25%": 1
+        }
+    },
+    "NeurIPS_cc_2020_Workshop_DL-IG": {
+        "decision": {
+            "Accept (Poster)": 1,
+            "Reject": 0,
+            "Accept (Oral)": 1
+        }
+    },
+    "ACM_org_IVA_2020_Workshop_GENEA": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "ICLR_cc_2023_Workshop_TML4H": {
+        "decision": {
+            "Accept (Poster)": 1,
+            "Accept (Oral)": 1
+        }
+    },
+    "MIDL_io_2023_Conference": {
+        "decision": {
+            "Accept (Poster)": 1,
+            "Reject": 0,
+            "Accept (Oral)": 1
+        }
+    },
+    "iscaconf_org_ISCA_2023_Workshop_ASSYST": {},
+    "ICLR_cc_2019_Workshop_RML": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "graphicsinterface_org_Graphics_Interface_2022_Conference": {
+        "decision": {
+            "Reject": 0,
+            "Accept": 1
+        }
+    },
+    "robot-learning_org_CoRL_2021_Conference_Blue_Sky": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "ACM_org_ICMI_2021_Workshop_GENEA": {
+        "decision": {
+            "Reject": 0,
+            "Accept (Oral)": 1
+        }
+    },
+    "aclweb_org_ACL_2022_Workshop_CSRR": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "icaps-conference_org_ICAPS_2021_Workshop_HSDIP": {
+        "decision": {
+            "Reject": 0,
+            "Accept": 1
+        }
+    },
+    "ICLR_cc_2019_Workshop_LLD": {
+        "decision": {
+            "Reject": 0,
+            "Accept": 1
+        }
+    },
+    "AKBC_ws_2020_Conference": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "NoDaLiDa_2023_Conference": {
+        "decision": {
+            "Reject": 0,
+            "Accept": 1
+        }
+    },
+    "NeurIPS_cc_2022_Workshop_Offline_RL": {},
+    "graphicsinterface_org_Graphics_Interface_2021_Conference_Second_Cycle": {
+        "decision": {
+            "Reject": 0,
+            "Accept": 1
+        }
+    },
+    "icaps-conference_org_ICAPS_2019_Workshop_KEPS": {},
+    "logconference_io_LOG_2022_Conference": {
+        "decision": {
+            "Accept (Poster)": 1
+        }
+    },
+    "ACM_org_SIGIR_CHIIR_2021_Workshop_Future_Conversations": {},
+    "automl_cc_AutoML_2023_Conference": {
+        "decision": {
+            "Reject": 0
+        }
+    },
+    "graphicsinterface_org_Graphics_Interface_2023_Conference": {
+        "decision": {
+            "4: Ok but not good enough - rejection": 0,
+            "3: Clear rejection": 0,
+            "9: Top 15% of accepted papers": 1,
+            "7: Good paper": 1,
+            "5: Marginally below acceptance threshold": 0,
+            "8: Top 50% of accepted papers": 1,
+            "accept": 1,
+            "strong accept": 1,
+            "6: Marginally above acceptance threshold": 1
+        }
+    },
+    "ICLR_cc_2021_Conference": {
+        "decision": {
+            "Accept (Spotlight)": 1,
+            "Reject": 0,
+            "Accept (Poster)": 1,
+            "Accept (Oral)": 1
+        }
+    },
+    "icaps-conference_org_ICAPS_2019_Workshop_XAIP": {
+        "decision": {
+            "Reject": 0,
+            "Accept": 1
+        }
+    },
+    "robot-learning_org_CoRL_2022_Conference": {
+        "decision": {
+            "Accept (Poster)": 1,
+            "Accept (Oral)": 1
+        }
+    },
+    "ACM_org_ICMI_2023_Workshop_GENEA_Challenge": {
+        "decision": {
+            "Accept (Main proceeding)": 1,
+            "Accept (Workshop proceeding)": 1
+        }
+    },
+    "NeurIPS_cc_2022_Workshop_TEA": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "NeurIPS_cc_2021_Conference": {
+        "decision": {
+            "Accept (Spotlight)": 1,
+            "Accept (Poster)": 1,
+            "Reject": 0,
+            "Accept (Oral)": 1
+        }
+    },
+    "ICLR_cc_2022_Workshop_DGM4HSD": {
+        "decision": {
+            "Accept (Poster)": 1,
+            "Reject": 0,
+            "Accept (Oral)": 1
+        }
+    },
+    "NeurIPS_cc_2022_Workshop_TSRML": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "robot-learning_org_CoRL_2021_Conference": {
+        "decision": {
+            "Accept (Poster)": 1,
+            "Accept (Oral)": 1
+        }
+    },
+    "thecvf_com_ECCV_2020_Workshop_VIPriors": {
+        "decision": {
+            "Reject": 0,
+            "Accept (Poster)": 1,
+            "Accept (Oral)": 1
+        }
+    },
+    "WBIR_info_2022_Workshop_Biomedical_Imaging_Registration": {
+        "decision": {
+            "Reject": 0,
+            "Accept": 1
+        }
+    },
+    "graphicsinterface_org_Graphics_Interface_2020_Conference": {
+        "decision": {
+            "Reject": 0,
+            "Accept": 1
+        }
+    },
+    "AKBC_ws_2021_Conference": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "NeurIPS_cc_2022_Conference": {
+        "decision": {
+            "Reject": 0,
+            "Accept": 1
+        }
+    },
+    "NeurIPS_cc_2020_Workshop_CAP": {
+        "decision": {
+            "Accept": 1,
+            "Reject": 0
+        }
+    },
+    "Interspeech_org_2023_Workshop_SSW": {
+        "decision": {
+            "Accept": 1
+        }
+    },
+    "ICLR_cc_2019_Conference": {
+        "decision": {
+            "Accept (Poster)": 1,
+            "Reject": 0,
+            "Accept (Oral)": 1
+        }
+    },
+    "ICML_cc_2021_Workshop_INNF": {
+        "decision": {
+            "Accept (spotlight talk)": 1,
+            "Accept (contributed talk)": 1,
+            "Reject": 0,
+            "Accept (poster)": 1
+        }
+    },
+    "NeurIPS_cc_2022_Workshop_SVRHM": {}
+}

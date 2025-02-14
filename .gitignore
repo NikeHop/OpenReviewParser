@@ -1,7 +1,7 @@
 dataset/
 logs/
 data/
-!./openreview_parser/pipeline/data/*
+!openreview_parser/pipeline/data/
 model_store/
 openreview_parser/scientific_databases/data/
 grobid-0.7.3
