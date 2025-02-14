@@ -7,6 +7,7 @@ use_openreview_api_v2: False
 openreview_guest_client: False
 use_s2_api_key: True
 s2_data_directory: ../scientific_databases/data/s2
+venue: ""
 
 grobid:
   max_workers: 4

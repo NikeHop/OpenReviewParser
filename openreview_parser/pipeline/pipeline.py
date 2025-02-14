@@ -46,7 +46,7 @@ def build_dataset(config: dict) -> None:
     venue_instances = get_venue_instances(openreview_client, config)
     logging.info(f"Obtained venue instances")
 
-    if config["venue"] is not None:
+    if config["venue"] == "":
         venue_instances = {vi for vi in venue_instances if vi.venue == config["venue"]}
 
     if config["debug"]:
@@ -56,7 +56,7 @@ def build_dataset(config: dict) -> None:
     venue_instances_full_info = get_schemas(openreview_client, venue_instances, config)
     logging.info(f"Obtained schemas")
 
-    if config["venue"] is not None:
+    if config["venue"] == "":
         venue_instances_full_info = {
             vi for vi in venue_instances_full_info if vi.venue == config["venue"]
         }

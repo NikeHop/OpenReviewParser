@@ -118,6 +118,6 @@ A dataset derived from running the pipeline can be found on HF: [dataset](https:
 
 ## Updates 
 
-Timestamps at which the pipeline was run (datasets partially available [here](nhop/scientific-quality-score-prediction))
+Timestamps at which the pipeline was run:
 
 * Latest: 1.1.2025
