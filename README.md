@@ -66,7 +66,7 @@ bash ./scripts/run_pipeline.sh
 
 ### Metadata annotation
 
-* References: First from the `./openreview_parser/scientific_databases` directory run
+* **References**: First from the `./openreview_parser/scientific_databases` directory run
 
 ```
 python s2_datasets.py
@@ -74,9 +74,9 @@ python s2_datasets.py
 
 This requires around 140G of disk space and a Semantic Scholar API key. The paper and abstract datasets of Semantic Scholar are downloaded to build a mapping from titles to paper info for the retrieval of reference informations. 
 
-* Hypothesis Annotation: Requires to set OPENAI_API_KEY as environment variable with the corresponding key.
+* **Hypothesis Annotation**: Requires to set OPENAI_API_KEY as environment variable with the corresponding key.
 
-* Citation Count: Semantic Scholar key recommended otherwise rate limits are easily reached. 
+* **Citation Count**: Semantic Scholar key recommended otherwise rate limits are easily reached. 
 
  
 ### Run pipeline for individual venues 
