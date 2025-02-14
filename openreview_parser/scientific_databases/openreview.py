@@ -1,6 +1,4 @@
-"""
-Utilities to interact with OpenReview Python API V2
-"""
+"""Utilities to interact with OpenReview Python API V2."""
 
 import logging
 import time
@@ -28,7 +26,22 @@ ERRORS = (
 )
 
 
+import time
+
+
 def on_backoff(details):
+    """
+    Handle backoff events in the OpenReview API.
+
+    Args:
+        details (dict): A dictionary containing details about the backoff event.
+
+    Returns:
+        None
+
+    Raises:
+        None
+    """
     error = details["exception"]
     info = error.args[0]
     message = info["message"]
@@ -36,13 +49,9 @@ def on_backoff(details):
     time.sleep(seconds_to_wait)
 
 
-def giveup_code(details):
-    return None
-
-
 def get_openreview_client(config: dict) -> OpenReviewClient | Client:
     """
-    Returns an instance of the OpenReviewClient class based on the provided configuration.
+    Return an instance of the OpenReviewClient class based on the provided configuration.
 
     Args:
         config (dict): A dictionary containing the configuration parameters.
@@ -52,7 +61,6 @@ def get_openreview_client(config: dict) -> OpenReviewClient | Client:
 
     Raises:
         None
-
     """
     if config["use_openreview_api_v2"]:
         if config["openreview_guest_client"]:
@@ -83,6 +91,17 @@ def get_openreview_client(config: dict) -> OpenReviewClient | Client:
 def get_submissions(
     client: OpenReviewClient | Client, venue: VenueInstance, api_v2: bool = True
 ):
+    """
+    Retrieve the submissions for a given venue.
+
+    Args:
+        client (OpenReviewClient | Client): The OpenReview client or Client object.
+        venue (VenueInstance): The venue for which to retrieve the submissions.
+        api_v2 (bool, optional): Flag indicating whether to use the V2 API. Defaults to True.
+
+    Returns:
+        List[Submission]: The list of submissions for the given venue.
+    """
     if api_v2:
         return get_submissions_v2(client, venue)
     else:
@@ -94,7 +113,6 @@ def get_submissions(
     ERRORS,
     max_tries=5,
     on_backoff=on_backoff,
-    on_giveup=giveup_code,
 )
 def get_submissions_v1(client: OpenReviewClient | Client, venue: VenueInstance):
     """
@@ -106,7 +124,6 @@ def get_submissions_v1(client: OpenReviewClient | Client, venue: VenueInstance):
 
     Returns:
         list: A list of submission notes.
-
     """
     try:
         submissions = client.get_notes(
@@ -124,11 +141,10 @@ def get_submissions_v1(client: OpenReviewClient | Client, venue: VenueInstance):
     ERRORS,
     max_tries=5,
     on_backoff=on_backoff,
-    on_giveup=giveup_code,
 )
 def get_submissions_v2(client: OpenReviewClient | Client, venue: VenueInstance):
     """
-    Retrieves the submissions for a given venue using the OpenReviewClient.
+    Retrieve the submissions for a given venue using the OpenReviewClient.
 
     Args:
         client (OpenReviewClient): An instance of the OpenReviewClient.
@@ -140,7 +156,6 @@ def get_submissions_v2(client: OpenReviewClient | Client, venue: VenueInstance):
     Raises:
         OpenReviewException: If there is an error retrieving the submissions.
     """
-
     try:
         venue_group = client.get_group(venue.venue)
 
@@ -166,11 +181,10 @@ def get_submissions_v2(client: OpenReviewClient | Client, venue: VenueInstance):
     ERRORS,
     max_tries=5,
     on_backoff=on_backoff,
-    on_giveup=giveup_code,
 )
 def get_notes(client: openreview.Client, **kwargs: str) -> list[openreview.Note]:
     """
-    Wraps the get_all_notes function from the OpenReview client such that request limits are respected.
+    Wrap the get_all_notes function from the OpenReview client such that request limits are respected.
 
     Args:
         client (openreview.Client): OpenReview client

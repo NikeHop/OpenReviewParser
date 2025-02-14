@@ -1,6 +1,4 @@
-"""
-Utility functions for annotating OpenReview submissions with Hypothesis annotations.
-"""
+"""Utility functions for annotating OpenReview submissions with Hypothesis annotations."""
 
 import backoff
 import logging
@@ -31,7 +29,7 @@ MODELNAME2CONTEXT_SIZE = {"gpt-3.5-turbo": 16000}
 
 def annotate_paper(paper: Paper, config: dict) -> str | None:
     """
-    Annotates the given paper with its research hypothesis.
+    Annotate the given paper with its research hypothesis.
 
     Args:
         paper (Paper): The paper object to be annotated.
@@ -147,7 +145,7 @@ def get_llm_response(chat_model: ChatOpenAI, messages: list[str]) -> BaseMessage
 
 def get_system_message() -> str:
     """
-    Returns a system message with the task description, requirements, and an example of a paper with annotated hypothesis.
+    Return a system message with the task description, requirements, and an example of a paper with annotated hypothesis.
 
     Returns:
         str: System message with task description, requirements, and example.

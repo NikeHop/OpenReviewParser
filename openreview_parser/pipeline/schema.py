@@ -1,6 +1,4 @@
-"""
-Utilities to build schemas for the venue instances
-"""
+"""Utilities to build schemas for the venue instances."""
 
 import glob
 import json
@@ -61,10 +59,10 @@ NOTE_TYPES_DICT = {str(i): value for i, value in enumerate(NOTE_TYPES)}
 
 
 def get_schemas(
-    client: OpenReviewClient | Client, venues: list[VenueInstance], config: dict
-) -> list[VenueInstance]:
+    client: OpenReviewClient | Client, venues: set[VenueInstance], config: dict
+) -> set[VenueInstance]:
     """
-    Retrieves and processes schemas for the given venues.
+    Retrieve and processes schemas for the given venues.
 
     Args:
         client (OpenReviewClient): An instance of the OpenReviewClient class.
@@ -72,8 +70,7 @@ def get_schemas(
         config (dict): A dictionary containing configuration parameters.
 
     Returns:
-        list[VenueInstance]: A list of VenueInstance objects with updated schemas.
-
+        set[VenueInstance]: A set of VenueInstance objects with updated schemas.
     """
     existing_schemas, venues_with_infos = load_schema_data(config)
     (
@@ -143,7 +140,7 @@ def get_schemas(
             save_empty_schema(venue_id, config)
             continue
 
-        venues_with_infos.append(venue)
+        venues_with_infos.add(venue)
 
         schemas["submission_schema"] = submission_schema
         schemas["review_schema"] = review_schema
@@ -175,7 +172,7 @@ def get_schemas(
     return venues_with_infos
 
 
-def load_schema_data(config: dict) -> tuple[list[str], list[VenueInstance]]:
+def load_schema_data(config: dict) -> tuple[list[str], set[VenueInstance]]:
     """
     Load schema data from the specified directory.
 
@@ -185,23 +182,22 @@ def load_schema_data(config: dict) -> tuple[list[str], list[VenueInstance]]:
     Returns:
         tuple: A tuple containing the following:
             - existing schemas (list[str]): A list of existing schemas.
-            - venues_with_infos (list[str]): A list of venues with submissions and reviews.
+            - venues_with_infos (set[str]): A set of venues with submissions and reviews.
     """
-
     # Get existing schemas
     schema_directory = os.path.join(config["save_directory"], "schemas")
     schema_files = glob.glob(schema_directory + "/*.json")
     existing_schemas = [os.path.basename(file).split(".")[0] for file in schema_files]
-    print(existing_schemas)
+
     # Get venue strings of venues with submissions and reviews
-    venues_with_infos = []
+    venues_with_infos = set()
     filtered_venue_dataset_filepath = os.path.join(
         config["save_directory"], "venues", "filtered_venue_datasets.json"
     )
     if os.path.exists(filtered_venue_dataset_filepath):
         with open(filtered_venue_dataset_filepath, "r") as file:
             venues_with_infos = json.load(file)
-            venues_with_infos = [VenueInstance(**vi) for vi in venues_with_infos]
+            venues_with_infos = set([VenueInstance(**vi) for vi in venues_with_infos])
 
     return existing_schemas, venues_with_infos
 
@@ -263,7 +259,6 @@ def save_empty_schema(venue_id: str, config: dict) -> None:
     Returns:
         None
     """
-
     schema_directory = os.path.join(config["save_directory"], "schemas")
 
     schemas: dict[str, Union[dict, list]] = {}
@@ -280,6 +275,19 @@ def save_empty_schema(venue_id: str, config: dict) -> None:
 def get_submission_schema(
     submissions: list[openreview.Note], api_v2: bool = True
 ) -> dict:
+    """
+    Return the submission schema for a list of OpenReview notes.
+
+    Args:
+        submissions (list[openreview.Note]): A list of OpenReview notes representing submissions.
+        api_v2 (bool, optional): Flag indicating whether to use API v2. Defaults to True.
+
+    Returns:
+        dict: The submission schema.
+
+    Raises:
+        None
+    """
     if api_v2:
         return get_submission_schema_v2(submissions)
     else:
@@ -340,6 +348,18 @@ def get_note_schema(
     note_type: str,
     api_v2: bool = True,
 ) -> dict:
+    """
+    Get the schema for a given note type.
+
+    Args:
+        submissions (list[openreview.Note]): List of OpenReview notes.
+        note_type_mapping (dict): Mapping of note types to schemas.
+        note_type (str): The type of note to retrieve the schema for.
+        api_v2 (bool, optional): Flag indicating whether to use API v2. Defaults to True.
+
+    Returns:
+        dict: The schema for the given note type.
+    """
     if api_v2:
         return get_note_schema_v2(submissions, note_type_mapping, note_type)
     else:
@@ -350,7 +370,7 @@ def get_note_schema_v1(
     submissions: list[openreview.Note], note_type_mapping: dict, note_type: str
 ) -> dict:
     """
-    Retrieves the schema of notes of a specified type from a list of submissions.
+    Retrieve the schema of notes of a specified type from a list of submissions.
 
     Args:
         submissions (list[openreview.Note]): A list of submissions.
@@ -359,7 +379,6 @@ def get_note_schema_v1(
 
     Returns:
         dict: The schema of the notes, represented as a dictionary.
-
     """
     notes = []
     print(f"Parsing notes of type {note_type}")
@@ -368,24 +387,19 @@ def get_note_schema_v1(
         for reply in submission.details["directReplies"]:
             invitation = reply["invitation"]
             invitation_type = invitation.split("/")[-1]
-            print(invitation_type)
             if invitation_type not in note_type_mapping:
                 continue
             if note_type_mapping[invitation_type] == note_type:
                 notes.append(reply)
                 break
 
-    print(f"Number of Notes found {len(notes)}")
     # From notes derive schema
-    print(note_type)
     note_schema: dict[str, dict[str, list]] = defaultdict(lambda: defaultdict(list))
     if len(notes) == 0:
         return note_schema
     else:
         for note in notes:
-            print(note)
             for key, value in note["content"].items():
-                print(key, value)
                 if isinstance(value, list):
                     value = "+".join(value)
 
@@ -400,7 +414,7 @@ def get_note_schema_v2(
     submissions: list[openreview.Note], note_type_mapping: dict, note_type: str
 ) -> dict:
     """
-    Retrieves the schema of notes of a specified type from a list of submissions.
+    Retrieve the schema of notes of a specified type from a list of submissions.
 
     Args:
         submissions (list[openreview.Note]): A list of submissions.
@@ -409,7 +423,6 @@ def get_note_schema_v2(
 
     Returns:
         dict: The schema of the notes, represented as a dictionary.
-
     """
     notes = []
 
@@ -451,6 +464,17 @@ def get_note_schema_v2(
 def update_note_types(
     submissions: list[openreview.Note], note_type_mapping: dict, api_v2: bool = True
 ) -> tuple[list[str], dict]:
+    """
+    Update the note types of the given submissions based on the provided note type mapping.
+
+    Args:
+        submissions (list[openreview.Note]): A list of OpenReview submissions.
+        note_type_mapping (dict): A dictionary mapping old note types to new note types.
+        api_v2 (bool, optional): Flag indicating whether to use API v2. Defaults to True.
+
+    Returns:
+        tuple[list[str], dict]: A tuple containing a list of updated note types and the updated note type mapping.
+    """
     if api_v2:
         return update_note_types_v2(submissions, note_type_mapping)
     else:
@@ -461,7 +485,7 @@ def update_note_types_v1(
     submissions: list[openreview.Note], note_type_mapping: dict
 ) -> tuple[list[str], dict]:
     """
-    Updates the note types in the given submissions based on the provided note type mapping.
+    Update the note types in the given submissions based on the provided note type mapping.
 
     Args:
         submissions (list[openreview.Note]): A list of submissions to update.
@@ -469,7 +493,6 @@ def update_note_types_v1(
 
     Returns:
         dict: The updated note type mapping.
-
     """
     print("Checking note types of venue")
     reply_types = set()
@@ -501,7 +524,7 @@ def update_note_types_v2(
     submissions: list[openreview.Note], note_type_mapping: dict
 ) -> tuple[list[str], dict]:
     """
-    Updates the note types in the given submissions based on the provided note type mapping.
+    Update the note types in the given submissions based on the provided note type mapping.
 
     Args:
         submissions (list[openreview.Note]): A list of submissions to update.
@@ -509,7 +532,6 @@ def update_note_types_v2(
 
     Returns:
         dict: The updated note type mapping.
-
     """
     print("Checking note types of venue")
     reply_types = set()
@@ -538,7 +560,7 @@ def update_submission_fields_mapping(
     submission_schema: dict, submission_fields_mapping: dict
 ) -> dict:
     """
-    Updates the submission fields mapping based on the given submission schema.
+    Update the submission fields mapping based on the given submission schema.
 
     Args:
         submission_schema (dict): The schema of the submission.
@@ -546,7 +568,6 @@ def update_submission_fields_mapping(
 
     Returns:
         dict: The updated submission fields mapping.
-
     """
     print("Map submission fields to the paper data model")
     submission_data_model_field: Optional[str]
@@ -581,7 +602,7 @@ def update_review_fields_mapping(
     review_schema: dict, review_fields_mapping: dict
 ) -> dict:
     """
-    Updates the review fields mapping based on the review schema.
+    Update the review fields mapping based on the review schema.
 
     Args:
         review_schema (dict): The review schema containing the fields and their values.
@@ -662,15 +683,17 @@ def schemas2data_models(
     decision_fields_mapping: dict,
 ) -> None:
     """
-    Builds encodings for OpenReview data based on the provided directory.
+    Convert schemas to data models and update encodings for reviews and decisions.
 
     Args:
-        config (dict): The configuration dictionary.
+        schemas (dict): A dictionary containing the schemas for reviews and decisions.
+        venue_id (str): The ID of the venue.
+        review_fields_mapping (dict): A dictionary mapping review fields to their corresponding field types.
+        decision_fields_mapping (dict): A dictionary mapping decision fields to their corresponding field types.
 
     Returns:
         None
     """
-
     directory = "./data"
 
     # Update venue2review_encoding
@@ -734,7 +757,6 @@ def schemas2data_models(
 
             all_normalized_encodings[field] = normalized_encoding
 
-        print("all_normalized_encodings", all_normalized_encodings)
         venue2review_encodings[venue_id] = all_normalized_encodings
 
         # Save updated venue2review_encodings
@@ -759,9 +781,6 @@ def schemas2data_models(
     else:
         decision_value2encoded_value = {}
 
-    print(venue_id)
-    print(venue_id in venue2decision_encodings)
-    print(schemas["decision_schema"])
     if venue_id not in venue2decision_encodings:
         all_encodings = {}
         for decision_field, content in schemas["decision_schema"].items():
@@ -774,7 +793,6 @@ def schemas2data_models(
                     if encoding_impossible:
                         break
                     try:
-                        print(value)
                         encoded_value = decision_value2encoded_value[value]
                         encoding[value] = encoded_value
                     except KeyError:
@@ -811,10 +829,11 @@ def schemas2data_models(
 
 def encoder(values: set, field: str) -> dict:
     """
-    Encodes a list of values using a string split approach.
+    Encode a list of values using a string split approach.
 
     Args:
         values (list): A list of values to be encoded.
+        field (str): The field name to encode.
 
     Returns:
         dict: A dictionary containing the encoded values.

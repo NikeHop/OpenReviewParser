@@ -1,7 +1,11 @@
 """
-Merge the abstract and papers info dataset from Semantic Scholar
-to create title2s2_paper_info dataset.
-Only inlude Computer Science papers.
+Merge the abstract and papers info dataset from Semantic Scholar to create title2s2_paper_info dataset.
+
+The following steps are performed:
+1. Download the abstract and papers info dataset from Semantic Scholar.
+2. Filter the papers to include only Computer Science papers.
+3. Add the abstracts to the papers.
+4. Chunk the title2s2_paper_info dataset.
 """
 
 import glob
@@ -17,6 +21,18 @@ from openreview_parser.scientific_databases.s2 import get_s2_header
 
 
 def download_datasets():
+    """
+    Download the abstract and paper info datasets from the Semantic Scholar API.
+
+    The datasets are downloaded and saved in the 'data/s2' directory. The 'abstracts' and 'paper_info' subdirectories
+    are created if they don't exist. The datasets are downloaded using the Semantic Scholar API and saved as compressed
+    files in the respective subdirectories.
+
+    Note: This function requires an API key to access the Semantic Scholar API.
+
+    Returns:
+        None
+    """
     # Create directory
     data_directory = "data/s2"
     os.makedirs(os.path.join(data_directory, "abstracts"), exist_ok=True)
@@ -50,6 +66,18 @@ def download_datasets():
 
 
 def filter_papers():
+    """
+    Filter and extracts information from S2 datasets for Computer Science papers.
+
+    This function reads S2 dataset files, filters out papers that are related to Computer Science,
+    and extracts relevant information such as title, authors, and corpus ID. The extracted information
+    is stored in a dictionary called `corpus_id2title` and saved to a JSON file.
+
+    Note: This function assumes the presence of S2 dataset files in the specified data directory.
+
+    Returns:
+        None
+    """
     # Create title2corpus_id for Computer Science papers.
     if os.path.exists("data/s2/corpus_id2title.json"):
         with open("data/s2/corpus_id2title.json", "r") as file:
@@ -80,6 +108,18 @@ def filter_papers():
 
 
 def add_abstracts():
+    """
+    Add abstracts to the title2paper_info dictionary.
+
+    This function loads the title2paper_info and corpus_id2title dictionaries from JSON files.
+    It then iterates over a collection of abstract files, extracts relevant information, and adds it to the title2paper_info dictionary.
+    Finally, it saves the updated title2paper_info dictionary back to a JSON file.
+
+    Note: The function assumes the presence of specific file paths and file structures.
+
+    Returns:
+        None
+    """
     # Load title2paperinfo
     if os.path.exists("data/s2/title2paper_info.json"):
         with open("data/s2/title2paper_info.json", "r") as file:
@@ -116,11 +156,22 @@ def add_abstracts():
             json.dump(title2paper_info, file, indent=4)
 
 
-def create_title2s2_paper_info():
-    chunk()
-
-
 def chunk():
+    """
+    Chunk the title2paper_info dictionary into smaller chunks and save them as separate JSON files.
+
+    This function creates a directory 'data/s2/parsed_paper_info' if it doesn't exist. It then loads the 'title2paper_info'
+    dictionary from the file 'data/s2/title2paper_info.json'. The dictionary is transformed to have lowercase stripped titles
+    as keys. The list of all titles is saved as 'data/s2/all_titles.json'.
+
+    The 'title2paper_info' dictionary is chunked into smaller dictionaries, each containing 'chunk_size' number of titles.
+    Each chunk is saved as a separate JSON file in the 'data/s2/parsed_paper_info' directory. The 'key_dictionary' is also
+    created, which maps the chunk number to the first and last title in that chunk. The 'key_dictionary' is saved as
+    'data/s2/key_dictionary.json'.
+
+    Returns:
+        None
+    """
     os.makedirs("data/s2/parsed_paper_info", exist_ok=True)
 
     # Load title2paperinfo
@@ -162,6 +213,14 @@ def chunk():
 
     with open("data/s2/key_dictionary.json", "w") as file:
         json.dump(key_dictionary, file, indent=4)
+
+
+def create_title2s2_paper_info():
+    """Download datasets, filter papers, add abstracts, and chunk the data."""
+    download_datasets()
+    filter_papers()
+    add_abstracts()
+    chunk()
 
 
 if __name__ == "__main__":

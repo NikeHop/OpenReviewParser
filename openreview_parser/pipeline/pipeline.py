@@ -1,6 +1,5 @@
-"""
-The pipeline that builds the OpenReview dataset
-"""
+"""The pipeline that builds the OpenReview dataset."""
+
 import argparse
 import logging
 import os
@@ -28,16 +27,14 @@ DEBUG_VENUE = VenueInstance(
 
 def build_dataset(config: dict) -> None:
     """
-    Builds the dataset by performing various steps including data retrieval, preprocessing, and transformation.
+    Build the dataset by performing various steps including data retrieval, preprocessing, and transformation.
 
-    Args:
-        client (openreview.Client): The OpenReview client object.
+    Args:.
         config (dict): The configuration dictionary containing various settings.
 
     Returns:
         None
     """
-
     # Get OpenReview client
     openreview_client = get_openreview_client(config)
 
@@ -49,15 +46,23 @@ def build_dataset(config: dict) -> None:
     venue_instances = get_venue_instances(openreview_client, config)
     logging.info(f"Obtained venue instances")
 
+    if config["venue"] is not None:
+        venue_instances = {vi for vi in venue_instances if vi.venue == config["venue"]}
+
     if config["debug"]:
-        venue_instances = [DEBUG_VENUE]
+        venue_instances = {DEBUG_VENUE}
 
     # Get schema for venue instances
     venue_instances_full_info = get_schemas(openreview_client, venue_instances, config)
     logging.info(f"Obtained schemas")
 
+    if config["venue"] is not None:
+        venue_instances_full_info = {
+            vi for vi in venue_instances_full_info if vi.venue == config["venue"]
+        }
+
     if config["debug"]:
-        venue_instances = [DEBUG_VENUE]
+        venue_instances_full_info = {DEBUG_VENUE}
 
     # Parse submissions into data model for each venue instance
     submissions2papers(venue_instances_full_info, openreview_client, config)
@@ -68,10 +73,15 @@ if __name__ == "__main__":
     parser.add_argument(
         "--config", type=str, help="Path to the configuration file", required=True
     )
+    parser.add_argument("--venue", type=str, help="Parse only this venue", default=None)
     args = parser.parse_args()
 
     with open(args.config, "r") as file:
         config = yaml.safe_load(file)
+
+    if args.venue is not None:
+        assert config["debug"] == False, "Cannot specify venue when in debug"
+        config["venue"] = args.venue
 
     # Create logs directory if needed
     os.makedirs("logs", exist_ok=True)

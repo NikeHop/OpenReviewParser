@@ -1,6 +1,4 @@
-"""
-Utilties 
-"""
+"""Utilties to run pipeline."""
 
 import logging
 
@@ -12,6 +10,15 @@ from urllib.error import HTTPError, ContentTooShortError
 
 
 def on_backoff(details):
+    """
+    Log the backoff details and exception when a backoff occurs.
+
+    Args:
+        details (dict): A dictionary containing the backoff details, including the wait time and number of tries.
+
+    Returns:
+        None
+    """
     logging.info(
         f"Backing off {details['wait']:0.1f} seconds after {details['tries']} tries"
     )
@@ -28,7 +35,7 @@ def on_backoff(details):
 )
 def urlretrieve_backoff(url: str, filename: str) -> str | None:
     """
-    Downloads a file from the given URL and saves it to the specified filename.
+    Download a file from the given URL and saves it to the specified filename.
 
     Args:
         url (str): The URL of the file to download.

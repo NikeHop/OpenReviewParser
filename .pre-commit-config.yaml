@@ -11,3 +11,8 @@ repos:
         # Optional: Add additional mypy arguments
         additional_dependencies: [types-requests==2.32.0.20241016,types-PyYAML==6.0.12.20241230]
         args: [--ignore-missing-imports]
+  - repo: https://github.com/PyCQA/pydocstyle
+    rev: 6.3.0  # Use the latest version
+    hooks:
+      - id: pydocstyle
+

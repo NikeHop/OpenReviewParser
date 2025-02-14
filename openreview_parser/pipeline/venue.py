@@ -1,20 +1,16 @@
-"""
-Extracting the venue instances from OpenReview and saving them to a CSV file.
-"""
+"""Extracting the venue instances from OpenReview and saving them to a CSV file."""
 import json
 import logging
 import os
-
-import openreview
 
 from openreview.api import OpenReviewClient
 
 from openreview_parser.utils.data import VenueInstance
 
 
-def get_venue_instances(client: OpenReviewClient, config: dict) -> list[VenueInstance]:
+def get_venue_instances(client: OpenReviewClient, config: dict) -> set[VenueInstance]:
     """
-    Retrieves venue instances from OpenReview and saves them to a CSV file.
+    Retrieve venue instances from OpenReview and saves them to a CSV file.
 
     Args:
         client (OpenReviewClient): The OpenReviewClient.
@@ -23,7 +19,6 @@ def get_venue_instances(client: OpenReviewClient, config: dict) -> list[VenueIns
     Returns:
         list[VenueInstance]: A list of VenueInstance objects.
     """
-
     # Load existing venues
     venue_instances, failed_venue_strings, venue_strings_api_v1 = load_venue_dataset(
         config
@@ -101,7 +96,7 @@ def get_venue_instances(client: OpenReviewClient, config: dict) -> list[VenueIns
     with open(failed_venue_strings_filepath, "w+") as file:
         json.dump(list(failed_venue_strings), file, indent=4)
 
-    return list(venue_instances)
+    return venue_instances
 
 
 def load_venue_dataset(config: dict) -> tuple[set[VenueInstance], set[str], set[str]]:
@@ -114,7 +109,6 @@ def load_venue_dataset(config: dict) -> tuple[set[VenueInstance], set[str], set[
     Returns:
         tuple[set,set,set]: A tuple, first element set of VenueInstance objects, second element set of failed venue strings, venus that can only be parsed with version 1 of the OpenReview API.
     """
-
     venue_instances = []
     venue_instances_filepath = os.path.join(
         config["save_directory"], "venues", "venues.json"
@@ -143,7 +137,7 @@ def load_venue_dataset(config: dict) -> tuple[set[VenueInstance], set[str], set[
 
 def get_year(venue_elements: list[str]) -> int:
     """
-    Extracts the year from the venue elements.
+    Extract the year from the venue elements.
 
     Args:
         venue_elements (list): The elements of the venue.
@@ -159,7 +153,7 @@ def get_year(venue_elements: list[str]) -> int:
 
 def is_workshop_instance(venue_elements: list[str]) -> bool:
     """
-    Checks if the venue is a workshop instance.
+    Check if the venue is a workshop instance.
 
     Args:
         venue_elements (list): The elements of the venue.
@@ -175,7 +169,7 @@ def is_workshop_instance(venue_elements: list[str]) -> bool:
 
 def is_conference_instance(venue_elements: list[str]) -> bool:
     """
-    Checks if the venue is a conference instance.
+    Check if the venue is a conference instance.
 
     Args:
         venue_elements (list): The elements of the venue.
@@ -191,7 +185,7 @@ def is_conference_instance(venue_elements: list[str]) -> bool:
 
 def get_workshop_name(venue_elements: list[str]) -> str:
     """
-    Retrieves the name of the workshop.
+    Retrieve the name of the workshop.
 
     Args:
         venue_elements (list): The elements of the venue.
@@ -210,7 +204,7 @@ def get_workshop_name(venue_elements: list[str]) -> str:
 
 def get_venue_name(venue_elements: list[str], conference: bool, workshop: bool) -> str:
     """
-    Retrieves the name of the venue.
+    Retrieve the name of the venue.
 
     Args:
         venue_elements (list): The elements of the venue.

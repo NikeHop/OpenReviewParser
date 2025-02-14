@@ -1,6 +1,4 @@
-"""
-Obtaining the submissions from the OpenReview data model and parse them into the data model.
-"""
+"""Obtaining the submissions from the OpenReview data model and parse them into the data model."""
 
 import json
 import logging
@@ -43,7 +41,7 @@ SPECIAL_CASES_DECISIONS = ["ICLR_cc_2024_Conference", "ICLR_cc_2025_Conference"]
 
 
 def submissions2papers(
-    venue_instances: list[VenueInstance],
+    venue_instances: set[VenueInstance],
     openreview_client: openreview.Client,
     config: dict,
 ) -> None:
@@ -128,15 +126,11 @@ def submissions2papers(
 
 def load_encodings() -> tuple[dict, dict, dict, dict, dict, dict]:
     """
-    Loads the encodings for the review fields.
-
-    Args:
-        config (dict): The configuration settings.
+    Load the encodings for the review fields.
 
     Returns:
         dict: The mapping of note types to their corresponding labels.
     """
-
     directory = "./data"
     with open(os.path.join(directory, "note_type_mapping.json")) as file:
         note_type_mapping = json.load(file)
@@ -206,24 +200,25 @@ def parse_submissions(
     config: dict,
 ) -> tuple[int, int] | None:
     """
-    Parses a list of submissions and extracts relevant information such as submission details, reviews, comments, and decisions.
+    Parse a list of OpenReview submissions and extracts relevant information.
 
     Args:
-        submissions (list[openreview.Note]): List of submission notes.
+        submissions (list[openreview.Note]): List of OpenReview submission notes.
         note_type_mapping (dict): Mapping of note types to their corresponding labels.
         submission_fields_mapping (dict): Mapping of submission fields to their corresponding labels.
         review_fields_mapping (dict): Mapping of review fields to their corresponding labels.
         venue2review_encodings (dict): Mapping of venue IDs to review field encodings.
         decision_fields_mapping (dict): Mapping of decision fields to their corresponding labels.
-        venue2decision_encodings (dict): Mapping of venue IDs to decision encodings.
-        client (OpenReviewClient): OpenReview client for accessing the OpenReview API.
+        venue2decision_encodings (dict): Mapping of venue IDs to decision field encodings.
+        all_s2_titles (set): Set of all S2 titles.
+        key2file (dict): Mapping of keys to file paths.
+        client (OpenReviewClient): OpenReview client object.
         venue_id (str): ID of the venue.
         config (dict): Configuration settings.
 
     Returns:
-        tuple[dict, int]: A tuple containing the parsed submissions as a dictionary and the total number of reviews.
+        tuple[int, int] | None: A tuple containing the number of submissions and the number of reviews processed, or None if an error occurred.
     """
-
     if config["metadata"]["classify_sections"]:
         section_classifier = SectionClassifier.load_from_checkpoint(
             "./model_store/section_classifier_openreview.ckpt",
@@ -266,8 +261,6 @@ def parse_submissions(
         paper_info["venue"] = venue_id
         paper_info["publication_date"] = get_publication_date(submission)
         paper_info["license"] = submission.get("license", None)
-        print(submission)
-        print(paper_info)
 
         # Parse submission
         submission_info = parse_submission_note(
@@ -442,6 +435,18 @@ def parse_submissions(
 def handle_special_cases_decision(
     submission: dict, venue_id: str
 ) -> tuple[bool | None, str | None]:
+    """
+    Handle special cases for decision handling.
+
+    Args:
+        submission (dict): The submission dictionary.
+        venue_id (str): The ID of the venue.
+
+    Returns:
+        tuple[bool | None, str | None]: A tuple containing a boolean value and a string value.
+            The boolean value indicates the decision value.
+            The string value provides the decision text.
+    """
     if venue_id == "ICLR_cc_2024_Conference":
         if "withdrawn" in submission["content"]["venue"]["value"].lower():
             return False, "Withdrawn"
@@ -456,6 +461,20 @@ def handle_special_cases_decision(
 def parse_submission_note(
     submission: dict, submission_fields_mapping: dict, api_v2: bool = True
 ) -> dict:
+    """
+    Parse a submission note based on the provided submission and submission_fields_mapping.
+
+    Args:
+        submission (dict): The submission note to be parsed.
+        submission_fields_mapping (dict): A dictionary mapping the fields of the submission note to their corresponding keys.
+        api_v2 (bool, optional): Flag indicating whether to use API v2. Defaults to True.
+
+    Returns:
+        dict: The parsed submission note.
+
+    Raises:
+        None
+    """
     if api_v2:
         return parse_submission_note_v2(submission, submission_fields_mapping)
     else:
@@ -463,6 +482,16 @@ def parse_submission_note(
 
 
 def parse_submission_note_v1(submission: dict, submission_fields_mapping: dict) -> dict:
+    """
+    Parse a submission note and extracts relevant information based on the provided fields mapping.
+
+    Args:
+        submission (dict): The submission note to be parsed.
+        submission_fields_mapping (dict): A dictionary mapping the fields in the submission note to the corresponding model fields.
+
+    Returns:
+        dict: A dictionary containing the extracted information from the submission note.
+    """
     paper_info: dict = {}
     for key, value in submission["content"].items():
         if key not in submission_fields_mapping:
@@ -496,6 +525,16 @@ def parse_submission_note_v1(submission: dict, submission_fields_mapping: dict) 
 
 
 def parse_submission_note_v2(submission: dict, submission_fields_mapping: dict) -> dict:
+    """
+    Parse a submission note and extracts relevant information based on the provided submission fields mapping.
+
+    Args:
+        submission (dict): The submission note to be parsed.
+        submission_fields_mapping (dict): A dictionary mapping submission fields to model fields.
+
+    Returns:
+        dict: A dictionary containing the extracted information from the submission note.
+    """
     paper_info: dict = {}
     for key, value in submission["content"].items():
         if key not in submission_fields_mapping:
@@ -534,6 +573,18 @@ def parse_pdf(
     config: dict,
     remove: bool = False,
 ) -> dict[str, dict] | None:
+    """
+    Parse a PDF file and convert it to a JSON representation using GROBID.
+
+    Args:
+        paperhash (str): The hash of the paper.
+        max_workers (int): The maximum number of workers to use for processing.
+        config (dict): The configuration dictionary.
+        remove (bool, optional): Whether to remove the PDF and XML files after parsing. Defaults to False.
+
+    Returns:
+        dict[str, dict] | None: The parsed paper as a JSON representation, or None if parsing failed.
+    """
     pdf_directory = os.path.join(config["save_directory"], "pdfs")
     pdf_file = os.path.join(pdf_directory, f"{paperhash}.pdf")
     xml_directory = os.path.join(config["save_directory"], "xmls")
@@ -568,6 +619,16 @@ def parse_pdf(
 
 
 def process_comments(comments: list[dict], api_v2: bool = True) -> list[Comment]:
+    """
+    Process comments based on the specified API version.
+
+    Args:
+        comments (list[dict]): A list of comment dictionaries.
+        api_v2 (bool, optional): Flag indicating whether to use API v2. Defaults to True.
+
+    Returns:
+        list[Comment]: A list of processed Comment objects.
+    """
     if api_v2:
         return process_comments_v2(comments)
     else:
@@ -576,7 +637,7 @@ def process_comments(comments: list[dict], api_v2: bool = True) -> list[Comment]
 
 def process_comments_v1(comments: list[dict]) -> list[Comment]:
     """
-    Postprocesses a list of comments and returns a list of Comment objects.
+    Postprocesse a list of comments and returns a list of Comment objects.
 
     Args:
         comments (list[dict]): The list of comments to be processed.
@@ -604,7 +665,7 @@ def process_comments_v1(comments: list[dict]) -> list[Comment]:
 
 def process_comments_v2(comments: list[dict]) -> list[Comment]:
     """
-    Postprocesses a list of comments and returns a list of Comment objects.
+    Postprocesse a list of comments and returns a list of Comment objects.
 
     Args:
         comments (list[dict]): The list of comments to be processed.
@@ -631,6 +692,15 @@ def process_comments_v2(comments: list[dict]) -> list[Comment]:
 
 
 def get_publication_date(submission_note: openreview.Note) -> str | None:
+    """
+    Get the publication date of a submission note.
+
+    Args:
+        submission_note (openreview.Note): The submission note.
+
+    Returns:
+        str | None: The publication date in the format "YYYY-MM-DD" or None if not available.
+    """
     p_date = submission_note["content"].get("publication_date", None)
     if p_date is None:
         # odate contains the Unix timestamp in miliseconds when Note becomes public
@@ -654,15 +724,16 @@ def process_reviews(
     api_v2: bool = True,
 ) -> list[Review]:
     """
-    Postprocesses a list of reviews.
+    Process a list of reviews and convert them into a list of processed reviews.
 
     Args:
-        reviews (list[dict]): The list of reviews to be postprocessed.
-        dataset_name (str): The name of the dataset.
-        directory (str): The directory path.
+        reviews (list[dict]): A list of review dictionaries.
+        review_field_mapping (dict): A dictionary mapping review fields to their types.
+        review_encodings (dict): A dictionary containing encodings for specific review fields.
+        api_v2 (bool, optional): A flag indicating whether the reviews are in API v2 format. Defaults to True.
 
     Returns:
-        list[Review]: The processed reviews.
+        list[Review]: A list of processed Review objects.
     """
     processed_reviews = []
 
@@ -721,17 +792,18 @@ def process_decision(
     api_v2: bool = True,
 ) -> tuple[bool | None, str | None]:
     """
-    Postprocesses a decision and returns the decision and decision text.
+    Process the decision information for a submission.
 
     Args:
-        decision (dict): The decision to be processed.
-        dataset_name (str): The name of the dataset.
-        directory (str): The directory path.
+        decision (dict): The decision information for a submission.
+        decision_mapping (dict): A mapping of decision keys to model fields.
+        decision_encodings (dict): A mapping of decision values to encoded values.
+        venue_id (str): The ID of the venue.
+        api_v2 (bool, optional): Whether to use the API v2 format. Defaults to True.
 
     Returns:
-        tuple[str, str]: The decision and decision text.
+        tuple[bool | None, str | None]: A tuple containing the boolean decision value and the decision text.
     """
-
     decision_text = ""
     decision_bool = None
     for key, value in decision["content"].items():
@@ -746,7 +818,7 @@ def process_decision(
         model_field = decision_mapping[key]
 
         if model_field == "decision":
-            # For some venus the decision is a list
+            # For some venues, the decision is a list
             if isinstance(value, list):
                 if len(value) == 0:
                     continue
@@ -766,6 +838,18 @@ def process_decision(
 def get_references_grobid(
     paper: Paper, all_s2_titles: set, key2file: dict, config: dict
 ) -> list[Reference]:
+    """
+    Retrieve references from GROBID parse.
+
+    Args:
+        paper (Paper): The paper object.
+        all_s2_titles (set): Set of all S2 titles.
+        key2file (dict): Dictionary mapping keys to file names.
+        config (dict): Configuration dictionary.
+
+    Returns:
+        list[Reference]: List of references.
+    """
     references = []
 
     if not (
@@ -778,14 +862,13 @@ def get_references_grobid(
             title = value["title"].strip().lower()
 
             if title in all_s2_titles:
-                print(f"{title} found")
                 # Find the file to open
                 file = find_file(title, key2file)
                 filepath = os.path.join(
                     config["s2_data_directory"], "parsed_paper_info", f"{file}.json"
                 )
-                with open(filepath, "r") as file:
-                    title2s2info = json.load(file)
+                with open(filepath, "r") as f:
+                    title2s2info = json.load(f)
                     s2info = title2s2info[title]
 
                     external_ids = s2info.get("externalIds", None)
@@ -815,7 +898,6 @@ def get_references_grobid(
                     references.append(reference)
 
             else:
-                print(f"{title} not found")
                 s2info = get_s2info(
                     title,
                     ["title", "abstract", "authors", "externalIds"],
@@ -858,8 +940,17 @@ def get_references_grobid(
     return references
 
 
-def find_file(title, key2file):
-    print(title)
+def find_file(title: str, key2file: dict) -> str | None:
+    """
+    Find the file key associated with a given title within a dictionary of file keys and intervals.
+
+    Parameters:
+    - title (int): The title to search for.
+    - key2file (dict): A dictionary mapping file keys to intervals.
+
+    Returns:
+    - str or None: The file key associated with the given title, or None if no interval is found.
+    """
     intervals = [(start, end, filekey) for filekey, (start, end) in key2file.items()]
 
     left, right = 0, len(intervals) - 1
@@ -869,7 +960,6 @@ def find_file(title, key2file):
         start, end, _ = intervals[mid]
 
         if start <= title <= end:
-            print(f"start {start}", f"end {end}", f"file {intervals[mid][-1]}")
             return intervals[mid][-1]  # Element is in this interval
         elif title < start:
             right = mid - 1  # Search in the left half

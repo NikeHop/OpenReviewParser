@@ -1,26 +1,33 @@
-"""
-Utilties to interact with the Semantic Scholar API.
-"""
+"""Utilties to interact with the Semantic Scholar API."""
 
 import logging
 import os
 
-from typing import TypedDict, Callable
-
 import backoff
 import requests
+
+from requests.exceptions import HTTPError
 
 from openreview_parser.utils.data import Reference
 
 
 def on_backoff_s2(details) -> None:
+    """
+    Handle the backoff event for the S2 API.
+
+    Args:
+        details (dict): A dictionary containing information about the backoff event.
+
+    Returns:
+        None
+    """
     logging.warning(f"Backing off {details['wait']}")
     print(details["exception"], type(details["exception"]))
 
 
 def get_s2_header(use_api_key: bool) -> dict:
     """
-    Retrieves the header for making API requests to Semantic Scholar.
+    Retrieve the header for making API requests to Semantic Scholar.
 
     Returns:
         dict: The header containing the API key if it exists.
@@ -34,7 +41,7 @@ def get_s2_header(use_api_key: bool) -> dict:
 
 def clean_arxiv_id(arxiv_id: str) -> str:
     """
-    Cleans the ArXiv ID by removing the version number if present.
+    Clean the ArXiv ID by removing the version number if present.
 
     Args:
         arxiv_id (str): The ArXiv ID.
@@ -49,7 +56,7 @@ def clean_arxiv_id(arxiv_id: str) -> str:
 
 def get_formatted_id(id_type: str, idd: str) -> str:
     """
-    Returns the format of the id needed for semantic scholar for a given ID type.
+    Return the format of the id needed for semantic scholar for a given ID type.
 
     Parameters:
         id_type (str): The type of ID (e.g., "arxiv", "semantic_scholar").
@@ -61,7 +68,6 @@ def get_formatted_id(id_type: str, idd: str) -> str:
     Raises:
         NotImplementedError: If the provided ID type is not available.
     """
-
     if id_type == "arxiv":
         idd = clean_arxiv_id(idd)
         return f"ARXIV:{idd}"
@@ -77,16 +83,17 @@ def get_formatted_id(id_type: str, idd: str) -> str:
 
 @backoff.on_exception(
     backoff.expo,
-    requests.exceptions.HTTPError,
+    HTTPError,
     max_time=5,
     on_backoff=on_backoff_s2,
     raise_on_giveup=False,
+    giveup=lambda x: isinstance(x, HTTPError) and x.response.status_code == 404,
 )
 def get_s2info(
     paper_title: str, paper_info: list[str], use_api_key: bool = False
 ) -> dict:
     """
-    Retrieves information about a scientific paper from the Semantic Scholar API.
+    Retrieve information about a scientific paper from the Semantic Scholar API.
 
     Args:
         paper_title (str): The title of the paper.
@@ -126,17 +133,17 @@ def get_s2_references(
     idd: str, id_type: str, use_api_key: bool, max_n_references: int = 100
 ) -> list[Reference]:
     """
-    Retrieves references for a given paper from the Semantic Scholar API.
+    Retrieve references for a given paper from the Semantic Scholar API.
 
     Args:
         idd (str): The identifier of the paper.
-        id_type (str): The type of identifier used (e.g., "doi", "arxiv").
+        id_type (str): The type of identifier used (e.g., DOI, arXiv ID).
+        use_api_key (bool): Flag indicating whether to use an API key for the request.
         max_n_references (int, optional): The maximum number of references to retrieve. Defaults to 100.
 
     Returns:
         list[Reference]: A list of Reference objects representing the retrieved references.
     """
-
     # Make s2 reuqest
     header = get_s2_header(use_api_key)
     formatted_id = get_formatted_id(id_type, idd)
