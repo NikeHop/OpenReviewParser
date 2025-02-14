@@ -1,8 +1,8 @@
 """Utility functions for annotating OpenReview submissions with Hypothesis annotations."""
-
-import backoff
+import os
 import logging
 
+import backoff
 import openai
 import tiktoken
 
@@ -95,6 +95,9 @@ def get_chat_model(config: dict) -> ChatOpenAI:
     Raises:
         NotImplementedError: If the specified chat model is not implemented.
     """
+    assert (
+        os.environ.get("OPENAI_API_KEY", None) is not None
+    ), "Please set OPENAI_API_KEY environment variable"
     if config["provider"] == "openai":
         model = ChatOpenAI(
             temperature=config["temperature"],

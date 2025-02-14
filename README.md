@@ -1,23 +1,24 @@
-# OpenReview Parser V2
+# OpenReview Parser
 
 ![Mypy](https://img.shields.io/badge/mypy-checked-blue)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+![pydocstyle](https://img.shields.io/badge/pydocstyle-passing-brightgreen)
 
-This repo contains a pipeline that parses the submissions and reviews of all OpenReview venues accessible with the API V2 into a unified format and annotates them with metadata including:
+This repo contains a pipeline that parses the submissions and reviews of all OpenReview venues into a unified format and annotates them with metadata including:
 
 * research_hypothesis (annotated via LLM)
 * references (from [Semantic Scholar](https://www.semanticscholar.org/))
 * citation counts for accepted papers (from [Semantic Scholar](https://www.semanticscholar.org/))
 
 
-**Note:** For venues requiring API V1 see [here]().
-
 ## Dependencies 
 
 Create a new conda environment and install the dependencies 
 
 ```
-conda create -n openreview_parser2 
+conda create -n openreview_parser python=3.11
+conda activate openreview_parser
+pip install -e . 
 ```
 
 #### GROBID 
@@ -37,7 +38,7 @@ If you run into trouble setting up GROBID some git issues from the followin [rep
 
 ## Data Model
 
-An overview of the unifying data model for submissions and reviews can be found [here](./openreview_parser_v2/utils/README.md).
+An overview of the unifying data model for submissions and reviews can be found [here](./openreview_parser/utils/README.md).
 
 ## Run pipeline 
 
@@ -53,16 +54,45 @@ The pipeline proceeds in the following steps:
     * Citation Counts
 
 #### Run Script
-Run the pipeline from the `./openreview_parser_v2/pipeline` directory:
+Run the pipeline from the `./openreview_parser/pipeline` directory:
 
 ```
 bash ./scripts/run_pipeline.sh
 ```
 
-**Note 1:** The metadata annotation steps are optional and can be toggled on/off via in the `./configs/pipeline.yaml`
+**Note 1:** It will run the pipeline twice. Once to access venues only accessible via the OpenReview API V1 and once for the venues accessible via the OpenReview API V2. 
 
-**Note 2:** For steps that require querying Semantic Scholar an API key is recommended. Rate limits will be easily reached leading leading to metadata being None.
+**Note 2:** The metadata annotation steps are optional and can be toggled on/off via in the `./configs/pipeline.yaml`. The default is no metadata annotation
+
+### Metadata annotation
+
+* References: First from the `./openreview_parser/scientific_databases` directory run
+
+```
+python s2_datasets.py
+```
+
+This requires around 140G of disk space and a Semantic Scholar API key. The paper and abstract datasets of Semantic Scholar are downloaded to build a mapping from titles to paper info for the retrieval of reference informations. 
+
+* Hypothesis Annotation: Requires to set OPENAI_API_KEY as environment variable with the corresponding key.
+
+* Citation Count: Semantic Scholar key recommended otherwise rate limits are easily reached. 
+
  
+### Run pipeline for individual venues 
+
+For venues accessible via API V1:
+
+```
+python pipeline.py --config ./configs/pipeline_v1.yaml --venue "ICLR.cc/2022/Conference"
+```
+
+For venues accessible via API V2:
+
+```
+python pipeline.py --config ./configs/pipeline_v2.yaml --venue "ICLR.cc/2024/Conference"
+```
+
 
 
 ## Dataset 
