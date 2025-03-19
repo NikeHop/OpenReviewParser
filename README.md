@@ -121,3 +121,17 @@ A dataset derived from running the pipeline can be found on HF: [dataset](https:
 Timestamps at which the pipeline was run:
 
 * Latest: 1.1.2025
+
+## Citation 
+
+If you make use of this codebase, please cite:
+
+```
+@article{hopner2025automatic,
+  title={Automatic Evaluation Metrics for Artificially Generated Scientific Research},
+  author={H{\"o}pner, Niklas and Eshuijs, Leon and Alivanistos, Dimitrios and Zamprogno, Giacomo and Tiddi, Ilaria},
+  journal={arXiv preprint arXiv:2503.05712},
+  year={2025}
+}
+```
+
