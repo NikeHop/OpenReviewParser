@@ -1,137 +1,151 @@
-# OpenReview Parser
+# 📝 OpenReview Parser
 
 ![Mypy](https://img.shields.io/badge/mypy-checked-blue)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 ![pydocstyle](https://img.shields.io/badge/pydocstyle-passing-brightgreen)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 This repo contains a pipeline that parses the submissions and reviews of all OpenReview venues into a unified format and annotates them with metadata including:
 
-* research_hypothesis (annotated via LLM)
-* references (from [Semantic Scholar](https://www.semanticscholar.org/))
-* citation counts for accepted papers (from [Semantic Scholar](https://www.semanticscholar.org/))
+🔍 Metadata includes:
+* 🧪 **Research Hypothesis** (annotated via LLM)
+* 🔗 **References** (from [Semantic Scholar](https://www.semanticscholar.org/))
+* 📊 **Citation Counts** for accepted papers (from [Semantic Scholar](https://www.semanticscholar.org/))
 
+---
 
-## Dependencies 
+## 📦 Dependencies 
 
 Create a new conda environment and install the dependencies:
 
-```
+```bash
 conda create -n openreview_parser python=3.11
 conda activate openreview_parser
 pip install -e . 
 python -c "import nltk; nltk.download('punkt_tab')"
 ```
 
-#### GROBID 
+---
 
-We parse the pdfs of submissions using [GROBID](https://github.com/kermitt2/grobid). To setup GROBID run from the `./openreview_parser/pipeline` directory:
+## 📄 GROBID Setup 
 
-```
+We parse PDF submissions using [GROBID](https://github.com/kermitt2/grobid).
+
+⚙️ From the `./openreview_parser/pipeline` directory:
+
+```bash
 bash ./scripts/setup_grobid.sh
 ```
-To test whether the setup worked run:
 
-```
+▶️ To test the setup:
+
+```bash
 bash ./scripts/run_grobid.sh
 ```
 
-If you run into trouble setting up GROBID some git issues from the followin [repo](https://github.com/allenai/s2orc-doc2json) might be helpful.
+💡 **Tip**: GROBID requires Java (≥11). Check with `java -version`.
 
-Additionally tmux is necessary. For Ubuntu/Debian install via:
+🐛 If you run into trouble, check issues in the [s2orc-doc2json repo](https://github.com/allenai/s2orc-doc2json).
 
-```
+🪟 **tmux** is also needed:
+
+```bash
 sudo apt update
 sudo apt install tmux
 ```
 
-## Data Model
+---
 
-An overview of the unifying data model for submissions and reviews can be found [here](./openreview_parser/utils/README.md).
+## 📚 Data Model
 
-## Run pipeline 
+📖 Overview of the unified data model: [README](./openreview_parser/utils/README.md)
 
-If you do not have an OpenReview sccount, run the pipeline with the guest client, by setting the corresponding field in the configs in `./openreview_parser/pipeline/configs/`.
+---
 
-The pipeline proceeds in the following steps:
+## 🚀 Run Pipeline 
 
-* Retrieve all venues from OpenReview.
-* For each venue where submission and reviews are available build a schema of the venue and map the schema to the unified data model.
-* Get all submissions and reviews and parse them into the unified data model.
-* Annotate the submissions with metadata:
-    * Title and Abstract of References
-    * Research Hypothesis 
-    * Citation Counts
+If you do not have an OpenReview account, run the pipeline with the **guest client** by setting the corresponding field in the config files in `./openreview_parser/pipeline/configs/`.
 
-#### Run Script
-Run the pipeline from the `./openreview_parser/pipeline` directory:
+🛠️ Pipeline steps:
+1. 📥 Retrieve venues from OpenReview
+2. 🧩 Map venue schemas to a unified data model
+3. 📄 Parse all submissions and reviews
+4. 🏷️ Annotate submissions with metadata:
+   - 🔗 References (Title & Abstract)
+   - 🧪 Research Hypothesis
+   - 📊 Citation Counts
 
-```
+---
+
+### 🏃 Run Script
+
+From the `./openreview_parser/pipeline` directory:
+
+```bash
 bash ./scripts/run_pipeline.sh
 ```
 
-**Note 1:** It will run the pipeline twice. Once to access venues only accessible via the OpenReview API V1 and once for the venues accessible via the OpenReview API V2. 
+💡 _This will run the pipeline twice: once for API V1 venues and once for API V2._
 
-**Note 2:** The metadata annotation steps are optional and can be toggled on/off via in the `./configs/pipeline.yaml`. The default is no metadata annotation.
+⚠️ _Metadata annotation is **optional** and controlled in [`pipeline.yaml`](./openreview_parser/pipeline/configs/pipeline.yaml)._
 
-### Metadata annotation
+---
 
+## 🧠 Metadata Annotation
 
-* **Hypothesis Annotation**: 
+* 🧪 **Hypothesis Annotation**: Set `OPENAI_API_KEY` in your environment.
+* 📊 **Citation Count**: Recommended to use a Semantic Scholar API key to avoid rate limits.
+* 🔗 **References**:
+    Run from `./openreview_parser/scientific_databases`:
 
-Set the OPENAI_API_KEY environment variable with your key.
+    ```bash
+    python s2_datasets.py
+    ```
 
-* **Citation Count**: 
+    💾 Requires ~140GB disk space and a Semantic Scholar API key.
 
-Semantic Scholar key is recommended otherwise rate limits are easily reached. 
+---
 
-* **References**: 
+## 🧪 Run for Specific Venues
 
-First from the `./openreview_parser/scientific_databases` directory run
+Make sure GROBID is running. Then:
 
-```
-python s2_datasets.py
-```
-
-This requires around 140G of disk space and a Semantic Scholar API key. The paper and abstract datasets of Semantic Scholar are downloaded to build a mapping from titles to paper info for the retrieval of reference informations. 
-
- 
-### Run pipeline for individual venues 
-
-Make sure GROBID is running. For venues accessible via API V1:
-
-```
+**API V1 venue**:
+```bash
 python pipeline.py --config ./configs/pipeline_v1.yaml --venue "ICLR.cc/2022/Conference"
 ```
 
-For venues accessible via API V2:
-
-```
+**API V2 venue**:
+```bash
 python pipeline.py --config ./configs/pipeline_v2.yaml --venue "ICLR.cc/2024/Conference"
 ```
 
-The venues that are accessible via API V1 can be found [here](./openreview_parser/pipeline/data/venue_strings_api_v1.json).
+📄 A list of API V1 venues: [`venue_strings_api_v1.json`](./openreview_parser/pipeline/data/venue_strings_api_v1.json)
 
+---
 
-## Dataset 
+## 📊 Dataset 
 
-A dataset derived from running the pipeline can be found on HF: [dataset](https://huggingface.co/datasets/nhop/scientific-quality-score-prediction).
+You can find the resulting dataset on HuggingFace:  
+👉 [scientific-quality-score-prediction](https://huggingface.co/datasets/nhop/scientific-quality-score-prediction)
 
-## Updates 
+---
 
-Timestamps at which the pipeline was run:
+## 🕒 Updates 
 
-* Latest: 1.1.2025
+🗓️ Pipeline run timestamps:
+* ✅ Latest: **1.1.2025**
 
-## Citation 
+---
 
-If you make use of this codebase, please cite:
+## 📚 Citation 
 
-```
+If you use this codebase, please cite:
+
+```bibtex
 @article{hopner2025automatic,
   title={Automatic Evaluation Metrics for Artificially Generated Scientific Research},
-  author={H{\"o}pner, Niklas and Eshuijs, Leon and Alivanistos, Dimitrios and Zamprogno, Giacomo and Tiddi, Ilaria},
+  author={H{"o}pner, Niklas and Eshuijs, Leon and Alivanistos, Dimitrios and Zamprogno, Giacomo and Tiddi, Ilaria},
   journal={arXiv preprint arXiv:2503.05712},
   year={2025}
 }
 ```
-
