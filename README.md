@@ -4,7 +4,7 @@
 ![pydocstyle](https://img.shields.io/badge/pydocstyle-passing-brightgreen)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-This repo contains a pipeline that parses the submissions and reviews of all OpenReview venues into a unified format and annotates them with metadata including:
+This repo contains a pipeline that parses the submissions and reviews of all OpenReview venues into a unified format and annotates them with metadata.
 
 🔍 Metadata includes:
 * 🧪 **Research Hypothesis** (annotated via LLM)
